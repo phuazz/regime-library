@@ -22,6 +22,13 @@
     --code-bg: #f3f2ef;
     --note-bg: #fdfaf0;
     --note-border: #e8dca3;
+    --banner-bg: #1a1a1a;
+    --banner-ink: #f5f5f3;
+    --flip-bg: #fbf6ed;
+    --flip-border: #d8c48a;
+    --badge-bg: #eef3ea;
+    --badge-ink: #2e5834;
+    --badge-border: #c5d6be;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -55,6 +62,91 @@
   }
   main { padding: 20px 24px 48px; max-width: 1400px; margin: 0 auto; }
 
+  /* P0: regime label banner */
+  section.regime-banner {
+    background: var(--banner-bg);
+    color: var(--banner-ink);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+  }
+  section.regime-banner .banner-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #9a9a9a;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  section.regime-banner .banner-theme {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin: 0;
+  }
+  section.regime-banner .banner-sub {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #b8b8b8;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  section.regime-banner .banner-caveat {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #cbcbcb;
+    font-style: italic;
+  }
+
+  /* P2: flips-if panel */
+  section.flips {
+    background: var(--flip-bg);
+    border: 1px solid var(--flip-border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+  }
+  section.flips h2 {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #7a5a00;
+    font-weight: 600;
+  }
+  section.flips ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  section.flips li {
+    padding: 6px 0;
+    border-bottom: 1px dashed #e2d4a8;
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+  section.flips li:last-child { border-bottom: none; }
+  section.flips .flip-name {
+    font-weight: 600;
+    color: #1a1a1a;
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+  section.flips .flip-sep {
+    color: #9a7f30;
+  }
+  section.flips .flip-text {
+    color: #3a3a3a;
+    flex: 1;
+  }
+  section.flips .flips-empty {
+    font-style: italic;
+    color: #9a7f30;
+    font-size: 12px;
+  }
+
   /* Composite scorecard */
   section.snapshot {
     background: var(--card);
@@ -76,6 +168,78 @@
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 10px;
     margin-bottom: 14px;
+  }
+  .scorecard.small {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .scorecard.small .asset-card { padding: 8px 10px; }
+  .scorecard.small .asset-card .score { font-size: 18px; }
+
+  /* P3: horizon-stratified panels */
+  .horizons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  @media (max-width: 900px) {
+    .horizons { grid-template-columns: 1fr; }
+  }
+  .horizon-panel {
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 10px 12px;
+    background: #fafaf8;
+  }
+  .horizon-panel .h-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .horizon-panel .h-label .n-firing {
+    font-size: 10px;
+    color: var(--soft);
+    font-weight: 400;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  .horizon-panel .horizon-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 6px;
+  }
+  .horizon-panel .asset-card {
+    padding: 6px 8px;
+    background: var(--card);
+  }
+  .horizon-panel .asset-card .name { font-size: 12px; margin-bottom: 2px; }
+  .horizon-panel .asset-card .score { font-size: 16px; font-weight: 700; }
+  .horizon-panel .asset-card .breakdown { font-size: 10px; margin-top: 2px; }
+  .horizon-panel .empty-horizon {
+    font-size: 11px;
+    color: var(--soft);
+    font-style: italic;
+    padding: 4px 2px;
+  }
+  .combined-row {
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    margin-bottom: 14px;
+  }
+  .combined-row .h-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 8px;
   }
   .asset-card {
     border: 1px solid var(--border);
@@ -251,6 +415,16 @@
     margin-bottom: 10px;
   }
   .card-meta span { white-space: nowrap; }
+  .card-meta .age-badge {
+    background: var(--badge-bg);
+    color: var(--badge-ink);
+    border: 1px solid var(--badge-border);
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
   .description {
     font-size: 13px;
     color: var(--ink);
@@ -354,6 +528,8 @@
   <span class="meta" id="topbar-meta"></span>
 </header>
 <main>
+  <section class="regime-banner" id="regime-banner"></section>
+  <section class="flips" id="flips"></section>
   <section class="snapshot" id="snapshot"></section>
   <section class="filters" id="filters"></section>
   <div id="grid"></div>
@@ -363,7 +539,7 @@
   Regenerate by running <code>python compile.py</code>.
 </footer>
 <script>
-const DATA = /*__DATA__*/ {"generated_at": "2026-04-18T07:47:07Z", "indicators": [{"id": "aaii-bull-bear-spread", "name": "AAII Bull-Bear Sentiment Spread", "category": "sentiment", "description": "The weekly American Association of Individual Investors survey bull-minus-bear percentage. A contrarian indicator: extreme bearish readings have historically preceded positive forward returns; extreme bullish readings have preceded weaker returns.\n", "source": {"name": "Internal (seed indicator, stubbed)", "note_title": null, "note_date": "2026-04-18", "url": "https://www.aaii.com/sentimentsurvey", "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "Contrarian bullish trigger when the bull-bear spread falls below a deeply bearish threshold (for example, the 10th percentile of its historical distribution). Contrarian bearish trigger when it rises above the 90th percentile. Threshold values below are placeholders and need calibration.\n", "machine": "AAII_bullbear_spread < -20", "inputs": ["AAII_bullbear_spread"]}, "current_state": {"status": "unknown", "last_updated": null, "raw_values": {}, "notes": "Stubbed. Needs a weekly scrape from AAII or an equivalent data source to evaluate.\n"}, "direction": "bullish", "horizon": "3m", "confidence": "low", "target_assets": ["SPX"], "historical_base_rates": {"source": null, "sample_size": null, "notes": "Not populated. AAII is a noisy series on any given week; it is most useful at extremes. Verify the conditional edge at your chosen threshold before relying on this record.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-18", "text": "Seeded as a placeholder so the library has a sentiment indicator alongside the quantitative volatility and trend signals. Retail sentiment surveys have well-known limitations: small sample size, self-selection, and weak signal outside of extreme readings. Treat the low confidence rating as load-bearing until the base rates are populated from your own study.\n"}, "consumers": ["EDD", "PCC"], "tags": ["sentiment", "contrarian", "retail"]}, {"id": "hy-credit-spread-oas", "name": "High-Yield Credit Spread (OAS)", "category": "credit", "description": "The ICE BofA US High Yield Index option-adjusted spread over Treasuries. Widening spreads signal rising credit stress and correlate with equity drawdowns; narrowing spreads indicate risk appetite is returning.\n", "source": {"name": "Internal (seed indicator, stubbed)", "note_title": null, "note_date": "2026-04-18", "url": "https://fred.stlouisfed.org/series/BAMLH0A0HYM2", "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "A bullish equity regime is indicated when high-yield OAS is below a chosen risk threshold and trending lower. A bearish regime is indicated when OAS rises above the threshold and is trending higher. Thresholds below are placeholder and need calibration against your own study of historical regimes.\n", "machine": "HY_OAS_bp < 400 AND HY_OAS_20d_change_bp < 0", "inputs": ["HY_OAS_bp", "HY_OAS_20d_change_bp"]}, "current_state": {"status": "unknown", "last_updated": null, "raw_values": {}, "notes": "Stubbed. Needs a FRED pull or equivalent data source to evaluate.\n"}, "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX", "HYG", "LQD"], "historical_base_rates": {"source": null, "sample_size": null, "notes": "Not populated. Expected to be strongly mean-reverting with useful predictive content at 3-6 month horizons, but any specific numbers should come from your own study before being trusted.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-18", "text": "Seeded as a placeholder so the library has at least one credit indicator alongside the volatility and trend signals. Replace the threshold, base rates and data wiring before relying on this record.\n"}, "consumers": ["EDD", "PCC"], "tags": ["credit", "high-yield", "risk-appetite"]}, {"id": "spx-oversold-overbought-speed", "name": "SPX Oversold-to-Overbought Transition Speed", "category": "momentum", "description": "A velocity-of-reversal indicator. When the S&P 500 transitions from a technically oversold state to an overbought state in an unusually small number of trading days, it signals aggressive buyer conviction after a capitulation low. Historically associated with durable lows and strong forward outperformance.\n", "source": {"name": "Self-forwarded note (original research provider not cited)", "note_title": "Quick moves", "note_date": "2026-04-18", "url": null, "received_by": "phuaz@hotmail.com", "notes": "The observation quoted reads: \"Only the 1982 lows saw the S&P 500 move from oversold to overbought quicker (11 days this time versus the '82 record of six days). Quick moves like this are consistent with potential lows and strong forward outperformance.\" Primary source not attached. The operational definition of \"oversold\" and \"overbought\" used in the original study is not stated; a sensible default is the 14-day RSI crossing below 30 and then above 70, but this needs verification before the record is relied on.\n"}, "criteria": {"description": "Trigger when the number of trading days between the S&P 500's 14-day RSI closing below 30 (oversold) and subsequently closing above 70 (overbought) is less than or equal to a fast-transition threshold. The threshold below is a placeholder; calibrate against the distribution of historical transition counts.\n", "machine": "oversold_day  = last day where SPX_RSI14 < 30\noverbought_day = first day after oversold_day where SPX_RSI14 > 70\ndays_to_transition = overbought_day - oversold_day\ntrigger = days_to_transition <= 15\n", "inputs": ["SPX_close", "SPX_RSI14"]}, "current_state": {"status": "on", "last_updated": "2026-04-18", "raw_values": {"days_to_transition": 11, "historical_rank": "2nd fastest transition on record (1982 was 6 days)"}, "notes": "Status taken from self-forwarded note. Days-to-transition of 11 is recorded as the current reading; refresh requires either adopting the original study's definitions or reproducing them with RSI14.\n"}, "direction": "bullish", "horizon": "6m", "confidence": "medium", "target_assets": ["SPX", "DJIA", "NDX"], "historical_base_rates": {"source": null, "sample_size": null, "notes": "The note asserts a historical association with durable lows and strong forward outperformance but does not provide a conditional returns table. An event study of transitions under 15 days should produce 1m/3m/6m/12m median and mean returns with hit rates. Leave nulls until those are computed.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-18", "text": "This indicator captures the velocity of the rally off a low, which is conceptually distinct from a VIX-based volatility reset: a fast RSI-based round-trip can occur without the VIX ever crossing 20, and a VIX collapse can happen without the index making a clean oversold print. Treat the two as complementary rather than duplicative. Also note that the reference to \"the 1982 lows\" implies this is a rare event; small sample sizes deserve low confidence even when the directional claim is intuitively sensible.\n"}, "consumers": ["EDD", "PCC"], "tags": ["momentum", "breadth", "rsi", "reversal", "velocity"]}, {"id": "spx-trend-200dma", "name": "SPX Trend Above 200-Day Moving Average", "category": "trend", "description": "The S&P 500 closes at least 2% above its 200-day moving average, indicating that buyers have sufficient conviction to drive prices meaningfully above the long-term trend.\n", "source": {"name": "SentimenTrader", "note_title": "Calmer Waters Prevail", "note_date": "2026-04-13", "url": null, "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "The S&P 500 closing price is greater than 1.02 times its 200-day simple moving average. Most useful when combined with a volatility-regime indicator such as VIX < 20.\n", "machine": "SPX_close > 1.02 * SPX_200DMA", "inputs": ["SPX_close", "SPX_200DMA"]}, "current_state": {"status": "on", "last_updated": "2026-04-13", "raw_values": {"SPX_close": "above 200DMA by >2% (per note)", "SPX_200DMA": null}, "notes": "Status taken from SentimenTrader note. Populate raw values from data feed on refresh.\n"}, "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX", "DJIA", "NDX"], "historical_base_rates": {"source": "SentimenTrader note, 2026-04-13", "sample_size": null, "notes": "When a streak of VIX prints above 20 ends and SPX is simultaneously trading at least 2% above its 200-day MA, forward returns have historically improved dramatically. The note is explicit that the setup also fired during the early stages of the 2001-02, 2008 and 2022 bear markets, so the signal is not without notable failures. Conditional median/mean forward returns at 1m/3m/6m/12m were not extracted and need verification before use.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-13", "text": "The source note emphasises that this trend condition works best paired with the VIX Calm Regime indicator. Either condition alone is weaker; both conditions off (VIX > 20 and SPX below 200DMA) is historically the worst regime to be long.\n"}, "consumers": ["EDD", "PCC"], "tags": ["trend", "moving-average", "spx"]}, {"id": "vix-2w-crash-magnitude", "name": "VIX Two-Week Crash Magnitude", "category": "volatility", "description": "A magnitude-based measure of volatility collapse. The rolling two-week percentage decline in the VIX is ranked against its full history; the largest declines are associated with capitulation in volatility after a stress episode and have historically preceded positive forward returns.\n", "source": {"name": "Self-forwarded note (original research provider not cited)", "note_title": "Vix declines", "note_date": "2026-04-18", "url": null, "received_by": "phuaz@hotmail.com", "notes": "The observation quoted reads: \"The 38% decline in the VIX over the last 2 weeks is the 7th biggest volatility crash in history.\" No primary source was attached. Provenance to be filled in if the original chart or note is located.\n"}, "criteria": {"description": "Trigger when the rolling two-week percentage decline in the VIX places in the top decile of its historical distribution. The 10% threshold is a placeholder; the specific rank that maps to \"top 10 in history\" should be calibrated against your own series.\n", "machine": "VIX_2w_pct_change <= percentile(VIX_2w_pct_change, 10)", "inputs": ["VIX_close", "VIX_2w_pct_change"]}, "current_state": {"status": "on", "last_updated": "2026-04-18", "raw_values": {"VIX_2w_pct_change": -0.38, "historical_rank": "7th largest decline on record (per note)"}, "notes": "Status and magnitude taken from the self-forwarded note. Populate from a live data feed on refresh and re-rank against the current history.\n"}, "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX", "NDX"], "historical_base_rates": {"source": null, "sample_size": null, "notes": "The note claims this is the 7th biggest volatility crash in history but does not supply conditional forward-return statistics. A clean event study should compute median and mean forward returns at 1m/3m/6m/12m conditional on the top-decile event, with a hit rate. Do not rely on this record until those numbers are populated.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-18", "text": "This indicator is orthogonal to vix-calm-regime (a threshold on the level) and vix-range-rank-reversal (a statistical pattern in the four-month range). It measures the speed of the volatility collapse rather than its level or pattern. Firing alongside the other two VIX indicators gives a stronger combined signal, but also raises the possibility that the three are simply rhyming facets of the same underlying event rather than three independent confirmations.\n"}, "consumers": ["EDD", "PCC"], "tags": ["volatility", "vix", "magnitude", "crash"]}, {"id": "vix-calm-regime", "name": "VIX Calm Regime", "category": "volatility", "description": "VIX closes below the 20 threshold, marking a transition from a volatile \"panic\" regime into a \"calm\" regime in which institutions and retail participants are more likely to deploy capital.\n", "source": {"name": "SentimenTrader", "note_title": "Calmer Waters Prevail", "note_date": "2026-04-13", "url": null, "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "The CBOE Volatility Index (VIX) closes below 20 after having been above 20 for an extended period.\n", "machine": "VIX_close < 20", "inputs": ["VIX_close"]}, "current_state": {"status": "on", "last_updated": "2026-04-13", "raw_values": {"VIX_close": "< 20 (per note, exact value to be refreshed from data feed)"}, "notes": "Status taken from SentimenTrader note. Needs a live data feed to be authoritative; populate raw_values.VIX_close with the actual print on refresh.\n"}, "direction": "bullish", "horizon": "1m", "confidence": "medium", "target_assets": ["SPX", "DJIA", "NDX"], "historical_base_rates": {"source": "SentimenTrader note, 2026-04-13", "sample_size": null, "notes": "When VIX is below 20, the S&P 500 next-day total returns have historically been more than 1.5 times the unconditional average. Specific forward-return medians for 1m/3m/6m/12m were not extracted from the note and should be verified before use.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-13", "text": "SentimenTrader flags that the V-shaped rally preceding this signal has been unusually aggressive, which may have pulled forward some near-term upside. The signal itself is valid; immediate expectations should be tempered and a brief consolidation would not be unusual.\n"}, "consumers": ["EDD", "PCC"], "tags": ["volatility", "regime-shift", "vix"]}, {"id": "vix-range-rank-reversal", "name": "VIX Range Rank Reversal Buy Signal", "category": "volatility", "description": "A quantitative reversal signal that fires when the VIX 4-month range rank violently resets from a period of extreme volatility (rank > 99.9) to a calm regime (rank < 40), provided the SPY 5-day rate of change is positive within 10 trading days of the reset.\n", "source": {"name": "SentimenTrader", "note_title": "Calmer Waters Prevail", "note_date": "2026-04-13", "url": null, "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "A buy signal is triggered when all four conditions below are satisfied in sequence. Conditions 3 and 4 introduce a 10-day window from the moment the range rank drops below 40.\n", "machine": "C1: VIX_4mo_range_rank crosses above 99.9\nC2: VIX_4mo_range_rank then crosses below 40\nC3: days_since_C2 <= 10\nC4: SPY_5d_roc > 0%\ntrigger = C1 and C2 and C3 and C4\n", "inputs": ["VIX_close", "VIX_4mo_range_rank", "SPY_close", "SPY_5d_roc"]}, "current_state": {"status": "on", "last_updated": "2026-04-13", "raw_values": {"signal_triggered_on": "latest, per SentimenTrader note 2026-04-13"}, "notes": "Signal state taken from the source note. Needs a proper implementation of the 4-month range rank calculation to refresh autonomously.\n"}, "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX"], "historical_base_rates": {"source": "SentimenTrader note, 2026-04-13", "sample_size": null, "notes": "The note characterises historical performance as \"incredibly solid\" but does not supply a clean table of conditional medians. The most recent prior signal triggered in November of the preceding year, posting +2.3% over the first month before softening. Population of specific 1m/3m/6m/12m numbers requires access to the SentimenTrader back-test or an independent replication of the range-rank rule.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-13", "text": "The source explicitly tempers expectations for this specific firing: the current V-shaped bounce has been even more aggressive than the previous instance, so the market may have pulled forward a significant portion of the near-term upside the signal would ordinarily promise. Historical win rates still support the direction; the size of the immediate payoff is what to discount.\n"}, "consumers": ["EDD", "PCC"], "tags": ["volatility", "reversal", "quant-signal", "vix"]}], "summary": {"total": 7, "by_category": {"sentiment": {"on": 0, "off": 0, "unknown": 1}, "credit": {"on": 0, "off": 0, "unknown": 1}, "momentum": {"on": 1, "off": 0, "unknown": 0}, "trend": {"on": 1, "off": 0, "unknown": 0}, "volatility": {"on": 3, "off": 0, "unknown": 0}}, "by_status": {"on": 5, "off": 0, "unknown": 2}, "bullish_on": 5, "bearish_on": 0, "net_bullish_on": 5, "per_asset": {"SPX": {"score": 5.0, "n_bullish": 5, "n_bearish": 0, "categories": ["momentum", "trend", "volatility"]}, "DJIA": {"score": 3.0, "n_bullish": 3, "n_bearish": 0, "categories": ["momentum", "trend", "volatility"]}, "NDX": {"score": 4.0, "n_bullish": 4, "n_bearish": 0, "categories": ["momentum", "trend", "volatility"]}}}} /*__ENDDATA__*/;
+const DATA = /*__DATA__*/ {"generated_at": "2026-04-18T10:50:41Z", "indicators": [{"id": "aaii-bull-bear-spread", "name": "AAII Bull-Bear Sentiment Spread", "category": "sentiment", "description": "The weekly American Association of Individual Investors survey bull-minus-bear percentage. A contrarian indicator: extreme bearish readings have historically preceded positive forward returns; extreme bullish readings have preceded weaker returns.\n", "source": {"name": "Internal (seed indicator, stubbed)", "note_title": null, "note_date": "2026-04-18", "url": "https://www.aaii.com/sentimentsurvey", "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "Contrarian bullish trigger when the bull-bear spread falls below a deeply bearish threshold (for example, the 10th percentile of its historical distribution). Contrarian bearish trigger when it rises above the 90th percentile. Threshold values below are placeholders and need calibration.\n", "machine": "AAII_bullbear_spread < -20", "inputs": ["AAII_bullbear_spread"]}, "current_state": {"status": "unknown", "last_updated": null, "raw_values": {}, "notes": "Stubbed. Needs a weekly scrape from AAII or an equivalent data source to evaluate.\n"}, "direction": "bullish", "horizon": "3m", "confidence": "low", "target_assets": ["SPX"], "historical_base_rates": {"source": null, "sample_size": null, "notes": "Not populated. AAII is a noisy series on any given week; it is most useful at extremes. Verify the conditional edge at your chosen threshold before relying on this record.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-18", "text": "Seeded as a placeholder so the library has a sentiment indicator alongside the quantitative volatility and trend signals. Retail sentiment surveys have well-known limitations: small sample size, self-selection, and weak signal outside of extreme readings. Treat the low confidence rating as load-bearing until the base rates are populated from your own study.\n"}, "consumers": ["EDD", "PCC"], "tags": ["sentiment", "contrarian", "retail"]}, {"id": "hy-credit-spread-oas", "name": "High-Yield Credit Spread (OAS)", "category": "credit", "description": "The ICE BofA US High Yield Index option-adjusted spread over Treasuries. Widening spreads signal rising credit stress and correlate with equity drawdowns; narrowing spreads indicate risk appetite is returning.\n", "source": {"name": "Internal (seed indicator, stubbed)", "note_title": null, "note_date": "2026-04-18", "url": "https://fred.stlouisfed.org/series/BAMLH0A0HYM2", "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "A bullish equity regime is indicated when high-yield OAS is below a chosen risk threshold and trending lower. A bearish regime is indicated when OAS rises above the threshold and is trending higher. Thresholds below are placeholder and need calibration against your own study of historical regimes.\n", "machine": "HY_OAS_bp < 400 AND HY_OAS_20d_change_bp < 0", "inputs": ["HY_OAS_bp", "HY_OAS_20d_change_bp"]}, "current_state": {"status": "unknown", "last_updated": null, "raw_values": {}, "notes": "Stubbed. Needs a FRED pull or equivalent data source to evaluate.\n"}, "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX", "HYG", "LQD"], "historical_base_rates": {"source": null, "sample_size": null, "notes": "Not populated. Expected to be strongly mean-reverting with useful predictive content at 3-6 month horizons, but any specific numbers should come from your own study before being trusted.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-18", "text": "Seeded as a placeholder so the library has at least one credit indicator alongside the volatility and trend signals. Replace the threshold, base rates and data wiring before relying on this record.\n"}, "consumers": ["EDD", "PCC"], "tags": ["credit", "high-yield", "risk-appetite"]}, {"id": "spx-oversold-overbought-speed", "name": "SPX Oversold-to-Overbought Transition Speed", "category": "momentum", "description": "A velocity-of-reversal indicator. When the S&P 500 transitions from a technically oversold state to an overbought state in an unusually small number of trading days, it signals aggressive buyer conviction after a capitulation low. Historically associated with durable lows and strong forward outperformance.\n", "source": {"name": "Self-forwarded note (original research provider not cited)", "note_title": "Quick moves", "note_date": "2026-04-18", "url": null, "received_by": "phuaz@hotmail.com", "notes": "The observation quoted reads: \"Only the 1982 lows saw the S&P 500 move from oversold to overbought quicker (11 days this time versus the '82 record of six days). Quick moves like this are consistent with potential lows and strong forward outperformance.\" Primary source not attached. The operational definition of \"oversold\" and \"overbought\" used in the original study is not stated; a sensible default is the 14-day RSI crossing below 30 and then above 70, but this needs verification before the record is relied on.\n"}, "criteria": {"description": "Trigger when the number of trading days between the S&P 500's 14-day RSI closing below 30 (oversold) and subsequently closing above 70 (overbought) is less than or equal to a fast-transition threshold. The threshold below is a placeholder; calibrate against the distribution of historical transition counts.\n", "machine": "oversold_day  = last day where SPX_RSI14 < 30\noverbought_day = first day after oversold_day where SPX_RSI14 > 70\ndays_to_transition = overbought_day - oversold_day\ntrigger = days_to_transition <= 15\n", "inputs": ["SPX_close", "SPX_RSI14"]}, "current_state": {"status": "on", "last_updated": "2026-04-18", "triggered_on": "2026-04-18", "raw_values": {"days_to_transition": 11, "historical_rank": "2nd fastest transition on record (1982 was 6 days)"}, "notes": "Status taken from self-forwarded note. Days-to-transition of 11 is recorded as the current reading; refresh requires either adopting the original study's definitions or reproducing them with RSI14.\n"}, "flips_if": "A new oversold print (SPX 14-day RSI closes below 30) occurs without a sub-15-day round-trip back above 70, restarting the transition clock above the threshold.", "direction": "bullish", "horizon": "6m", "confidence": "medium", "target_assets": ["SPX", "DJIA", "NDX"], "historical_base_rates": {"source": null, "sample_size": null, "notes": "The note asserts a historical association with durable lows and strong forward outperformance but does not provide a conditional returns table. An event study of transitions under 15 days should produce 1m/3m/6m/12m median and mean returns with hit rates. Leave nulls until those are computed.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-18", "text": "This indicator captures the velocity of the rally off a low, which is conceptually distinct from a VIX-based volatility reset: a fast RSI-based round-trip can occur without the VIX ever crossing 20, and a VIX collapse can happen without the index making a clean oversold print. Treat the two as complementary rather than duplicative. Also note that the reference to \"the 1982 lows\" implies this is a rare event; small sample sizes deserve low confidence even when the directional claim is intuitively sensible.\n"}, "consumers": ["EDD", "PCC"], "tags": ["momentum", "breadth", "rsi", "reversal", "velocity"]}, {"id": "spx-trend-200dma", "name": "SPX Trend Above 200-Day Moving Average", "category": "trend", "description": "The S&P 500 closes at least 2% above its 200-day moving average, indicating that buyers have sufficient conviction to drive prices meaningfully above the long-term trend.\n", "source": {"name": "SentimenTrader", "note_title": "Calmer Waters Prevail", "note_date": "2026-04-13", "url": null, "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "The S&P 500 closing price is greater than 1.02 times its 200-day simple moving average. Most useful when combined with a volatility-regime indicator such as VIX < 20.\n", "machine": "SPX_close > 1.02 * SPX_200DMA", "inputs": ["SPX_close", "SPX_200DMA"]}, "current_state": {"status": "on", "last_updated": "2026-04-13", "triggered_on": "2026-04-13", "raw_values": {"SPX_close": "above 200DMA by >2% (per note)", "SPX_200DMA": null}, "notes": "Status taken from SentimenTrader note. Populate raw values from data feed on refresh.\n"}, "flips_if": "SPX closes below 1.02 x 200DMA.", "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX", "DJIA", "NDX"], "historical_base_rates": {"source": "SentimenTrader note, 2026-04-13", "sample_size": null, "notes": "When a streak of VIX prints above 20 ends and SPX is simultaneously trading at least 2% above its 200-day MA, forward returns have historically improved dramatically. The note is explicit that the setup also fired during the early stages of the 2001-02, 2008 and 2022 bear markets, so the signal is not without notable failures. Conditional median/mean forward returns at 1m/3m/6m/12m were not extracted and need verification before use.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-13", "text": "The source note emphasises that this trend condition works best paired with the VIX Calm Regime indicator. Either condition alone is weaker; both conditions off (VIX > 20 and SPX below 200DMA) is historically the worst regime to be long.\n"}, "consumers": ["EDD", "PCC"], "tags": ["trend", "moving-average", "spx"]}, {"id": "vix-2w-crash-magnitude", "name": "VIX Two-Week Crash Magnitude", "category": "volatility", "description": "A magnitude-based measure of volatility collapse. The rolling two-week percentage decline in the VIX is ranked against its full history; the largest declines are associated with capitulation in volatility after a stress episode and have historically preceded positive forward returns.\n", "source": {"name": "Self-forwarded note (original research provider not cited)", "note_title": "Vix declines", "note_date": "2026-04-18", "url": null, "received_by": "phuaz@hotmail.com", "notes": "The observation quoted reads: \"The 38% decline in the VIX over the last 2 weeks is the 7th biggest volatility crash in history.\" No primary source was attached. Provenance to be filled in if the original chart or note is located.\n"}, "criteria": {"description": "Trigger when the rolling two-week percentage decline in the VIX places in the top decile of its historical distribution. The 10% threshold is a placeholder; the specific rank that maps to \"top 10 in history\" should be calibrated against your own series.\n", "machine": "VIX_2w_pct_change <= percentile(VIX_2w_pct_change, 10)", "inputs": ["VIX_close", "VIX_2w_pct_change"]}, "current_state": {"status": "on", "last_updated": "2026-04-18", "triggered_on": "2026-04-18", "raw_values": {"VIX_2w_pct_change": -0.38, "historical_rank": "7th largest decline on record (per note)"}, "notes": "Status and magnitude taken from the self-forwarded note. Populate from a live data feed on refresh and re-rank against the current history.\n"}, "flips_if": "VIX 2-week percentage change rises out of the top decile of its historical distribution.", "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX", "NDX"], "historical_base_rates": {"source": null, "sample_size": null, "notes": "The note claims this is the 7th biggest volatility crash in history but does not supply conditional forward-return statistics. A clean event study should compute median and mean forward returns at 1m/3m/6m/12m conditional on the top-decile event, with a hit rate. Do not rely on this record until those numbers are populated.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-18", "text": "This indicator is orthogonal to vix-calm-regime (a threshold on the level) and vix-range-rank-reversal (a statistical pattern in the four-month range). It measures the speed of the volatility collapse rather than its level or pattern. Firing alongside the other two VIX indicators gives a stronger combined signal, but also raises the possibility that the three are simply rhyming facets of the same underlying event rather than three independent confirmations.\n"}, "consumers": ["EDD", "PCC"], "tags": ["volatility", "vix", "magnitude", "crash"]}, {"id": "vix-calm-regime", "name": "VIX Calm Regime", "category": "volatility", "description": "VIX closes below the 20 threshold, marking a transition from a volatile \"panic\" regime into a \"calm\" regime in which institutions and retail participants are more likely to deploy capital.\n", "source": {"name": "SentimenTrader", "note_title": "Calmer Waters Prevail", "note_date": "2026-04-13", "url": null, "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "The CBOE Volatility Index (VIX) closes below 20 after having been above 20 for an extended period.\n", "machine": "VIX_close < 20", "inputs": ["VIX_close"]}, "current_state": {"status": "on", "last_updated": "2026-04-13", "triggered_on": "2026-04-13", "raw_values": {"VIX_close": "< 20 (per note, exact value to be refreshed from data feed)"}, "notes": "Status taken from SentimenTrader note. Needs a live data feed to be authoritative; populate raw_values.VIX_close with the actual print on refresh.\n"}, "flips_if": "VIX closes at or above 20.", "direction": "bullish", "horizon": "1m", "confidence": "medium", "target_assets": ["SPX", "DJIA", "NDX"], "historical_base_rates": {"source": "SentimenTrader note, 2026-04-13", "sample_size": null, "notes": "When VIX is below 20, the S&P 500 next-day total returns have historically been more than 1.5 times the unconditional average. Specific forward-return medians for 1m/3m/6m/12m were not extracted from the note and should be verified before use.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-13", "text": "SentimenTrader flags that the V-shaped rally preceding this signal has been unusually aggressive, which may have pulled forward some near-term upside. The signal itself is valid; immediate expectations should be tempered and a brief consolidation would not be unusual.\n"}, "consumers": ["EDD", "PCC"], "tags": ["volatility", "regime-shift", "vix"]}, {"id": "vix-range-rank-reversal", "name": "VIX Range Rank Reversal Buy Signal", "category": "volatility", "description": "A quantitative reversal signal that fires when the VIX 4-month range rank violently resets from a period of extreme volatility (rank > 99.9) to a calm regime (rank < 40), provided the SPY 5-day rate of change is positive within 10 trading days of the reset.\n", "source": {"name": "SentimenTrader", "note_title": "Calmer Waters Prevail", "note_date": "2026-04-13", "url": null, "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "A buy signal is triggered when all four conditions below are satisfied in sequence. Conditions 3 and 4 introduce a 10-day window from the moment the range rank drops below 40.\n", "machine": "C1: VIX_4mo_range_rank crosses above 99.9\nC2: VIX_4mo_range_rank then crosses below 40\nC3: days_since_C2 <= 10\nC4: SPY_5d_roc > 0%\ntrigger = C1 and C2 and C3 and C4\n", "inputs": ["VIX_close", "VIX_4mo_range_rank", "SPY_close", "SPY_5d_roc"]}, "current_state": {"status": "on", "last_updated": "2026-04-13", "triggered_on": "2026-04-13", "raw_values": {"signal_triggered_on": "latest, per SentimenTrader note 2026-04-13"}, "notes": "Signal state taken from the source note. Needs a proper implementation of the 4-month range rank calculation to refresh autonomously.\n"}, "flips_if": "VIX 4-month range rank re-enters above 99.9 before the 10-day window expires, or SPY 5-day rate of change turns negative within that window.", "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX"], "historical_base_rates": {"source": "SentimenTrader note, 2026-04-13", "sample_size": null, "notes": "The note characterises historical performance as \"incredibly solid\" but does not supply a clean table of conditional medians. The most recent prior signal triggered in November of the preceding year, posting +2.3% over the first month before softening. Population of specific 1m/3m/6m/12m numbers requires access to the SentimenTrader back-test or an independent replication of the range-rank rule.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-13", "text": "The source explicitly tempers expectations for this specific firing: the current V-shaped bounce has been even more aggressive than the previous instance, so the market may have pulled forward a significant portion of the near-term upside the signal would ordinarily promise. Historical win rates still support the direction; the size of the immediate payoff is what to discount.\n"}, "consumers": ["EDD", "PCC"], "tags": ["volatility", "reversal", "quant-signal", "vix"]}], "summary": {"total": 7, "by_category": {"sentiment": {"on": 0, "off": 0, "unknown": 1}, "credit": {"on": 0, "off": 0, "unknown": 1}, "momentum": {"on": 1, "off": 0, "unknown": 0}, "trend": {"on": 1, "off": 0, "unknown": 0}, "volatility": {"on": 3, "off": 0, "unknown": 0}}, "by_status": {"on": 5, "off": 0, "unknown": 2}, "bullish_on": 5, "bearish_on": 0, "net_bullish_on": 5, "per_asset": {"SPX": {"score": 5.0, "n_bullish": 5, "n_bearish": 0, "categories": ["momentum", "trend", "volatility"]}, "DJIA": {"score": 3.0, "n_bullish": 3, "n_bearish": 0, "categories": ["momentum", "trend", "volatility"]}, "NDX": {"score": 4.0, "n_bullish": 4, "n_bearish": 0, "categories": ["momentum", "trend", "volatility"]}}}} /*__ENDDATA__*/;
 
 // --- State ---
 const state = {
@@ -383,6 +559,36 @@ function esc(s) {
   return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
 
+// Parse a YYYY-MM-DD string as a UTC date. Returns null on failure.
+function parseISODate(s) {
+  if (!s) return null;
+  const str = String(s).trim();
+  const m = str.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return null;
+  const d = new Date(Date.UTC(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10)));
+  return isNaN(d.getTime()) ? null : d;
+}
+
+// Whole days between two UTC dates (b - a). Null-safe.
+function daysBetween(a, b) {
+  if (!a || !b) return null;
+  const MS_PER_DAY = 24 * 60 * 60 * 1000;
+  return Math.floor((b.getTime() - a.getTime()) / MS_PER_DAY);
+}
+
+// Today anchored on the payload's generated_at where possible, so rendering
+// in an offline archive still produces a sensible "firing for N days" count.
+function today() {
+  if (DATA && DATA.generated_at) {
+    const d = new Date(DATA.generated_at);
+    if (!isNaN(d.getTime())) {
+      return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+    }
+  }
+  const n = new Date();
+  return new Date(Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate()));
+}
+
 // --- Filtering ---
 function matchesFilters(r) {
   if (state.category.size && !state.category.has(r.category)) return false;
@@ -398,24 +604,196 @@ function matchesFilters(r) {
   return true;
 }
 
-// --- Render: snapshot ---
-function renderSnapshot() {
-  const el = document.getElementById("snapshot");
-  const s = DATA.summary;
-  const assets = Object.entries(s.per_asset).sort((a, b) => b[1].score - a[1].score);
+// --- P0: derive a named regime label from the summary ---
+// The label is the handle for the forecast, not the forecast itself. It is
+// composed from three observed properties of the firing set:
+//   1. dominant category    -> determines the theme noun
+//   2. net direction        -> chooses the polarity of the theme
+//   3. conviction + coverage -> qualifies how much weight to put on it
+const THEME_MAP = {
+  "volatility|bullish":  "Post-stress recovery",
+  "volatility|bearish":  "Volatility stress",
+  "trend|bullish":       "Uptrend established",
+  "trend|bearish":       "Downtrend established",
+  "credit|bullish":      "Credit risk-on",
+  "credit|bearish":      "Credit stress",
+  "breadth|bullish":     "Broad participation",
+  "breadth|bearish":     "Narrowing participation",
+  "sentiment|bullish":   "Contrarian bullish",
+  "sentiment|bearish":   "Sentiment euphoria",
+  "positioning|bullish": "Under-positioned",
+  "positioning|bearish": "Crowded long",
+  "liquidity|bullish":   "Liquidity expansion",
+  "liquidity|bearish":   "Liquidity tightening",
+  "macro|bullish":       "Macro tailwind",
+  "macro|bearish":       "Macro headwind",
+  "momentum|bullish":    "Momentum acceleration",
+  "momentum|bearish":    "Momentum fade",
+};
 
-  const cards = assets.map(([asset, v]) => {
+function deriveRegimeLabel() {
+  const indicators = DATA.indicators;
+  const s = DATA.summary;
+  const firing = indicators.filter(r => r.current_state.status === "on");
+
+  if (firing.length === 0) {
+    return {
+      theme: "Quiet regime",
+      sub: "no indicators firing",
+      caveat: "Nothing is on. Either the catalogue is sparse or the current tape is genuinely uneventful.",
+    };
+  }
+
+  // 1. Dominant category among firing indicators.
+  const catCounts = {};
+  for (const r of firing) catCounts[r.category] = (catCounts[r.category] || 0) + 1;
+  const sortedCats = Object.entries(catCounts).sort((a, b) => b[1] - a[1]);
+  const dominantCat = sortedCats[0][0];
+
+  // 2. Net direction polarity.
+  let polarity;
+  if (s.net_bullish_on > 0) polarity = "bullish";
+  else if (s.net_bullish_on < 0) polarity = "bearish";
+  else polarity = "neutral";
+
+  const themeKey = `${dominantCat}|${polarity}`;
+  const theme = THEME_MAP[themeKey] || (polarity === "neutral" ? "Mixed regime" : `${dominantCat} ${polarity}`);
+
+  // 3. Conviction: majority confidence among firing indicators.
+  const confCounts = { high: 0, medium: 0, low: 0 };
+  for (const r of firing) {
+    const c = r.confidence || "medium";
+    if (confCounts[c] !== undefined) confCounts[c]++;
+  }
+  const sortedConf = Object.entries(confCounts).sort((a, b) => b[1] - a[1]);
+  const dominantConf = sortedConf[0][0];
+  const mixed = sortedConf[0][1] === sortedConf[1][1];
+  const conviction = mixed ? "mixed conviction" : `${dominantConf} conviction`;
+
+  // 4. Coverage completeness. Any unknowns -> incomplete coverage.
+  const nUnknown = s.by_status.unknown || 0;
+  const coverage = nUnknown > 0 ? "incomplete coverage" : "complete coverage";
+
+  const sub = `${dominantCat}-led, ${conviction}, ${coverage}`;
+  const ratio = `${sortedCats[0][1]} of ${firing.length} firing indicators sit in ${dominantCat}`;
+  return {
+    theme,
+    sub,
+    caveat: `${ratio}. ${nUnknown ? `${nUnknown} indicator(s) unknown — coverage is partial.` : "All catalogued indicators have a determined status."}`,
+  };
+}
+
+// --- Render: P0 regime banner ---
+function renderRegimeBanner() {
+  const el = document.getElementById("regime-banner");
+  const r = deriveRegimeLabel();
+  el.innerHTML = `
+    <div class="banner-label">Regime label</div>
+    <div class="banner-theme">${esc(r.theme)} — ${esc(r.sub)}</div>
+    <div class="banner-caveat">${esc(r.caveat)}</div>
+  `;
+}
+
+// --- Render: P2 flips-if panel ---
+function renderFlipsPanel() {
+  const el = document.getElementById("flips");
+  const firing = DATA.indicators.filter(r => r.current_state.status === "on");
+  const withFlips = firing.filter(r => r.flips_if && String(r.flips_if).trim());
+
+  let body;
+  if (firing.length === 0) {
+    body = `<div class="flips-empty">No indicators are firing, so nothing to flip.</div>`;
+  } else if (withFlips.length === 0) {
+    body = `<div class="flips-empty">No firing indicator has a flips_if criterion populated yet.</div>`;
+  } else {
+    body = `<ul>` + withFlips.map(r => `
+      <li>
+        <span class="flip-name">${esc(r.name)}</span>
+        <span class="flip-sep">→</span>
+        <span class="flip-text">${esc(String(r.flips_if).trim())}</span>
+      </li>
+    `).join("") + `</ul>`;
+  }
+
+  // If some firing indicators are missing flips_if, surface a footnote so
+  // the gap is visible rather than silent.
+  const missing = firing.filter(r => !r.flips_if || !String(r.flips_if).trim());
+  const footnote = missing.length
+    ? `<div class="flips-empty" style="margin-top:8px">
+        ${missing.length} firing indicator(s) without flips_if: ${missing.map(m => esc(m.name)).join(", ")}.
+       </div>`
+    : "";
+
+  el.innerHTML = `<h2>What would flip this</h2>${body}${footnote}`;
+}
+
+// --- P3: horizon-stratified per-asset composites ---
+const CONFIDENCE_WEIGHT = { high: 2.0, medium: 1.0, low: 0.5 };
+const DIRECTION_SIGN = { bullish: 1, bearish: -1, neutral: 0 };
+
+function perAssetForHorizon(horizon) {
+  // Aggregate firing indicators with the given horizon (or all if null) into
+  // per-asset { score, n_bullish, n_bearish, categories }. Mirrors the
+  // calculation in compile.py's summarise() so the numbers reconcile.
+  const slot = {};
+  for (const r of DATA.indicators) {
+    if (r.current_state.status !== "on") continue;
+    if (horizon && r.horizon !== horizon) continue;
+    const w = CONFIDENCE_WEIGHT[r.confidence] || 1.0;
+    const sign = DIRECTION_SIGN[r.direction] || 0;
+    for (const a of r.target_assets || []) {
+      if (!slot[a]) slot[a] = { score: 0, n_bullish: 0, n_bearish: 0, categories: new Set() };
+      slot[a].score += sign * w;
+      slot[a].categories.add(r.category);
+      if (r.direction === "bullish") slot[a].n_bullish++;
+      else if (r.direction === "bearish") slot[a].n_bearish++;
+    }
+  }
+  return slot;
+}
+
+function renderAssetCards(slot, opts) {
+  const small = opts && opts.small;
+  const entries = Object.entries(slot).sort((a, b) => b[1].score - a[1].score);
+  if (entries.length === 0) {
+    return `<div class="empty-horizon">No firing indicators at this horizon.</div>`;
+  }
+  return entries.map(([asset, v]) => {
     const cls = v.score > 0 ? "bullish" : v.score < 0 ? "bearish" : "neutral";
     const sign = v.score > 0 ? "+" : "";
     return `
       <div class="asset-card ${cls}">
         <div class="name">${esc(asset)}</div>
         <div class="score">${sign}${v.score.toFixed(1)}</div>
-        <div class="breakdown">${v.n_bullish}▲ · ${v.n_bearish}▼ · ${v.categories.length} cat</div>
+        <div class="breakdown">${v.n_bullish}▲ · ${v.n_bearish}▼ · ${v.categories.size} cat</div>
+      </div>`;
+  }).join("");
+}
+
+// --- Render: snapshot (now horizon-stratified, with combined as fallback) ---
+function renderSnapshot() {
+  const el = document.getElementById("snapshot");
+  const s = DATA.summary;
+
+  const horizons = ["1m", "3m", "6m"];
+  const horizonPanels = horizons.map(h => {
+    const slot = perAssetForHorizon(h);
+    const nFiring = DATA.indicators.filter(r => r.current_state.status === "on" && r.horizon === h).length;
+    return `
+      <div class="horizon-panel">
+        <div class="h-label"><span>${h} horizon</span><span class="n-firing">${nFiring} firing</span></div>
+        <div class="horizon-cards">${renderAssetCards(slot)}</div>
       </div>`;
   }).join("");
 
-  // Concentration warning: any category has > half of all on indicators
+  // Combined fallback row: same shape as before, retained as a footer so
+  // the all-horizons composite stays one glance away.
+  const combinedSlot = perAssetForHorizon(null);
+  // perAssetForHorizon returns Set for categories; but DATA.summary.per_asset
+  // already contains arrays. Use the freshly recomputed slot to keep the
+  // combined row consistent with the per-horizon panels.
+
+  // Concentration warning: unchanged.
   const totalOn = s.by_status.on || 0;
   const concentrated = Object.entries(s.by_category)
     .filter(([, v]) => v.on > 0)
@@ -436,7 +814,11 @@ function renderSnapshot() {
 
   el.innerHTML = `
     <h2>Regime Snapshot</h2>
-    <div class="scorecard">${cards || '<div class="empty">No assets in scope yet.</div>'}</div>
+    <div class="horizons">${horizonPanels}</div>
+    <div class="combined-row">
+      <div class="h-label">Combined (all horizons)</div>
+      <div class="scorecard small">${renderAssetCards(combinedSlot, { small: true })}</div>
+    </div>
     <div class="snapshot-line">
       <span>Net bias <b>${netSign}${s.net_bullish_on}</b> (${s.bullish_on}▲ / ${s.bearish_on}▼)</span>
       <span>Status <b>${s.by_status.on || 0}</b> on · <b>${s.by_status.off || 0}</b> off · <b>${s.by_status.unknown || 0}</b> unknown</span>
@@ -543,6 +925,22 @@ function renderIndicator(r) {
       ${esc(qual.text.trim())}
     </div>` : "";
 
+  // P5: signal-age badge. Only meaningful for firing indicators with a
+  // triggered_on date.
+  let ageBadge = "";
+  if (status === "on" && r.current_state.triggered_on) {
+    const triggered = parseISODate(r.current_state.triggered_on);
+    const days = daysBetween(triggered, today());
+    if (days !== null && days >= 0) {
+      const label = days === 0
+        ? "firing today"
+        : days === 1
+          ? "firing for 1 day"
+          : `firing for ${days} days`;
+      ageBadge = `<span class="age-badge" title="Triggered ${esc(r.current_state.triggered_on)}">${esc(label)}</span>`;
+    }
+  }
+
   return `
     <article class="indicator">
       <div class="card-top">
@@ -555,6 +953,7 @@ function renderIndicator(r) {
         <span>${esc(r.horizon)}</span>
         <span>${esc(r.confidence)} conf</span>
         <span>${esc(status)}</span>
+        ${ageBadge}
       </div>
       <p class="description">${esc((r.description || "").trim())}</p>
       <div class="field">
@@ -603,6 +1002,8 @@ function renderGrid() {
 
 // --- Render: everything ---
 function render() {
+  renderRegimeBanner();
+  renderFlipsPanel();
   renderSnapshot();
   renderFilters();
   renderGrid();

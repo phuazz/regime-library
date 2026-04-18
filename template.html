@@ -22,6 +22,13 @@
     --code-bg: #f3f2ef;
     --note-bg: #fdfaf0;
     --note-border: #e8dca3;
+    --banner-bg: #1a1a1a;
+    --banner-ink: #f5f5f3;
+    --flip-bg: #fbf6ed;
+    --flip-border: #d8c48a;
+    --badge-bg: #eef3ea;
+    --badge-ink: #2e5834;
+    --badge-border: #c5d6be;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -55,6 +62,91 @@
   }
   main { padding: 20px 24px 48px; max-width: 1400px; margin: 0 auto; }
 
+  /* P0: regime label banner */
+  section.regime-banner {
+    background: var(--banner-bg);
+    color: var(--banner-ink);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+  }
+  section.regime-banner .banner-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #9a9a9a;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  section.regime-banner .banner-theme {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin: 0;
+  }
+  section.regime-banner .banner-sub {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #b8b8b8;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  section.regime-banner .banner-caveat {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #cbcbcb;
+    font-style: italic;
+  }
+
+  /* P2: flips-if panel */
+  section.flips {
+    background: var(--flip-bg);
+    border: 1px solid var(--flip-border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+  }
+  section.flips h2 {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #7a5a00;
+    font-weight: 600;
+  }
+  section.flips ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  section.flips li {
+    padding: 6px 0;
+    border-bottom: 1px dashed #e2d4a8;
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+  section.flips li:last-child { border-bottom: none; }
+  section.flips .flip-name {
+    font-weight: 600;
+    color: #1a1a1a;
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+  section.flips .flip-sep {
+    color: #9a7f30;
+  }
+  section.flips .flip-text {
+    color: #3a3a3a;
+    flex: 1;
+  }
+  section.flips .flips-empty {
+    font-style: italic;
+    color: #9a7f30;
+    font-size: 12px;
+  }
+
   /* Composite scorecard */
   section.snapshot {
     background: var(--card);
@@ -76,6 +168,78 @@
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 10px;
     margin-bottom: 14px;
+  }
+  .scorecard.small {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .scorecard.small .asset-card { padding: 8px 10px; }
+  .scorecard.small .asset-card .score { font-size: 18px; }
+
+  /* P3: horizon-stratified panels */
+  .horizons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  @media (max-width: 900px) {
+    .horizons { grid-template-columns: 1fr; }
+  }
+  .horizon-panel {
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 10px 12px;
+    background: #fafaf8;
+  }
+  .horizon-panel .h-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .horizon-panel .h-label .n-firing {
+    font-size: 10px;
+    color: var(--soft);
+    font-weight: 400;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  .horizon-panel .horizon-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 6px;
+  }
+  .horizon-panel .asset-card {
+    padding: 6px 8px;
+    background: var(--card);
+  }
+  .horizon-panel .asset-card .name { font-size: 12px; margin-bottom: 2px; }
+  .horizon-panel .asset-card .score { font-size: 16px; font-weight: 700; }
+  .horizon-panel .asset-card .breakdown { font-size: 10px; margin-top: 2px; }
+  .horizon-panel .empty-horizon {
+    font-size: 11px;
+    color: var(--soft);
+    font-style: italic;
+    padding: 4px 2px;
+  }
+  .combined-row {
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    margin-bottom: 14px;
+  }
+  .combined-row .h-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 8px;
   }
   .asset-card {
     border: 1px solid var(--border);
@@ -251,6 +415,16 @@
     margin-bottom: 10px;
   }
   .card-meta span { white-space: nowrap; }
+  .card-meta .age-badge {
+    background: var(--badge-bg);
+    color: var(--badge-ink);
+    border: 1px solid var(--badge-border);
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
   .description {
     font-size: 13px;
     color: var(--ink);
@@ -354,6 +528,8 @@
   <span class="meta" id="topbar-meta"></span>
 </header>
 <main>
+  <section class="regime-banner" id="regime-banner"></section>
+  <section class="flips" id="flips"></section>
   <section class="snapshot" id="snapshot"></section>
   <section class="filters" id="filters"></section>
   <div id="grid"></div>
@@ -383,6 +559,36 @@ function esc(s) {
   return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
 
+// Parse a YYYY-MM-DD string as a UTC date. Returns null on failure.
+function parseISODate(s) {
+  if (!s) return null;
+  const str = String(s).trim();
+  const m = str.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return null;
+  const d = new Date(Date.UTC(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10)));
+  return isNaN(d.getTime()) ? null : d;
+}
+
+// Whole days between two UTC dates (b - a). Null-safe.
+function daysBetween(a, b) {
+  if (!a || !b) return null;
+  const MS_PER_DAY = 24 * 60 * 60 * 1000;
+  return Math.floor((b.getTime() - a.getTime()) / MS_PER_DAY);
+}
+
+// Today anchored on the payload's generated_at where possible, so rendering
+// in an offline archive still produces a sensible "firing for N days" count.
+function today() {
+  if (DATA && DATA.generated_at) {
+    const d = new Date(DATA.generated_at);
+    if (!isNaN(d.getTime())) {
+      return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+    }
+  }
+  const n = new Date();
+  return new Date(Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate()));
+}
+
 // --- Filtering ---
 function matchesFilters(r) {
   if (state.category.size && !state.category.has(r.category)) return false;
@@ -398,24 +604,196 @@ function matchesFilters(r) {
   return true;
 }
 
-// --- Render: snapshot ---
-function renderSnapshot() {
-  const el = document.getElementById("snapshot");
-  const s = DATA.summary;
-  const assets = Object.entries(s.per_asset).sort((a, b) => b[1].score - a[1].score);
+// --- P0: derive a named regime label from the summary ---
+// The label is the handle for the forecast, not the forecast itself. It is
+// composed from three observed properties of the firing set:
+//   1. dominant category    -> determines the theme noun
+//   2. net direction        -> chooses the polarity of the theme
+//   3. conviction + coverage -> qualifies how much weight to put on it
+const THEME_MAP = {
+  "volatility|bullish":  "Post-stress recovery",
+  "volatility|bearish":  "Volatility stress",
+  "trend|bullish":       "Uptrend established",
+  "trend|bearish":       "Downtrend established",
+  "credit|bullish":      "Credit risk-on",
+  "credit|bearish":      "Credit stress",
+  "breadth|bullish":     "Broad participation",
+  "breadth|bearish":     "Narrowing participation",
+  "sentiment|bullish":   "Contrarian bullish",
+  "sentiment|bearish":   "Sentiment euphoria",
+  "positioning|bullish": "Under-positioned",
+  "positioning|bearish": "Crowded long",
+  "liquidity|bullish":   "Liquidity expansion",
+  "liquidity|bearish":   "Liquidity tightening",
+  "macro|bullish":       "Macro tailwind",
+  "macro|bearish":       "Macro headwind",
+  "momentum|bullish":    "Momentum acceleration",
+  "momentum|bearish":    "Momentum fade",
+};
 
-  const cards = assets.map(([asset, v]) => {
+function deriveRegimeLabel() {
+  const indicators = DATA.indicators;
+  const s = DATA.summary;
+  const firing = indicators.filter(r => r.current_state.status === "on");
+
+  if (firing.length === 0) {
+    return {
+      theme: "Quiet regime",
+      sub: "no indicators firing",
+      caveat: "Nothing is on. Either the catalogue is sparse or the current tape is genuinely uneventful.",
+    };
+  }
+
+  // 1. Dominant category among firing indicators.
+  const catCounts = {};
+  for (const r of firing) catCounts[r.category] = (catCounts[r.category] || 0) + 1;
+  const sortedCats = Object.entries(catCounts).sort((a, b) => b[1] - a[1]);
+  const dominantCat = sortedCats[0][0];
+
+  // 2. Net direction polarity.
+  let polarity;
+  if (s.net_bullish_on > 0) polarity = "bullish";
+  else if (s.net_bullish_on < 0) polarity = "bearish";
+  else polarity = "neutral";
+
+  const themeKey = `${dominantCat}|${polarity}`;
+  const theme = THEME_MAP[themeKey] || (polarity === "neutral" ? "Mixed regime" : `${dominantCat} ${polarity}`);
+
+  // 3. Conviction: majority confidence among firing indicators.
+  const confCounts = { high: 0, medium: 0, low: 0 };
+  for (const r of firing) {
+    const c = r.confidence || "medium";
+    if (confCounts[c] !== undefined) confCounts[c]++;
+  }
+  const sortedConf = Object.entries(confCounts).sort((a, b) => b[1] - a[1]);
+  const dominantConf = sortedConf[0][0];
+  const mixed = sortedConf[0][1] === sortedConf[1][1];
+  const conviction = mixed ? "mixed conviction" : `${dominantConf} conviction`;
+
+  // 4. Coverage completeness. Any unknowns -> incomplete coverage.
+  const nUnknown = s.by_status.unknown || 0;
+  const coverage = nUnknown > 0 ? "incomplete coverage" : "complete coverage";
+
+  const sub = `${dominantCat}-led, ${conviction}, ${coverage}`;
+  const ratio = `${sortedCats[0][1]} of ${firing.length} firing indicators sit in ${dominantCat}`;
+  return {
+    theme,
+    sub,
+    caveat: `${ratio}. ${nUnknown ? `${nUnknown} indicator(s) unknown — coverage is partial.` : "All catalogued indicators have a determined status."}`,
+  };
+}
+
+// --- Render: P0 regime banner ---
+function renderRegimeBanner() {
+  const el = document.getElementById("regime-banner");
+  const r = deriveRegimeLabel();
+  el.innerHTML = `
+    <div class="banner-label">Regime label</div>
+    <div class="banner-theme">${esc(r.theme)} — ${esc(r.sub)}</div>
+    <div class="banner-caveat">${esc(r.caveat)}</div>
+  `;
+}
+
+// --- Render: P2 flips-if panel ---
+function renderFlipsPanel() {
+  const el = document.getElementById("flips");
+  const firing = DATA.indicators.filter(r => r.current_state.status === "on");
+  const withFlips = firing.filter(r => r.flips_if && String(r.flips_if).trim());
+
+  let body;
+  if (firing.length === 0) {
+    body = `<div class="flips-empty">No indicators are firing, so nothing to flip.</div>`;
+  } else if (withFlips.length === 0) {
+    body = `<div class="flips-empty">No firing indicator has a flips_if criterion populated yet.</div>`;
+  } else {
+    body = `<ul>` + withFlips.map(r => `
+      <li>
+        <span class="flip-name">${esc(r.name)}</span>
+        <span class="flip-sep">→</span>
+        <span class="flip-text">${esc(String(r.flips_if).trim())}</span>
+      </li>
+    `).join("") + `</ul>`;
+  }
+
+  // If some firing indicators are missing flips_if, surface a footnote so
+  // the gap is visible rather than silent.
+  const missing = firing.filter(r => !r.flips_if || !String(r.flips_if).trim());
+  const footnote = missing.length
+    ? `<div class="flips-empty" style="margin-top:8px">
+        ${missing.length} firing indicator(s) without flips_if: ${missing.map(m => esc(m.name)).join(", ")}.
+       </div>`
+    : "";
+
+  el.innerHTML = `<h2>What would flip this</h2>${body}${footnote}`;
+}
+
+// --- P3: horizon-stratified per-asset composites ---
+const CONFIDENCE_WEIGHT = { high: 2.0, medium: 1.0, low: 0.5 };
+const DIRECTION_SIGN = { bullish: 1, bearish: -1, neutral: 0 };
+
+function perAssetForHorizon(horizon) {
+  // Aggregate firing indicators with the given horizon (or all if null) into
+  // per-asset { score, n_bullish, n_bearish, categories }. Mirrors the
+  // calculation in compile.py's summarise() so the numbers reconcile.
+  const slot = {};
+  for (const r of DATA.indicators) {
+    if (r.current_state.status !== "on") continue;
+    if (horizon && r.horizon !== horizon) continue;
+    const w = CONFIDENCE_WEIGHT[r.confidence] || 1.0;
+    const sign = DIRECTION_SIGN[r.direction] || 0;
+    for (const a of r.target_assets || []) {
+      if (!slot[a]) slot[a] = { score: 0, n_bullish: 0, n_bearish: 0, categories: new Set() };
+      slot[a].score += sign * w;
+      slot[a].categories.add(r.category);
+      if (r.direction === "bullish") slot[a].n_bullish++;
+      else if (r.direction === "bearish") slot[a].n_bearish++;
+    }
+  }
+  return slot;
+}
+
+function renderAssetCards(slot, opts) {
+  const small = opts && opts.small;
+  const entries = Object.entries(slot).sort((a, b) => b[1].score - a[1].score);
+  if (entries.length === 0) {
+    return `<div class="empty-horizon">No firing indicators at this horizon.</div>`;
+  }
+  return entries.map(([asset, v]) => {
     const cls = v.score > 0 ? "bullish" : v.score < 0 ? "bearish" : "neutral";
     const sign = v.score > 0 ? "+" : "";
     return `
       <div class="asset-card ${cls}">
         <div class="name">${esc(asset)}</div>
         <div class="score">${sign}${v.score.toFixed(1)}</div>
-        <div class="breakdown">${v.n_bullish}▲ · ${v.n_bearish}▼ · ${v.categories.length} cat</div>
+        <div class="breakdown">${v.n_bullish}▲ · ${v.n_bearish}▼ · ${v.categories.size} cat</div>
+      </div>`;
+  }).join("");
+}
+
+// --- Render: snapshot (now horizon-stratified, with combined as fallback) ---
+function renderSnapshot() {
+  const el = document.getElementById("snapshot");
+  const s = DATA.summary;
+
+  const horizons = ["1m", "3m", "6m"];
+  const horizonPanels = horizons.map(h => {
+    const slot = perAssetForHorizon(h);
+    const nFiring = DATA.indicators.filter(r => r.current_state.status === "on" && r.horizon === h).length;
+    return `
+      <div class="horizon-panel">
+        <div class="h-label"><span>${h} horizon</span><span class="n-firing">${nFiring} firing</span></div>
+        <div class="horizon-cards">${renderAssetCards(slot)}</div>
       </div>`;
   }).join("");
 
-  // Concentration warning: any category has > half of all on indicators
+  // Combined fallback row: same shape as before, retained as a footer so
+  // the all-horizons composite stays one glance away.
+  const combinedSlot = perAssetForHorizon(null);
+  // perAssetForHorizon returns Set for categories; but DATA.summary.per_asset
+  // already contains arrays. Use the freshly recomputed slot to keep the
+  // combined row consistent with the per-horizon panels.
+
+  // Concentration warning: unchanged.
   const totalOn = s.by_status.on || 0;
   const concentrated = Object.entries(s.by_category)
     .filter(([, v]) => v.on > 0)
@@ -436,7 +814,11 @@ function renderSnapshot() {
 
   el.innerHTML = `
     <h2>Regime Snapshot</h2>
-    <div class="scorecard">${cards || '<div class="empty">No assets in scope yet.</div>'}</div>
+    <div class="horizons">${horizonPanels}</div>
+    <div class="combined-row">
+      <div class="h-label">Combined (all horizons)</div>
+      <div class="scorecard small">${renderAssetCards(combinedSlot, { small: true })}</div>
+    </div>
     <div class="snapshot-line">
       <span>Net bias <b>${netSign}${s.net_bullish_on}</b> (${s.bullish_on}▲ / ${s.bearish_on}▼)</span>
       <span>Status <b>${s.by_status.on || 0}</b> on · <b>${s.by_status.off || 0}</b> off · <b>${s.by_status.unknown || 0}</b> unknown</span>
@@ -543,6 +925,22 @@ function renderIndicator(r) {
       ${esc(qual.text.trim())}
     </div>` : "";
 
+  // P5: signal-age badge. Only meaningful for firing indicators with a
+  // triggered_on date.
+  let ageBadge = "";
+  if (status === "on" && r.current_state.triggered_on) {
+    const triggered = parseISODate(r.current_state.triggered_on);
+    const days = daysBetween(triggered, today());
+    if (days !== null && days >= 0) {
+      const label = days === 0
+        ? "firing today"
+        : days === 1
+          ? "firing for 1 day"
+          : `firing for ${days} days`;
+      ageBadge = `<span class="age-badge" title="Triggered ${esc(r.current_state.triggered_on)}">${esc(label)}</span>`;
+    }
+  }
+
   return `
     <article class="indicator">
       <div class="card-top">
@@ -555,6 +953,7 @@ function renderIndicator(r) {
         <span>${esc(r.horizon)}</span>
         <span>${esc(r.confidence)} conf</span>
         <span>${esc(status)}</span>
+        ${ageBadge}
       </div>
       <p class="description">${esc((r.description || "").trim())}</p>
       <div class="field">
@@ -603,6 +1002,8 @@ function renderGrid() {
 
 // --- Render: everything ---
 function render() {
+  renderRegimeBanner();
+  renderFlipsPanel();
   renderSnapshot();
   renderFilters();
   renderGrid();

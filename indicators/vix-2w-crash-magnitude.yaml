@@ -33,12 +33,15 @@ criteria:
 current_state:
   status: "on"
   last_updated: 2026-04-18
+  triggered_on: 2026-04-18
   raw_values:
     VIX_2w_pct_change: -0.38
     historical_rank: "7th largest decline on record (per note)"
   notes: >
     Status and magnitude taken from the self-forwarded note. Populate from
     a live data feed on refresh and re-rank against the current history.
+
+flips_if: VIX 2-week percentage change rises out of the top decile of its historical distribution.
 
 direction: bullish
 horizon: 3m

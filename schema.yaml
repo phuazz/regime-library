@@ -39,6 +39,12 @@ criteria:
 current_state:
   status: unknown                 # on | off | unknown
   last_updated: null              # ISO date of the latest refresh.
+  triggered_on: null              # Optional. ISO date the current status
+                                  # was first reached. Used to compute a
+                                  # "firing for N days" badge in the UI.
+                                  # Leave null for indicators that are off
+                                  # or unknown, or when the trigger date
+                                  # is not known.
   raw_values: {}                  # e.g. {VIX: 18.4, SPX_close: 5432.1}
   notes: null                     # Optional free text.
 
@@ -65,6 +71,13 @@ historical_base_rates:
     3m:  { median: null, mean: null, hit_rate: null }
     6m:  { median: null, mean: null, hit_rate: null }
     12m: { median: null, mean: null, hit_rate: null }
+
+# Optional. A one-line description of the condition that would flip the
+# indicator from its current state back to the opposite state. Written as
+# the inverted criterion in plain English. Surfaced in the UI so the reader
+# can see at a glance what would invalidate the current regime read.
+# Example: "VIX closes at or above 20" or "SPX closes below 1.02 x 200DMA".
+flips_if: null
 
 # Human overlay. Advisory only. Never gates the status field.
 qualitative_note:

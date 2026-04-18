@@ -90,6 +90,40 @@ human caveat (for example, a pattern the quant model cannot see) shows up
 next to the signal in any UI that renders it, and is preserved across
 sessions. Treat it as a flag, not a gate.
 
+## Named regime label
+
+The dashboard renders a named regime label at the top of the page,
+derived deterministically from the firing set: the dominant category,
+the net direction, the majority confidence, and whether coverage is
+complete (no unknowns) or partial. The label is the handle for the
+current read, not the forecast itself. For the current seven seeds it
+reads "Post-stress recovery — volatility-led, medium conviction,
+incomplete coverage".
+
+## Flip criteria
+
+Every indicator may carry an optional `flips_if` field: a one-line,
+plain-English inversion of the trigger criterion. The dashboard lists
+the `flips_if` line for every firing indicator in a dedicated "What
+would flip this" panel directly under the regime label. Missing
+`flips_if` entries on firing indicators are surfaced as a footnote
+rather than silently skipped, so the gap stays visible.
+
+## Signal age
+
+If an indicator carries `current_state.triggered_on`, the dashboard
+renders a "firing for N days" badge on the card, anchored on the
+compile timestamp. Useful for distinguishing fresh triggers from
+long-running regimes. Leave the field null if the trigger date is not
+known or the indicator is off or unknown.
+
+## Horizon-stratified composites
+
+The per-asset scorecard is split into 1m / 3m / 6m horizon panels, each
+aggregating only the firing indicators whose primary `horizon` field
+matches. The combined all-horizons view is retained as a fallback row
+below, so the full-catalogue composite stays one glance away.
+
 ## What this library is not
 
 It is not a trading system. It is not a backtester. It does not generate

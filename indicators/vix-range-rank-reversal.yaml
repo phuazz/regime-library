@@ -34,11 +34,14 @@ criteria:
 current_state:
   status: "on"
   last_updated: 2026-04-13
+  triggered_on: 2026-04-13
   raw_values:
     signal_triggered_on: "latest, per SentimenTrader note 2026-04-13"
   notes: >
     Signal state taken from the source note. Needs a proper implementation
     of the 4-month range rank calculation to refresh autonomously.
+
+flips_if: VIX 4-month range rank re-enters above 99.9 before the 10-day window expires, or SPY 5-day rate of change turns negative within that window.
 
 direction: bullish
 horizon: 3m

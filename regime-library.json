@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T07:47:07Z",
+  "generated_at": "2026-04-18T10:50:41Z",
   "indicators": [
     {
       "id": "aaii-bull-bear-spread",
@@ -172,12 +172,14 @@
       "current_state": {
         "status": "on",
         "last_updated": "2026-04-18",
+        "triggered_on": "2026-04-18",
         "raw_values": {
           "days_to_transition": 11,
           "historical_rank": "2nd fastest transition on record (1982 was 6 days)"
         },
         "notes": "Status taken from self-forwarded note. Days-to-transition of 11 is recorded as the current reading; refresh requires either adopting the original study's definitions or reproducing them with RSI14.\n"
       },
+      "flips_if": "A new oversold print (SPX 14-day RSI closes below 30) occurs without a sub-15-day round-trip back above 70, restarting the transition clock above the threshold.",
       "direction": "bullish",
       "horizon": "6m",
       "confidence": "medium",
@@ -252,12 +254,14 @@
       "current_state": {
         "status": "on",
         "last_updated": "2026-04-13",
+        "triggered_on": "2026-04-13",
         "raw_values": {
           "SPX_close": "above 200DMA by >2% (per note)",
           "SPX_200DMA": null
         },
         "notes": "Status taken from SentimenTrader note. Populate raw values from data feed on refresh.\n"
       },
+      "flips_if": "SPX closes below 1.02 x 200DMA.",
       "direction": "bullish",
       "horizon": "3m",
       "confidence": "medium",
@@ -331,12 +335,14 @@
       "current_state": {
         "status": "on",
         "last_updated": "2026-04-18",
+        "triggered_on": "2026-04-18",
         "raw_values": {
           "VIX_2w_pct_change": -0.38,
           "historical_rank": "7th largest decline on record (per note)"
         },
         "notes": "Status and magnitude taken from the self-forwarded note. Populate from a live data feed on refresh and re-rank against the current history.\n"
       },
+      "flips_if": "VIX 2-week percentage change rises out of the top decile of its historical distribution.",
       "direction": "bullish",
       "horizon": "3m",
       "confidence": "medium",
@@ -408,11 +414,13 @@
       "current_state": {
         "status": "on",
         "last_updated": "2026-04-13",
+        "triggered_on": "2026-04-13",
         "raw_values": {
           "VIX_close": "< 20 (per note, exact value to be refreshed from data feed)"
         },
         "notes": "Status taken from SentimenTrader note. Needs a live data feed to be authoritative; populate raw_values.VIX_close with the actual print on refresh.\n"
       },
+      "flips_if": "VIX closes at or above 20.",
       "direction": "bullish",
       "horizon": "1m",
       "confidence": "medium",
@@ -487,11 +495,13 @@
       "current_state": {
         "status": "on",
         "last_updated": "2026-04-13",
+        "triggered_on": "2026-04-13",
         "raw_values": {
           "signal_triggered_on": "latest, per SentimenTrader note 2026-04-13"
         },
         "notes": "Signal state taken from the source note. Needs a proper implementation of the 4-month range rank calculation to refresh autonomously.\n"
       },
+      "flips_if": "VIX 4-month range rank re-enters above 99.9 before the 10-day window expires, or SPY 5-day rate of change turns negative within that window.",
       "direction": "bullish",
       "horizon": "3m",
       "confidence": "medium",

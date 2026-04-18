@@ -24,12 +24,15 @@ criteria:
 current_state:
   status: "on"
   last_updated: 2026-04-13
+  triggered_on: 2026-04-13
   raw_values:
     VIX_close: "< 20 (per note, exact value to be refreshed from data feed)"
   notes: >
     Status taken from SentimenTrader note. Needs a live data feed to be
     authoritative; populate raw_values.VIX_close with the actual print on
     refresh.
+
+flips_if: VIX closes at or above 20.
 
 direction: bullish
 horizon: 1m

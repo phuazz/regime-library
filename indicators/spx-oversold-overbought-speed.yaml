@@ -43,6 +43,7 @@ criteria:
 current_state:
   status: "on"
   last_updated: 2026-04-18
+  triggered_on: 2026-04-18
   raw_values:
     days_to_transition: 11
     historical_rank: "2nd fastest transition on record (1982 was 6 days)"
@@ -50,6 +51,8 @@ current_state:
     Status taken from self-forwarded note. Days-to-transition of 11 is
     recorded as the current reading; refresh requires either adopting the
     original study's definitions or reproducing them with RSI14.
+
+flips_if: A new oversold print (SPX 14-day RSI closes below 30) occurs without a sub-15-day round-trip back above 70, restarting the transition clock above the threshold.
 
 direction: bullish
 horizon: 6m

@@ -26,12 +26,15 @@ criteria:
 current_state:
   status: "on"
   last_updated: 2026-04-13
+  triggered_on: 2026-04-13
   raw_values:
     SPX_close: "above 200DMA by >2% (per note)"
     SPX_200DMA: null
   notes: >
     Status taken from SentimenTrader note. Populate raw values from data
     feed on refresh.
+
+flips_if: SPX closes below 1.02 x 200DMA.
 
 direction: bullish
 horizon: 3m
