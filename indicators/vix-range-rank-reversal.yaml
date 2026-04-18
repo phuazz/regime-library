@@ -1,0 +1,83 @@
+id: vix-range-rank-reversal
+name: VIX Range Rank Reversal Buy Signal
+category: volatility
+description: >
+  A quantitative reversal signal that fires when the VIX 4-month range rank
+  violently resets from a period of extreme volatility (rank > 99.9) to a
+  calm regime (rank < 40), provided the SPY 5-day rate of change is
+  positive within 10 trading days of the reset.
+
+source:
+  name: SentimenTrader
+  note_title: Calmer Waters Prevail
+  note_date: 2026-04-13
+  url: null
+  received_by: phuaz@hotmail.com
+
+criteria:
+  description: >
+    A buy signal is triggered when all four conditions below are satisfied
+    in sequence. Conditions 3 and 4 introduce a 10-day window from the
+    moment the range rank drops below 40.
+  machine: |
+    C1: VIX_4mo_range_rank crosses above 99.9
+    C2: VIX_4mo_range_rank then crosses below 40
+    C3: days_since_C2 <= 10
+    C4: SPY_5d_roc > 0%
+    trigger = C1 and C2 and C3 and C4
+  inputs:
+    - VIX_close
+    - VIX_4mo_range_rank
+    - SPY_close
+    - SPY_5d_roc
+
+current_state:
+  status: "on"
+  last_updated: 2026-04-13
+  raw_values:
+    signal_triggered_on: "latest, per SentimenTrader note 2026-04-13"
+  notes: >
+    Signal state taken from the source note. Needs a proper implementation
+    of the 4-month range rank calculation to refresh autonomously.
+
+direction: bullish
+horizon: 3m
+confidence: medium
+target_assets:
+  - SPX
+
+historical_base_rates:
+  source: SentimenTrader note, 2026-04-13
+  sample_size: null
+  notes: >
+    The note characterises historical performance as "incredibly solid"
+    but does not supply a clean table of conditional medians. The most
+    recent prior signal triggered in November of the preceding year,
+    posting +2.3% over the first month before softening. Population of
+    specific 1m/3m/6m/12m numbers requires access to the SentimenTrader
+    back-test or an independent replication of the range-rank rule.
+  returns:
+    1m:  { median: null, mean: null, hit_rate: null }
+    3m:  { median: null, mean: null, hit_rate: null }
+    6m:  { median: null, mean: null, hit_rate: null }
+    12m: { median: null, mean: null, hit_rate: null }
+
+qualitative_note:
+  date: 2026-04-13
+  text: >
+    The source explicitly tempers expectations for this specific firing:
+    the current V-shaped bounce has been even more aggressive than the
+    previous instance, so the market may have pulled forward a significant
+    portion of the near-term upside the signal would ordinarily promise.
+    Historical win rates still support the direction; the size of the
+    immediate payoff is what to discount.
+
+consumers:
+  - EDD
+  - PCC
+
+tags:
+  - volatility
+  - reversal
+  - quant-signal
+  - vix

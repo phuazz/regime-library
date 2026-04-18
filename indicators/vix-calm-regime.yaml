@@ -1,0 +1,71 @@
+id: vix-calm-regime
+name: VIX Calm Regime
+category: volatility
+description: >
+  VIX closes below the 20 threshold, marking a transition from a volatile
+  "panic" regime into a "calm" regime in which institutions and retail
+  participants are more likely to deploy capital.
+
+source:
+  name: SentimenTrader
+  note_title: Calmer Waters Prevail
+  note_date: 2026-04-13
+  url: null
+  received_by: phuaz@hotmail.com
+
+criteria:
+  description: >
+    The CBOE Volatility Index (VIX) closes below 20 after having been above
+    20 for an extended period.
+  machine: "VIX_close < 20"
+  inputs:
+    - VIX_close
+
+current_state:
+  status: "on"
+  last_updated: 2026-04-13
+  raw_values:
+    VIX_close: "< 20 (per note, exact value to be refreshed from data feed)"
+  notes: >
+    Status taken from SentimenTrader note. Needs a live data feed to be
+    authoritative; populate raw_values.VIX_close with the actual print on
+    refresh.
+
+direction: bullish
+horizon: 1m
+confidence: medium
+target_assets:
+  - SPX
+  - DJIA
+  - NDX
+
+historical_base_rates:
+  source: SentimenTrader note, 2026-04-13
+  sample_size: null
+  notes: >
+    When VIX is below 20, the S&P 500 next-day total returns have
+    historically been more than 1.5 times the unconditional average.
+    Specific forward-return medians for 1m/3m/6m/12m were not extracted
+    from the note and should be verified before use.
+  returns:
+    1m:  { median: null, mean: null, hit_rate: null }
+    3m:  { median: null, mean: null, hit_rate: null }
+    6m:  { median: null, mean: null, hit_rate: null }
+    12m: { median: null, mean: null, hit_rate: null }
+
+qualitative_note:
+  date: 2026-04-13
+  text: >
+    SentimenTrader flags that the V-shaped rally preceding this signal has
+    been unusually aggressive, which may have pulled forward some
+    near-term upside. The signal itself is valid; immediate expectations
+    should be tempered and a brief consolidation would not be unusual.
+
+consumers:
+  - EDD
+  - PCC
+
+tags:
+  - volatility
+  - regime-shift
+  - vix

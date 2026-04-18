@@ -1,0 +1,70 @@
+id: hy-credit-spread-oas
+name: High-Yield Credit Spread (OAS)
+category: credit
+description: >
+  The ICE BofA US High Yield Index option-adjusted spread over Treasuries.
+  Widening spreads signal rising credit stress and correlate with equity
+  drawdowns; narrowing spreads indicate risk appetite is returning.
+
+source:
+  name: Internal (seed indicator, stubbed)
+  note_title: null
+  note_date: 2026-04-18
+  url: https://fred.stlouisfed.org/series/BAMLH0A0HYM2
+  received_by: phuaz@hotmail.com
+
+criteria:
+  description: >
+    A bullish equity regime is indicated when high-yield OAS is below a
+    chosen risk threshold and trending lower. A bearish regime is
+    indicated when OAS rises above the threshold and is trending higher.
+    Thresholds below are placeholder and need calibration against your
+    own study of historical regimes.
+  machine: "HY_OAS_bp < 400 AND HY_OAS_20d_change_bp < 0"
+  inputs:
+    - HY_OAS_bp
+    - HY_OAS_20d_change_bp
+
+current_state:
+  status: unknown
+  last_updated: null
+  raw_values: {}
+  notes: >
+    Stubbed. Needs a FRED pull or equivalent data source to evaluate.
+
+direction: bullish
+horizon: 3m
+confidence: medium
+target_assets:
+  - SPX
+  - HYG
+  - LQD
+
+historical_base_rates:
+  source: null
+  sample_size: null
+  notes: >
+    Not populated. Expected to be strongly mean-reverting with useful
+    predictive content at 3-6 month horizons, but any specific numbers
+    should come from your own study before being trusted.
+  returns:
+    1m:  { median: null, mean: null, hit_rate: null }
+    3m:  { median: null, mean: null, hit_rate: null }
+    6m:  { median: null, mean: null, hit_rate: null }
+    12m: { median: null, mean: null, hit_rate: null }
+
+qualitative_note:
+  date: 2026-04-18
+  text: >
+    Seeded as a placeholder so the library has at least one credit
+    indicator alongside the volatility and trend signals. Replace the
+    threshold, base rates and data wiring before relying on this record.
+
+consumers:
+  - EDD
+  - PCC
+
+tags:
+  - credit
+  - high-yield
+  - risk-appetite

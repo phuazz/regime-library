@@ -1,0 +1,76 @@
+id: spx-trend-200dma
+name: SPX Trend Above 200-Day Moving Average
+category: trend
+description: >
+  The S&P 500 closes at least 2% above its 200-day moving average,
+  indicating that buyers have sufficient conviction to drive prices
+  meaningfully above the long-term trend.
+
+source:
+  name: SentimenTrader
+  note_title: Calmer Waters Prevail
+  note_date: 2026-04-13
+  url: null
+  received_by: phuaz@hotmail.com
+
+criteria:
+  description: >
+    The S&P 500 closing price is greater than 1.02 times its 200-day simple
+    moving average. Most useful when combined with a volatility-regime
+    indicator such as VIX < 20.
+  machine: "SPX_close > 1.02 * SPX_200DMA"
+  inputs:
+    - SPX_close
+    - SPX_200DMA
+
+current_state:
+  status: "on"
+  last_updated: 2026-04-13
+  raw_values:
+    SPX_close: "above 200DMA by >2% (per note)"
+    SPX_200DMA: null
+  notes: >
+    Status taken from SentimenTrader note. Populate raw values from data
+    feed on refresh.
+
+direction: bullish
+horizon: 3m
+confidence: medium
+target_assets:
+  - SPX
+  - DJIA
+  - NDX
+
+historical_base_rates:
+  source: SentimenTrader note, 2026-04-13
+  sample_size: null
+  notes: >
+    When a streak of VIX prints above 20 ends and SPX is simultaneously
+    trading at least 2% above its 200-day MA, forward returns have
+    historically improved dramatically. The note is explicit that the
+    setup also fired during the early stages of the 2001-02, 2008 and 2022
+    bear markets, so the signal is not without notable failures.
+    Conditional median/mean forward returns at 1m/3m/6m/12m were not
+    extracted and need verification before use.
+  returns:
+    1m:  { median: null, mean: null, hit_rate: null }
+    3m:  { median: null, mean: null, hit_rate: null }
+    6m:  { median: null, mean: null, hit_rate: null }
+    12m: { median: null, mean: null, hit_rate: null }
+
+qualitative_note:
+  date: 2026-04-13
+  text: >
+    The source note emphasises that this trend condition works best paired
+    with the VIX Calm Regime indicator. Either condition alone is weaker;
+    both conditions off (VIX > 20 and SPX below 200DMA) is historically
+    the worst regime to be long.
+
+consumers:
+  - EDD
+  - PCC
+
+tags:
+  - trend
+  - moving-average
+  - spx

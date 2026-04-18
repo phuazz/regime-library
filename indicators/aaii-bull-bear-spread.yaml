@@ -1,0 +1,72 @@
+id: aaii-bull-bear-spread
+name: AAII Bull-Bear Sentiment Spread
+category: sentiment
+description: >
+  The weekly American Association of Individual Investors survey
+  bull-minus-bear percentage. A contrarian indicator: extreme bearish
+  readings have historically preceded positive forward returns; extreme
+  bullish readings have preceded weaker returns.
+
+source:
+  name: Internal (seed indicator, stubbed)
+  note_title: null
+  note_date: 2026-04-18
+  url: https://www.aaii.com/sentimentsurvey
+  received_by: phuaz@hotmail.com
+
+criteria:
+  description: >
+    Contrarian bullish trigger when the bull-bear spread falls below a
+    deeply bearish threshold (for example, the 10th percentile of its
+    historical distribution). Contrarian bearish trigger when it rises
+    above the 90th percentile. Threshold values below are placeholders
+    and need calibration.
+  machine: "AAII_bullbear_spread < -20"
+  inputs:
+    - AAII_bullbear_spread
+
+current_state:
+  status: unknown
+  last_updated: null
+  raw_values: {}
+  notes: >
+    Stubbed. Needs a weekly scrape from AAII or an equivalent data source
+    to evaluate.
+
+direction: bullish
+horizon: 3m
+confidence: low
+target_assets:
+  - SPX
+
+historical_base_rates:
+  source: null
+  sample_size: null
+  notes: >
+    Not populated. AAII is a noisy series on any given week; it is most
+    useful at extremes. Verify the conditional edge at your chosen
+    threshold before relying on this record.
+  returns:
+    1m:  { median: null, mean: null, hit_rate: null }
+    3m:  { median: null, mean: null, hit_rate: null }
+    6m:  { median: null, mean: null, hit_rate: null }
+    12m: { median: null, mean: null, hit_rate: null }
+
+qualitative_note:
+  date: 2026-04-18
+  text: >
+    Seeded as a placeholder so the library has a sentiment indicator
+    alongside the quantitative volatility and trend signals. Retail
+    sentiment surveys have well-known limitations: small sample size,
+    self-selection, and weak signal outside of extreme readings. Treat
+    the low confidence rating as load-bearing until the base rates are
+    populated from your own study.
+
+consumers:
+  - EDD
+  - PCC
+
+tags:
+  - sentiment
+  - contrarian
+  - retail

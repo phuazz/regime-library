@@ -1,0 +1,98 @@
+id: spx-oversold-overbought-speed
+name: SPX Oversold-to-Overbought Transition Speed
+category: momentum
+description: >
+  A velocity-of-reversal indicator. When the S&P 500 transitions from a
+  technically oversold state to an overbought state in an unusually small
+  number of trading days, it signals aggressive buyer conviction after a
+  capitulation low. Historically associated with durable lows and strong
+  forward outperformance.
+
+source:
+  name: Self-forwarded note (original research provider not cited)
+  note_title: Quick moves
+  note_date: 2026-04-18
+  url: null
+  received_by: phuaz@hotmail.com
+  notes: >
+    The observation quoted reads: "Only the 1982 lows saw the S&P 500 move
+    from oversold to overbought quicker (11 days this time versus the '82
+    record of six days). Quick moves like this are consistent with
+    potential lows and strong forward outperformance." Primary source not
+    attached. The operational definition of "oversold" and "overbought"
+    used in the original study is not stated; a sensible default is the
+    14-day RSI crossing below 30 and then above 70, but this needs
+    verification before the record is relied on.
+
+criteria:
+  description: >
+    Trigger when the number of trading days between the S&P 500's 14-day
+    RSI closing below 30 (oversold) and subsequently closing above 70
+    (overbought) is less than or equal to a fast-transition threshold.
+    The threshold below is a placeholder; calibrate against the
+    distribution of historical transition counts.
+  machine: |
+    oversold_day  = last day where SPX_RSI14 < 30
+    overbought_day = first day after oversold_day where SPX_RSI14 > 70
+    days_to_transition = overbought_day - oversold_day
+    trigger = days_to_transition <= 15
+  inputs:
+    - SPX_close
+    - SPX_RSI14
+
+current_state:
+  status: "on"
+  last_updated: 2026-04-18
+  raw_values:
+    days_to_transition: 11
+    historical_rank: "2nd fastest transition on record (1982 was 6 days)"
+  notes: >
+    Status taken from self-forwarded note. Days-to-transition of 11 is
+    recorded as the current reading; refresh requires either adopting the
+    original study's definitions or reproducing them with RSI14.
+
+direction: bullish
+horizon: 6m
+confidence: medium
+target_assets:
+  - SPX
+  - DJIA
+  - NDX
+
+historical_base_rates:
+  source: null
+  sample_size: null
+  notes: >
+    The note asserts a historical association with durable lows and
+    strong forward outperformance but does not provide a conditional
+    returns table. An event study of transitions under 15 days should
+    produce 1m/3m/6m/12m median and mean returns with hit rates. Leave
+    nulls until those are computed.
+  returns:
+    1m:  { median: null, mean: null, hit_rate: null }
+    3m:  { median: null, mean: null, hit_rate: null }
+    6m:  { median: null, mean: null, hit_rate: null }
+    12m: { median: null, mean: null, hit_rate: null }
+
+qualitative_note:
+  date: 2026-04-18
+  text: >
+    This indicator captures the velocity of the rally off a low, which is
+    conceptually distinct from a VIX-based volatility reset: a fast
+    RSI-based round-trip can occur without the VIX ever crossing 20, and
+    a VIX collapse can happen without the index making a clean oversold
+    print. Treat the two as complementary rather than duplicative. Also
+    note that the reference to "the 1982 lows" implies this is a rare
+    event; small sample sizes deserve low confidence even when the
+    directional claim is intuitively sensible.
+
+consumers:
+  - EDD
+  - PCC
+
+tags:
+  - momentum
+  - breadth
+  - rsi
+  - reversal
+  - velocity

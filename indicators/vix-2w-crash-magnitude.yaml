@@ -1,0 +1,84 @@
+id: vix-2w-crash-magnitude
+name: VIX Two-Week Crash Magnitude
+category: volatility
+description: >
+  A magnitude-based measure of volatility collapse. The rolling two-week
+  percentage decline in the VIX is ranked against its full history; the
+  largest declines are associated with capitulation in volatility after a
+  stress episode and have historically preceded positive forward returns.
+
+source:
+  name: Self-forwarded note (original research provider not cited)
+  note_title: Vix declines
+  note_date: 2026-04-18
+  url: null
+  received_by: phuaz@hotmail.com
+  notes: >
+    The observation quoted reads: "The 38% decline in the VIX over the last
+    2 weeks is the 7th biggest volatility crash in history." No primary
+    source was attached. Provenance to be filled in if the original chart
+    or note is located.
+
+criteria:
+  description: >
+    Trigger when the rolling two-week percentage decline in the VIX places
+    in the top decile of its historical distribution. The 10% threshold is
+    a placeholder; the specific rank that maps to "top 10 in history"
+    should be calibrated against your own series.
+  machine: "VIX_2w_pct_change <= percentile(VIX_2w_pct_change, 10)"
+  inputs:
+    - VIX_close
+    - VIX_2w_pct_change
+
+current_state:
+  status: "on"
+  last_updated: 2026-04-18
+  raw_values:
+    VIX_2w_pct_change: -0.38
+    historical_rank: "7th largest decline on record (per note)"
+  notes: >
+    Status and magnitude taken from the self-forwarded note. Populate from
+    a live data feed on refresh and re-rank against the current history.
+
+direction: bullish
+horizon: 3m
+confidence: medium
+target_assets:
+  - SPX
+  - NDX
+
+historical_base_rates:
+  source: null
+  sample_size: null
+  notes: >
+    The note claims this is the 7th biggest volatility crash in history
+    but does not supply conditional forward-return statistics. A clean
+    event study should compute median and mean forward returns at
+    1m/3m/6m/12m conditional on the top-decile event, with a hit rate. Do
+    not rely on this record until those numbers are populated.
+  returns:
+    1m:  { median: null, mean: null, hit_rate: null }
+    3m:  { median: null, mean: null, hit_rate: null }
+    6m:  { median: null, mean: null, hit_rate: null }
+    12m: { median: null, mean: null, hit_rate: null }
+
+qualitative_note:
+  date: 2026-04-18
+  text: >
+    This indicator is orthogonal to vix-calm-regime (a threshold on the
+    level) and vix-range-rank-reversal (a statistical pattern in the
+    four-month range). It measures the speed of the volatility collapse
+    rather than its level or pattern. Firing alongside the other two VIX
+    indicators gives a stronger combined signal, but also raises the
+    possibility that the three are simply rhyming facets of the same
+    underlying event rather than three independent confirmations.
+
+consumers:
+  - EDD
+  - PCC
+
+tags:
+  - volatility
+  - vix
+  - magnitude
+  - crash

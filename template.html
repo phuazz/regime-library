@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en-SG">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Regime Library</title>
+<style>
+  :root {
+    --bg: #f5f5f3;
+    --card: #ffffff;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --soft: #9a9a9a;
+    --border: #e0e0de;
+    --bullish: #2e7d51;
+    --bearish: #b63a33;
+    --unknown: #a68228;
+    --off: #9a9a9a;
+    --accent: #2c5282;
+    --warn-bg: #fff7e0;
+    --warn-border: #e5c26b;
+    --code-bg: #f3f2ef;
+    --note-bg: #fdfaf0;
+    --note-border: #e8dca3;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  header.topbar {
+    background: var(--ink);
+    color: #fff;
+    padding: 14px 24px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  header.topbar h1 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  header.topbar .meta {
+    color: #cbcbcb;
+    font-size: 12px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  main { padding: 20px 24px 48px; max-width: 1400px; margin: 0 auto; }
+
+  /* Composite scorecard */
+  section.snapshot {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+  }
+  section.snapshot h2 {
+    margin: 0 0 12px 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .scorecard {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .asset-card {
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 10px 12px;
+    background: #fafaf8;
+  }
+  .asset-card .name {
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .asset-card .score {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .asset-card.bullish .score { color: var(--bullish); }
+  .asset-card.bearish .score { color: var(--bearish); }
+  .asset-card.neutral .score { color: var(--muted); }
+  .asset-card .breakdown {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  .snapshot-line {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+  }
+  .snapshot-line b { color: var(--ink); font-weight: 600; }
+
+  .concentration-warn {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .concentration-warn strong { color: #7a5500; }
+
+  /* Filter bar */
+  section.filters {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+  }
+  .filter-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .filter-row:last-child { margin-bottom: 0; }
+  .filter-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    min-width: 80px;
+    font-weight: 600;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--card);
+    font-size: 12px;
+    cursor: pointer;
+    user-select: none;
+    color: var(--muted);
+    transition: background 0.08s, border-color 0.08s, color 0.08s;
+  }
+  .chip:hover { border-color: var(--muted); color: var(--ink); }
+  .chip.active {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+  .chip .count {
+    font-size: 10px;
+    opacity: 0.7;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  button.clear {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: 12px;
+    cursor: pointer;
+    padding: 4px 8px;
+    margin-left: auto;
+  }
+  button.clear:hover { text-decoration: underline; }
+
+  /* Indicator grid */
+  .category-section { margin-bottom: 24px; }
+  .category-heading {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 600;
+    margin: 0 0 10px 4px;
+  }
+  .category-heading .cnt { color: var(--soft); font-weight: 400; }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 14px;
+  }
+  article.indicator {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  article.indicator .card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .status-dot {
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 5px;
+  }
+  .status-dot.on.bullish { background: var(--bullish); }
+  .status-dot.on.bearish { background: var(--bearish); }
+  .status-dot.on.neutral { background: var(--muted); }
+  .status-dot.off { background: var(--off); }
+  .status-dot.unknown { background: var(--unknown); }
+  .indicator h3 {
+    flex: 1;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .direction-arrow {
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  .direction-arrow.bullish { color: var(--bullish); }
+  .direction-arrow.bearish { color: var(--bearish); }
+  .direction-arrow.neutral { color: var(--muted); }
+  .card-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    margin-bottom: 10px;
+  }
+  .card-meta span { white-space: nowrap; }
+  .description {
+    font-size: 13px;
+    color: var(--ink);
+    margin: 0 0 12px 0;
+  }
+  .field {
+    margin-bottom: 10px;
+  }
+  .field-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 3px;
+    font-weight: 600;
+  }
+  .criteria {
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    background: var(--code-bg);
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #333;
+  }
+  .current-state {
+    font-size: 12px;
+    color: var(--ink);
+    background: var(--code-bg);
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  .current-state .kv { display: flex; gap: 6px; }
+  .current-state .k { color: var(--muted); }
+  .qual-note {
+    background: var(--note-bg);
+    border-left: 3px solid var(--note-border);
+    padding: 8px 12px;
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+    color: #4a3d00;
+    margin-bottom: 10px;
+  }
+  .qual-note .qual-date {
+    font-size: 10px;
+    color: #806500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+    font-weight: 600;
+  }
+  .base-rates {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .base-rates.populated {
+    color: var(--ink);
+    font-style: normal;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  .card-footer {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .card-footer .targets { display: flex; gap: 4px; flex-wrap: wrap; }
+  .target-tag {
+    background: var(--code-bg);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    color: var(--ink);
+  }
+  .empty {
+    padding: 40px;
+    text-align: center;
+    color: var(--muted);
+    font-style: italic;
+  }
+  footer.page-footer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    font-size: 11px;
+    color: var(--soft);
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <h1>Regime Library</h1>
+  <span class="meta" id="topbar-meta"></span>
+</header>
+<main>
+  <section class="snapshot" id="snapshot"></section>
+  <section class="filters" id="filters"></section>
+  <div id="grid"></div>
+</main>
+<footer class="page-footer">
+  Observation layer. Not a trading system. Consumed by downstream tools such as EDD and PCC.
+  Regenerate by running <code>python compile.py</code>.
+</footer>
+<script>
+const DATA = /*__DATA__*/ null /*__ENDDATA__*/;
+
+// --- State ---
+const state = {
+  category: new Set(),
+  status: new Set(),
+  horizon: new Set(),
+  consumer: new Set(),
+  direction: new Set(),
+};
+
+// --- Helpers ---
+function uniq(items) { return Array.from(new Set(items)).sort(); }
+function directionSign(d) { return d === "bullish" ? 1 : d === "bearish" ? -1 : 0; }
+function arrow(d) { return d === "bullish" ? "↑" : d === "bearish" ? "↓" : "→"; }
+function esc(s) {
+  if (s === null || s === undefined) return "";
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+// --- Filtering ---
+function matchesFilters(r) {
+  if (state.category.size && !state.category.has(r.category)) return false;
+  if (state.status.size && !state.status.has(r.current_state.status)) return false;
+  if (state.horizon.size && !state.horizon.has(r.horizon)) return false;
+  if (state.direction.size && !state.direction.has(r.direction)) return false;
+  if (state.consumer.size) {
+    const cs = new Set(r.consumers || []);
+    let hit = false;
+    for (const c of state.consumer) if (cs.has(c)) { hit = true; break; }
+    if (!hit) return false;
+  }
+  return true;
+}
+
+// --- Render: snapshot ---
+function renderSnapshot() {
+  const el = document.getElementById("snapshot");
+  const s = DATA.summary;
+  const assets = Object.entries(s.per_asset).sort((a, b) => b[1].score - a[1].score);
+
+  const cards = assets.map(([asset, v]) => {
+    const cls = v.score > 0 ? "bullish" : v.score < 0 ? "bearish" : "neutral";
+    const sign = v.score > 0 ? "+" : "";
+    return `
+      <div class="asset-card ${cls}">
+        <div class="name">${esc(asset)}</div>
+        <div class="score">${sign}${v.score.toFixed(1)}</div>
+        <div class="breakdown">${v.n_bullish}▲ · ${v.n_bearish}▼ · ${v.categories.length} cat</div>
+      </div>`;
+  }).join("");
+
+  // Concentration warning: any category has > half of all on indicators
+  const totalOn = s.by_status.on || 0;
+  const concentrated = Object.entries(s.by_category)
+    .filter(([, v]) => v.on > 0)
+    .map(([cat, v]) => ({ cat, on: v.on }))
+    .filter(x => totalOn > 1 && x.on / totalOn > 0.5);
+
+  let warn = "";
+  if (concentrated.length) {
+    warn = concentrated.map(c =>
+      `<div class="concentration-warn">
+        <strong>Concentration:</strong> ${c.on} of ${totalOn} firing indicators are in the
+        <b>${esc(c.cat)}</b> category. Treat them as partially correlated rather than as
+        independent confirmations.
+      </div>`).join("");
+  }
+
+  const netSign = s.net_bullish_on > 0 ? "+" : "";
+
+  el.innerHTML = `
+    <h2>Regime Snapshot</h2>
+    <div class="scorecard">${cards || '<div class="empty">No assets in scope yet.</div>'}</div>
+    <div class="snapshot-line">
+      <span>Net bias <b>${netSign}${s.net_bullish_on}</b> (${s.bullish_on}▲ / ${s.bearish_on}▼)</span>
+      <span>Status <b>${s.by_status.on || 0}</b> on · <b>${s.by_status.off || 0}</b> off · <b>${s.by_status.unknown || 0}</b> unknown</span>
+      <span>Categories <b>${Object.keys(s.by_category).length}</b></span>
+      <span>Total <b>${s.total}</b></span>
+    </div>
+    ${warn}
+  `;
+}
+
+// --- Render: filters ---
+function renderFilters() {
+  const el = document.getElementById("filters");
+  const indicators = DATA.indicators;
+  const categories = uniq(indicators.map(r => r.category));
+  const statuses = uniq(indicators.map(r => r.current_state.status));
+  const horizons = uniq(indicators.map(r => r.horizon));
+  const directions = uniq(indicators.map(r => r.direction));
+  const consumers = uniq(indicators.flatMap(r => r.consumers || []));
+
+  function chipRow(label, key, values, labels) {
+    const chips = values.map(v => {
+      const count = indicators.filter(r => {
+        if (key === "status") return r.current_state.status === v;
+        if (key === "consumer") return (r.consumers || []).includes(v);
+        return r[key] === v;
+      }).length;
+      const active = state[key].has(v) ? "active" : "";
+      return `<span class="chip ${active}" data-key="${key}" data-value="${esc(v)}">
+        ${esc(v)} <span class="count">${count}</span>
+      </span>`;
+    }).join("");
+    return `<div class="filter-row">
+      <span class="filter-label">${esc(label)}</span>
+      ${chips}
+    </div>`;
+  }
+
+  const anyActive = Object.values(state).some(s => s.size > 0);
+  el.innerHTML =
+    chipRow("Category", "category", categories) +
+    chipRow("Status", "status", statuses) +
+    chipRow("Direction", "direction", directions) +
+    chipRow("Horizon", "horizon", horizons) +
+    chipRow("Consumer", "consumer", consumers) +
+    (anyActive ? `<div class="filter-row"><button class="clear" id="btn-clear">Clear filters</button></div>` : "");
+
+  el.querySelectorAll(".chip").forEach(c => {
+    c.addEventListener("click", () => {
+      const k = c.dataset.key, v = c.dataset.value;
+      if (state[k].has(v)) state[k].delete(v); else state[k].add(v);
+      render();
+    });
+  });
+  const btn = el.querySelector("#btn-clear");
+  if (btn) btn.addEventListener("click", () => {
+    for (const k of Object.keys(state)) state[k].clear();
+    render();
+  });
+}
+
+// --- Render: indicator card ---
+function renderBaseRates(br) {
+  if (!br || !br.returns) return '<div class="base-rates">Base rates not yet populated.</div>';
+  const horizons = ["1m", "3m", "6m", "12m"];
+  const rows = horizons
+    .map(h => br.returns[h])
+    .filter(v => v && (v.median !== null || v.mean !== null || v.hit_rate !== null));
+  if (!rows.length) return '<div class="base-rates">Base rates not yet populated.</div>';
+  const cells = horizons.map(h => {
+    const v = br.returns[h];
+    if (!v || (v.median === null && v.mean === null && v.hit_rate === null)) {
+      return `<span style="opacity:0.4">${h}: —</span>`;
+    }
+    const parts = [];
+    if (v.median !== null) parts.push(`med ${v.median}`);
+    if (v.mean !== null) parts.push(`mean ${v.mean}`);
+    if (v.hit_rate !== null) parts.push(`hit ${v.hit_rate}`);
+    return `${h}: ${parts.join(", ")}`;
+  });
+  return `<div class="base-rates populated">${cells.join(" · ")}</div>`;
+}
+
+function renderCurrentState(cs) {
+  if (!cs || !cs.raw_values || Object.keys(cs.raw_values).length === 0) {
+    return `<div class="current-state" style="color:var(--muted)">No raw values recorded. Last updated: ${esc(cs?.last_updated || "never")}</div>`;
+  }
+  const rows = Object.entries(cs.raw_values).map(([k, v]) =>
+    `<div class="kv"><span class="k">${esc(k)}:</span><span>${esc(v)}</span></div>`
+  ).join("");
+  return `<div class="current-state">${rows}</div>`;
+}
+
+function renderIndicator(r) {
+  const status = r.current_state.status;
+  const dir = r.direction;
+  const targets = (r.target_assets || []).map(a => `<span class="target-tag">${esc(a)}</span>`).join("");
+  const src = r.source || {};
+  const srcLabel = src.name ? `${esc(src.name)}${src.note_date ? ` · ${esc(src.note_date)}` : ""}` : "Source unknown";
+  const qual = r.qualitative_note;
+  const qualBlock = (qual && qual.text) ? `
+    <div class="qual-note">
+      <div class="qual-date">Note${qual.date ? " · " + esc(qual.date) : ""}</div>
+      ${esc(qual.text.trim())}
+    </div>` : "";
+
+  return `
+    <article class="indicator">
+      <div class="card-top">
+        <span class="status-dot ${status} ${dir}" title="${esc(status)} · ${esc(dir)}"></span>
+        <h3>${esc(r.name)}</h3>
+        <span class="direction-arrow ${dir}" title="${esc(dir)}">${arrow(dir)}</span>
+      </div>
+      <div class="card-meta">
+        <span>${esc(r.category)}</span>
+        <span>${esc(r.horizon)}</span>
+        <span>${esc(r.confidence)} conf</span>
+        <span>${esc(status)}</span>
+      </div>
+      <p class="description">${esc((r.description || "").trim())}</p>
+      <div class="field">
+        <div class="field-label">Criteria</div>
+        <div class="criteria">${esc((r.criteria?.description || "").trim())}</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Current state</div>
+        ${renderCurrentState(r.current_state)}
+      </div>
+      ${qualBlock}
+      <div class="field">
+        <div class="field-label">Historical base rates</div>
+        ${renderBaseRates(r.historical_base_rates)}
+      </div>
+      <div class="card-footer">
+        <span class="targets">${targets}</span>
+        <span>${srcLabel}</span>
+      </div>
+    </article>
+  `;
+}
+
+// --- Render: grid ---
+function renderGrid() {
+  const el = document.getElementById("grid");
+  const filtered = DATA.indicators.filter(matchesFilters);
+  if (!filtered.length) {
+    el.innerHTML = '<div class="empty">No indicators match the current filters.</div>';
+    return;
+  }
+  const byCat = {};
+  for (const r of filtered) {
+    (byCat[r.category] = byCat[r.category] || []).push(r);
+  }
+  const html = Object.keys(byCat).sort().map(cat => `
+    <div class="category-section">
+      <h2 class="category-heading">${esc(cat)} <span class="cnt">(${byCat[cat].length})</span></h2>
+      <div class="cards">
+        ${byCat[cat].map(renderIndicator).join("")}
+      </div>
+    </div>
+  `).join("");
+  el.innerHTML = html;
+}
+
+// --- Render: everything ---
+function render() {
+  renderSnapshot();
+  renderFilters();
+  renderGrid();
+}
+
+// --- Meta ---
+document.getElementById("topbar-meta").textContent =
+  `${DATA.indicators.length} indicators · generated ${DATA.generated_at}`;
+
+render();
+</script>
+</body>
+</html>

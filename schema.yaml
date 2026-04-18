@@ -1,0 +1,85 @@
+# Annotated template for a regime-library indicator.
+# Copy into indicators/<slug>.yaml and fill in.
+# Every field is listed here. Leave values as null if unknown.
+# Do not invent statistics you have not verified.
+
+# Stable, kebab-cased identifier. Must match the filename (without .yaml).
+id: example-indicator-slug
+
+# Human-readable title used in UIs and summaries.
+name: Example Indicator
+
+# Controlled vocabulary. Pick exactly one.
+# volatility | trend | breadth | credit | sentiment | positioning | liquidity | macro
+category: volatility
+
+# One-sentence description of what this indicator tells you.
+description: >
+  Plain-English summary of the signal and what it is meant to capture.
+
+# Provenance block. Where did this definition come from?
+source:
+  name: SentimenTrader            # Research provider, paper, or internal note.
+  note_title: Calmer Waters Prevail
+  note_date: 2026-04-13           # ISO date of the source.
+  url: null                       # Optional link.
+  received_by: phuaz@hotmail.com  # Who saw it first. Useful for audit trails.
+
+# The rule itself. Both a plain-English description and a symbolic form.
+criteria:
+  description: >
+    Plain-English statement of the condition.
+  machine: "VIX < 20 AND SPX_close > 1.02 * SPX_200DMA"
+  inputs:                         # List the raw series this rule depends on.
+    - VIX
+    - SPX_close
+    - SPX_200DMA
+
+# What the indicator is saying right now.
+current_state:
+  status: unknown                 # on | off | unknown
+  last_updated: null              # ISO date of the latest refresh.
+  raw_values: {}                  # e.g. {VIX: 18.4, SPX_close: 5432.1}
+  notes: null                     # Optional free text.
+
+# Direction and horizon. Used when aggregating into composite views.
+# direction: bullish means the signal, when ON, historically implies positive
+# forward returns on the target asset(s). Use 'bearish' for the opposite.
+direction: bullish                # bullish | bearish | neutral
+horizon: 1m                       # Primary horizon: 1m | 3m | 6m | 12m
+confidence: medium                # high | medium | low. Qualitative weight.
+target_assets:                    # What forward returns this is said to forecast.
+  - SPX
+  - DJIA
+
+# Historical base rates. Leave every sub-field null if not verified.
+# The aim is one row of numbers per horizon, sourced from the original note
+# or from a proper backtest. Do not paste numbers you cannot trace.
+historical_base_rates:
+  source: null                    # Where the numbers came from.
+  sample_size: null               # Number of historical triggers.
+  notes: >
+    Summary of the conditional performance as stated by the source.
+  returns:
+    1m:  { median: null, mean: null, hit_rate: null }
+    3m:  { median: null, mean: null, hit_rate: null }
+    6m:  { median: null, mean: null, hit_rate: null }
+    12m: { median: null, mean: null, hit_rate: null }
+
+# Human overlay. Advisory only. Never gates the status field.
+qualitative_note:
+  date: null                      # ISO date the note was added.
+  text: >
+    Free-text caveat. Use this to preserve context that the quant rule
+    cannot see (for example, "the V-shaped rally preceding this signal
+    may have pulled forward near-term upside").
+
+# Which downstream tools are expected to read this indicator.
+consumers:
+  - EDD
+  - PCC
+
+# Free-form tags for filtering and search.
+tags:
+  - regime-shift
+  - volatility
