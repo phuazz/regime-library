@@ -6,610 +6,711 @@
 <title>Regime Library</title>
 <style>
   :root {
-    --bg: #f5f5f3;
-    --card: #ffffff;
+    --bg: #faf8f3;
+    --surface: #ffffff;
     --ink: #1a1a1a;
-    --muted: #6b6b6b;
-    --soft: #9a9a9a;
-    --border: #e0e0de;
-    --bullish: #2e7d51;
-    --bearish: #b63a33;
-    --unknown: #a68228;
-    --off: #9a9a9a;
-    --accent: #2c5282;
-    --warn-bg: #fff7e0;
-    --warn-border: #e5c26b;
-    --code-bg: #f3f2ef;
-    --note-bg: #fdfaf0;
-    --note-border: #e8dca3;
-    --banner-bg: #1a1a1a;
-    --banner-ink: #f5f5f3;
-    --flip-bg: #fbf6ed;
-    --flip-border: #d8c48a;
-    --badge-bg: #eef3ea;
-    --badge-ink: #2e5834;
-    --badge-border: #c5d6be;
+    --ink-soft: #2a2a2a;
+    --muted: #6a6a65;
+    --soft: #989892;
+    --softer: #c4c2bb;
+    --rule: #e6e2d7;
+    --rule-soft: #efece3;
+    --accent: #1e3a5f;
+    --accent-soft: #3b5b86;
+    --bullish: #2a6f4f;
+    --bullish-mid: #5a9879;
+    --bullish-tint: #ecf3ee;
+    --bullish-tint-strong: #d7e6dc;
+    --bearish: #a6372d;
+    --bearish-mid: #c47a72;
+    --bearish-tint: #f6e9e6;
+    --bearish-tint-strong: #ebd1cd;
+    --amber: #8a6d1f;
+    --amber-tint: #f5eed4;
+    --sans: "Söhne", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Text", Roboto, Arial, sans-serif;
+    --mono: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
   body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    font-feature-settings: "tnum" 1, "lnum" 1, "ss01" 1, "kern" 1;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
-  header.topbar {
-    background: var(--ink);
-    color: #fff;
-    padding: 14px 24px;
+  a { color: var(--accent); }
+  code { font-family: var(--mono); font-size: 0.9em; }
+
+  /* --- Top ribbon ------------------------------------------------- */
+  header.ribbon {
+    background: var(--surface);
+    border-bottom: 1px solid var(--rule);
+    padding: 16px 40px;
     display: flex;
     align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  header.ribbon .brand {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  header.ribbon .meta {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+  header.ribbon .meta b { color: var(--ink); font-weight: 600; }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+
+  /* --- Executive summary ----------------------------------------- */
+  section.exec {
+    margin-bottom: 44px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--rule);
+  }
+  section.exec .tag {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  section.exec h1 {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  @media (max-width: 700px) {
+    section.exec h1 { font-size: 30px; }
+    main { padding: 24px; }
+    header.ribbon { padding: 14px 24px; }
+  }
+  section.exec .strap {
+    margin-top: 12px;
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 780px;
+  }
+  section.exec .strap b { color: var(--ink); font-weight: 600; }
+  section.exec .takeaways {
+    margin-top: 26px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1000px;
+  }
+  @media (max-width: 900px) {
+    section.exec .takeaways { grid-template-columns: 1fr; }
+  }
+  section.exec .takeaway {
+    padding: 16px 18px 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+  }
+  section.exec .takeaway.bullish { border-left-color: var(--bullish); }
+  section.exec .takeaway.bearish { border-left-color: var(--bearish); }
+  section.exec .takeaway.caveat  { border-left-color: var(--amber); }
+  section.exec .takeaway h3 {
+    margin: 0 0 6px 0;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  section.exec .takeaway p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* --- Section -------------------------------------------------- */
+  section.panel {
+    margin-bottom: 44px;
+  }
+  section.panel.panel-soft {
+    padding-top: 24px;
+    border-top: 1px dashed var(--rule);
+    margin-top: -8px;
+  }
+  section.panel.panel-soft > header h2 {
+    color: var(--muted);
+    font-weight: 600;
+  }
+  section.panel.panel-soft > header .sub {
+    color: var(--soft);
+  }
+  section.panel > header {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  section.panel > header h2 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  section.panel > header .sub {
+    font-size: 12px;
+    color: var(--muted);
+    max-width: 500px;
+    text-align: right;
+  }
+
+  /* --- Forecast table ------------------------------------------ */
+  table.forecast {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 14px;
+    margin-top: 6px;
+  }
+  table.forecast thead th {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+    text-align: center;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--rule);
+  }
+  table.forecast thead th.asset {
+    text-align: left;
+    width: 80px;
+  }
+  table.forecast tbody td {
+    padding: 16px 12px;
+    border-bottom: 1px solid var(--rule-soft);
+    text-align: center;
+    vertical-align: middle;
+  }
+  table.forecast tbody td.asset {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+  table.forecast .fc-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  table.forecast .fc-ret {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+  table.forecast .fc-ret.bullish { color: var(--bullish); }
+  table.forecast .fc-ret.bearish { color: var(--bearish); }
+  table.forecast .fc-ret.empty   { color: var(--soft); font-weight: 500; }
+  table.forecast .fc-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  table.forecast .fc-meta .sep { color: var(--softer); margin: 0 4px; }
+  table.forecast tbody tr.bullish-row td.asset { color: var(--bullish); }
+  table.forecast .fc-cell.tint-bull-strong { background: linear-gradient(var(--bullish-tint-strong), var(--bullish-tint-strong)); padding: 8px 6px; border-radius: 3px; width: 100%; }
+  table.forecast .fc-cell.tint-bull-mid    { background: linear-gradient(var(--bullish-tint), var(--bullish-tint)); padding: 8px 6px; border-radius: 3px; width: 100%; }
+  table.forecast .fc-cell.tint-bear-strong { background: linear-gradient(var(--bearish-tint-strong), var(--bearish-tint-strong)); padding: 8px 6px; border-radius: 3px; width: 100%; }
+  table.forecast .fc-cell.tint-bear-mid    { background: linear-gradient(var(--bearish-tint), var(--bearish-tint)); padding: 8px 6px; border-radius: 3px; width: 100%; }
+  .forecast-foot {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 900px;
+  }
+  .forecast-foot b { color: var(--ink-soft); font-weight: 600; }
+
+  /* --- Signals table ------------------------------------------- */
+  table.signals {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 14px;
+  }
+  table.signals thead th {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--rule);
+  }
+  table.signals tbody tr { vertical-align: top; }
+  table.signals tbody td {
+    padding: 18px 12px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  table.signals tbody tr:last-child td { border-bottom: none; }
+  table.signals .sig-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  table.signals .sig-category {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    background: var(--rule-soft);
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-left: 6px;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  table.signals .sig-assets {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    margin-top: 2px;
+  }
+  table.signals .sig-trig {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  table.signals .sig-age {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+    letter-spacing: 0.02em;
+  }
+  table.signals .sig-age.fresh { color: var(--bullish); font-weight: 700; }
+  table.signals .sig-return {
+    min-width: 200px;
+  }
+  table.signals .ret-row {
+    display: grid;
+    grid-template-columns: 30px 72px 1fr;
+    align-items: baseline;
+    font-size: 12px;
+    padding: 2px 0;
+    gap: 6px;
+  }
+  table.signals .ret-row.primary {
+    background: linear-gradient(90deg, rgba(30,58,95,0.05), transparent 90%);
+    border-left: 2px solid var(--accent);
+    padding-left: 6px;
+    margin-left: -8px;
+  }
+  table.signals .ret-h {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  table.signals .ret-val {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  table.signals .ret-val.bullish { color: var(--bullish); }
+  table.signals .ret-val.bearish { color: var(--bearish); }
+  table.signals .ret-val.neutral { color: var(--muted); }
+  table.signals .ret-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--soft);
+    letter-spacing: 0.04em;
+  }
+  table.signals .ret-note {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin-top: 8px;
+  }
+  table.signals .ret-qualitative {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  table.signals .ret-qualitative.bullish { color: var(--bullish); }
+  table.signals .ret-qualitative.bearish { color: var(--bearish); }
+  table.signals .sig-claim {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    max-width: 400px;
+  }
+  table.signals .sig-claim .q {
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  table.signals .sig-claim .src {
+    display: block;
+    margin-top: 6px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--soft);
+  }
+
+  /* --- Qualitative signal tiles --------------------------- */
+  .qual-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 18px;
+  }
+  .qual-tile {
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--softer);
+    border-radius: 3px;
+  }
+  .qual-tile.bullish { border-left-color: var(--bullish-mid); }
+  .qual-tile.bearish { border-left-color: var(--bearish-mid); }
+  .qual-tile .qt-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .qual-tile .qt-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .qual-tile .qt-arrow {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .qual-tile .qt-arrow.bullish { color: var(--bullish); }
+  .qual-tile .qt-arrow.bearish { color: var(--bearish); }
+  .qual-tile .qt-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .qual-tile .qt-meta .dot {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .qual-tile .qt-meta .sep {
+    color: var(--softer);
+    margin: 0 6px;
+  }
+  .qual-tile .qt-claim {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+  .qual-tile .qt-src {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--soft);
+    text-transform: uppercase;
+  }
+
+  /* --- Status dot in table ---------------------------------- */
+  .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+  .dot.on.bullish { background: var(--bullish); }
+  .dot.on.bearish { background: var(--bearish); }
+  .dot.on.neutral { background: var(--muted); }
+  .dot.off       { background: var(--softer); }
+  .dot.unknown   { background: var(--amber); }
+
+  /* --- Two-column layout ------------------------------------ */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  @media (max-width: 900px) {
+    .two-col { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* --- Watch conditions ------------------------------------- */
+  table.watch {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+  }
+  table.watch tbody td {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+  }
+  table.watch tbody tr:last-child td { border-bottom: none; }
+  table.watch .watch-name {
+    font-weight: 600;
+    color: var(--ink);
+    padding-right: 14px;
+    width: 170px;
+  }
+  table.watch .watch-trigger {
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  table.watch .watch-trigger .arrow-lead {
+    display: inline-block;
+    color: var(--amber);
+    margin-right: 6px;
+    font-family: var(--mono);
+    font-weight: 700;
+  }
+  table.watch .watch-empty {
+    font-style: italic;
+    color: var(--soft);
+    font-size: 12px;
+  }
+
+  /* --- Timeline (date-grouped list) ------------------------- */
+  .trigger-log { display: flex; flex-direction: column; gap: 22px; }
+  .tl-group { }
+  .tl-group-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .tl-group-date {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .tl-group-age {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .tl-group-age.fresh { color: var(--bullish); font-weight: 700; }
+  .tl-group-count {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--soft);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .tl-list { list-style: none; margin: 0; padding: 0; }
+  .tl-item {
+    display: grid;
+    grid-template-columns: 22px 1fr auto;
+    gap: 10px;
+    align-items: baseline;
+    padding: 6px 0;
+    font-size: 13px;
+  }
+  .tl-item-arrow {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 13px;
+    text-align: center;
+  }
+  .tl-item-arrow.bullish { color: var(--bullish); }
+  .tl-item-arrow.bearish { color: var(--bearish); }
+  .tl-item-arrow.neutral { color: var(--muted); }
+  .tl-item-name {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .tl-item-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* --- Empty states ------------------------------------------ */
+  .empty-state {
+    padding: 24px;
+    text-align: center;
+    color: var(--soft);
+    font-size: 13px;
+    font-style: italic;
+  }
+
+  /* --- Footnote --------------------------------------------- */
+  footer.colophon {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    border-top: 1px solid var(--rule);
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  footer.colophon p { margin: 0 0 10px 0; max-width: 900px; }
+  footer.colophon .meta-row {
+    display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 12px;
-  }
-  header.topbar h1 {
-    margin: 0;
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-  header.topbar .meta {
-    color: #cbcbcb;
-    font-size: 12px;
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-  }
-  main { padding: 20px 24px 48px; max-width: 1400px; margin: 0 auto; }
-
-  /* P0: regime label banner */
-  section.regime-banner {
-    background: var(--banner-bg);
-    color: var(--banner-ink);
-    border-radius: 6px;
-    padding: 18px 22px;
-    margin-bottom: 14px;
-  }
-  section.regime-banner .banner-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: #9a9a9a;
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-  section.regime-banner .banner-theme {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    line-height: 1.25;
-    margin: 0;
-  }
-  section.regime-banner .banner-sub {
-    margin-top: 4px;
-    font-size: 12px;
-    color: #b8b8b8;
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-  }
-  section.regime-banner .banner-caveat {
-    margin-top: 8px;
-    font-size: 12px;
-    color: #cbcbcb;
-    font-style: italic;
-  }
-
-  /* P2: flips-if panel */
-  section.flips {
-    background: var(--flip-bg);
-    border: 1px solid var(--flip-border);
-    border-radius: 6px;
-    padding: 14px 18px;
-    margin-bottom: 20px;
-  }
-  section.flips h2 {
-    margin: 0 0 10px 0;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #7a5a00;
-    font-weight: 600;
-  }
-  section.flips ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  section.flips li {
-    padding: 6px 0;
-    border-bottom: 1px dashed #e2d4a8;
-    font-size: 13px;
-    display: flex;
-    gap: 10px;
-    align-items: baseline;
-  }
-  section.flips li:last-child { border-bottom: none; }
-  section.flips .flip-name {
-    font-weight: 600;
-    color: #1a1a1a;
-    flex: 0 0 auto;
-    min-width: 0;
-  }
-  section.flips .flip-sep {
-    color: #9a7f30;
-  }
-  section.flips .flip-text {
-    color: #3a3a3a;
-    flex: 1;
-  }
-  section.flips .flips-empty {
-    font-style: italic;
-    color: #9a7f30;
-    font-size: 12px;
-  }
-
-  /* Composite scorecard */
-  section.snapshot {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 18px 20px;
-    margin-bottom: 20px;
-  }
-  section.snapshot h2 {
-    margin: 0 0 12px 0;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    font-weight: 600;
-  }
-  .scorecard {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-  .scorecard.small {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-  .scorecard.small .asset-card { padding: 8px 10px; }
-  .scorecard.small .asset-card .score { font-size: 18px; }
-
-  /* P3: horizon-stratified panels */
-  .horizons {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-bottom: 14px;
-  }
-  @media (max-width: 900px) {
-    .horizons { grid-template-columns: 1fr; }
-  }
-  .horizon-panel {
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    padding: 10px 12px;
-    background: #fafaf8;
-  }
-  .horizon-panel .h-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    font-weight: 600;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-  .horizon-panel .h-label .n-firing {
-    font-size: 10px;
-    color: var(--soft);
-    font-weight: 400;
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-  }
-  .horizon-panel .horizon-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    gap: 6px;
-  }
-  .horizon-panel .asset-card {
-    padding: 6px 8px;
-    background: var(--card);
-  }
-  .horizon-panel .asset-card .name { font-size: 12px; margin-bottom: 2px; }
-  .horizon-panel .asset-card .score { font-size: 16px; font-weight: 700; }
-  .horizon-panel .asset-card .breakdown { font-size: 10px; margin-top: 2px; }
-  .horizon-panel .empty-horizon {
+    margin-top: 16px;
     font-size: 11px;
     color: var(--soft);
-    font-style: italic;
-    padding: 4px 2px;
+    font-family: var(--mono);
+    letter-spacing: 0.04em;
   }
-  .combined-row {
-    padding-top: 12px;
-    border-top: 1px dashed var(--border);
-    margin-bottom: 14px;
-  }
-  .combined-row .h-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  .asset-card {
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    padding: 10px 12px;
-    background: #fafaf8;
-  }
-  .asset-card .name {
-    font-weight: 600;
-    font-size: 13px;
-    margin-bottom: 4px;
-  }
-  .asset-card .score {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-  .asset-card.bullish .score { color: var(--bullish); }
-  .asset-card.bearish .score { color: var(--bearish); }
-  .asset-card.neutral .score { color: var(--muted); }
-  .asset-card .breakdown {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 4px;
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-  }
-  .snapshot-line {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    color: var(--muted);
-    font-size: 13px;
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-    padding-top: 12px;
-    border-top: 1px dashed var(--border);
-  }
-  .snapshot-line b { color: var(--ink); font-weight: 600; }
-
-  .concentration-warn {
-    margin-top: 12px;
-    padding: 10px 12px;
-    background: var(--warn-bg);
-    border: 1px solid var(--warn-border);
-    border-radius: 4px;
-    font-size: 13px;
-  }
-  .concentration-warn strong { color: #7a5500; }
-
-  /* Filter bar */
-  section.filters {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 14px 18px;
-    margin-bottom: 20px;
-  }
-  .filter-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 8px;
-  }
-  .filter-row:last-child { margin-bottom: 0; }
-  .filter-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    min-width: 80px;
-    font-weight: 600;
-  }
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 4px 10px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    background: var(--card);
-    font-size: 12px;
-    cursor: pointer;
-    user-select: none;
-    color: var(--muted);
-    transition: background 0.08s, border-color 0.08s, color 0.08s;
-  }
-  .chip:hover { border-color: var(--muted); color: var(--ink); }
-  .chip.active {
-    background: var(--ink);
-    color: #fff;
-    border-color: var(--ink);
-  }
-  .chip .count {
-    font-size: 10px;
-    opacity: 0.7;
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-  }
-  button.clear {
-    background: none;
-    border: none;
-    color: var(--accent);
-    font-size: 12px;
-    cursor: pointer;
-    padding: 4px 8px;
-    margin-left: auto;
-  }
-  button.clear:hover { text-decoration: underline; }
-
-  /* Indicator grid */
-  .category-section { margin-bottom: 24px; }
-  .category-heading {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    font-weight: 600;
-    margin: 0 0 10px 4px;
-  }
-  .category-heading .cnt { color: var(--soft); font-weight: 400; }
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 14px;
-  }
-  article.indicator {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 16px 18px;
-    display: flex;
-    flex-direction: column;
-  }
-  article.indicator .card-top {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 6px;
-  }
-  .status-dot {
-    flex-shrink: 0;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-top: 5px;
-  }
-  .status-dot.on.bullish { background: var(--bullish); }
-  .status-dot.on.bearish { background: var(--bearish); }
-  .status-dot.on.neutral { background: var(--muted); }
-  .status-dot.off { background: var(--off); }
-  .status-dot.unknown { background: var(--unknown); }
-  .indicator h3 {
-    flex: 1;
-    margin: 0;
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 1.3;
-  }
-  .direction-arrow {
-    font-size: 14px;
-    font-weight: 700;
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-  }
-  .direction-arrow.bullish { color: var(--bullish); }
-  .direction-arrow.bearish { color: var(--bearish); }
-  .direction-arrow.neutral { color: var(--muted); }
-  .card-meta {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    font-size: 11px;
-    color: var(--muted);
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-    margin-bottom: 10px;
-  }
-  .card-meta span { white-space: nowrap; }
-  .card-meta .age-badge {
-    background: var(--badge-bg);
-    color: var(--badge-ink);
-    border: 1px solid var(--badge-border);
-    border-radius: 10px;
-    padding: 1px 8px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-  .description {
-    font-size: 13px;
-    color: var(--ink);
-    margin: 0 0 12px 0;
-  }
-  .field {
-    margin-bottom: 10px;
-  }
-  .field-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    margin-bottom: 3px;
-    font-weight: 600;
-  }
-  .criteria {
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-    background: var(--code-bg);
-    padding: 8px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    white-space: pre-wrap;
-    word-break: break-word;
-    color: #333;
-  }
-  .current-state {
-    font-size: 12px;
-    color: var(--ink);
-    background: var(--code-bg);
-    padding: 8px 10px;
-    border-radius: 4px;
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-  }
-  .current-state .kv { display: flex; gap: 6px; }
-  .current-state .k { color: var(--muted); }
-  .qual-note {
-    background: var(--note-bg);
-    border-left: 3px solid var(--note-border);
-    padding: 8px 12px;
-    border-radius: 0 4px 4px 0;
-    font-size: 13px;
-    color: #4a3d00;
-    margin-bottom: 10px;
-  }
-  .qual-note .qual-date {
-    font-size: 10px;
-    color: #806500;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 2px;
-    font-weight: 600;
-  }
-  .base-rates {
-    font-size: 12px;
-    color: var(--muted);
-    font-style: italic;
-  }
-  .base-rates.populated {
-    color: var(--ink);
-    font-style: normal;
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-  }
-  .card-footer {
-    margin-top: auto;
-    padding-top: 10px;
-    border-top: 1px dashed var(--border);
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    font-size: 11px;
-    color: var(--muted);
-  }
-  .card-footer .targets { display: flex; gap: 4px; flex-wrap: wrap; }
-  .target-tag {
-    background: var(--code-bg);
+  footer.colophon code {
+    background: var(--surface);
     padding: 1px 6px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+  }
+
+  /* --- Tooltip ---------------------------------------------- */
+  .tooltip {
+    position: fixed;
+    pointer-events: none;
+    background: var(--ink-soft);
+    color: #f5f3ec;
+    padding: 10px 12px;
     border-radius: 3px;
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-    color: var(--ink);
+    font-size: 12px;
+    line-height: 1.55;
+    max-width: 360px;
+    z-index: 100;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.22);
+    opacity: 0;
+    transition: opacity 0.08s;
   }
-  .empty {
-    padding: 40px;
-    text-align: center;
-    color: var(--muted);
-    font-style: italic;
-  }
-  footer.page-footer {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px 24px;
-    font-size: 11px;
-    color: var(--soft);
-    font-family: "SF Mono", Menlo, Consolas, monospace;
-  }
+  .tooltip.visible { opacity: 1; }
+  .tooltip .tt-name { font-weight: 700; color: #fff; margin-bottom: 4px; font-size: 13px; }
 </style>
 </head>
 <body>
-<header class="topbar">
-  <h1>Regime Library</h1>
-  <span class="meta" id="topbar-meta"></span>
+
+<header class="ribbon">
+  <div class="brand">Regime Library</div>
+  <div class="meta" id="ribbon-meta"></div>
 </header>
+
 <main>
-  <section class="regime-banner" id="regime-banner"></section>
-  <section class="flips" id="flips"></section>
-  <section class="snapshot" id="snapshot"></section>
-  <section class="filters" id="filters"></section>
-  <div id="grid"></div>
+  <section class="exec">
+    <div class="tag">Regime read</div>
+    <h1 id="exec-theme"></h1>
+    <div class="strap" id="exec-strap"></div>
+    <div class="takeaways" id="exec-takeaways"></div>
+  </section>
+
+  <section class="panel">
+    <header>
+      <h2>Conditional forward returns</h2>
+      <div class="sub">Median (or mean where median is absent) forward total return per asset and horizon, aggregated across firing studies with verified base rates.</div>
+    </header>
+    <div id="forecast"></div>
+    <div class="forecast-foot" id="forecast-foot"></div>
+  </section>
+
+  <section class="panel">
+    <header>
+      <h2>Statistically backed signals</h2>
+      <div class="sub">Firing indicators carrying a verified conditional-return base rate from a published study. These drive the numeric cells above.</div>
+    </header>
+    <div id="signals-quant"></div>
+  </section>
+
+  <section class="panel panel-soft">
+    <header>
+      <h2>Qualitative context signals</h2>
+      <div class="sub">Firing indicators with a source claim but no verified conditional-return table yet. Included for regime colour; they do not contribute to the numeric forecast.</div>
+    </header>
+    <div id="signals-qual"></div>
+  </section>
+
+  <div class="two-col">
+    <section class="panel">
+      <header><h2>Watch conditions</h2></header>
+      <div id="watch"></div>
+    </section>
+    <section class="panel">
+      <header><h2>Trigger timeline</h2></header>
+      <div id="timeline"></div>
+    </section>
+  </div>
+
 </main>
-<footer class="page-footer">
-  Observation layer. Not a trading system. Consumed by downstream tools such as EDD and PCC.
-  Regenerate by running <code>python compile.py</code>.
+
+<footer class="colophon">
+  <p>Observation layer, not a trading system. Indicators are curated from published and in-house research. Conditional forward returns are empirical base rates from the source study; they describe the historical distribution after similar triggers, not a forecast for this instance.</p>
+  <p><b>Read-across.</b> Where a source studies only one asset (typically SPX), the base rate is applied to every target asset listed on the indicator. Treat the secondary assets as read-across, not independent studies.</p>
+  <div class="meta-row">
+    <span id="colophon-when"></span>
+    <span>Regenerate with <code>python compile.py</code></span>
+  </div>
 </footer>
+
+<div class="tooltip" id="tooltip"></div>
+
 <script>
-const DATA = /*__DATA__*/ {"generated_at": "2026-04-18T10:50:41Z", "indicators": [{"id": "aaii-bull-bear-spread", "name": "AAII Bull-Bear Sentiment Spread", "category": "sentiment", "description": "The weekly American Association of Individual Investors survey bull-minus-bear percentage. A contrarian indicator: extreme bearish readings have historically preceded positive forward returns; extreme bullish readings have preceded weaker returns.\n", "source": {"name": "Internal (seed indicator, stubbed)", "note_title": null, "note_date": "2026-04-18", "url": "https://www.aaii.com/sentimentsurvey", "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "Contrarian bullish trigger when the bull-bear spread falls below a deeply bearish threshold (for example, the 10th percentile of its historical distribution). Contrarian bearish trigger when it rises above the 90th percentile. Threshold values below are placeholders and need calibration.\n", "machine": "AAII_bullbear_spread < -20", "inputs": ["AAII_bullbear_spread"]}, "current_state": {"status": "unknown", "last_updated": null, "raw_values": {}, "notes": "Stubbed. Needs a weekly scrape from AAII or an equivalent data source to evaluate.\n"}, "direction": "bullish", "horizon": "3m", "confidence": "low", "target_assets": ["SPX"], "historical_base_rates": {"source": null, "sample_size": null, "notes": "Not populated. AAII is a noisy series on any given week; it is most useful at extremes. Verify the conditional edge at your chosen threshold before relying on this record.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-18", "text": "Seeded as a placeholder so the library has a sentiment indicator alongside the quantitative volatility and trend signals. Retail sentiment surveys have well-known limitations: small sample size, self-selection, and weak signal outside of extreme readings. Treat the low confidence rating as load-bearing until the base rates are populated from your own study.\n"}, "consumers": ["EDD", "PCC"], "tags": ["sentiment", "contrarian", "retail"]}, {"id": "hy-credit-spread-oas", "name": "High-Yield Credit Spread (OAS)", "category": "credit", "description": "The ICE BofA US High Yield Index option-adjusted spread over Treasuries. Widening spreads signal rising credit stress and correlate with equity drawdowns; narrowing spreads indicate risk appetite is returning.\n", "source": {"name": "Internal (seed indicator, stubbed)", "note_title": null, "note_date": "2026-04-18", "url": "https://fred.stlouisfed.org/series/BAMLH0A0HYM2", "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "A bullish equity regime is indicated when high-yield OAS is below a chosen risk threshold and trending lower. A bearish regime is indicated when OAS rises above the threshold and is trending higher. Thresholds below are placeholder and need calibration against your own study of historical regimes.\n", "machine": "HY_OAS_bp < 400 AND HY_OAS_20d_change_bp < 0", "inputs": ["HY_OAS_bp", "HY_OAS_20d_change_bp"]}, "current_state": {"status": "unknown", "last_updated": null, "raw_values": {}, "notes": "Stubbed. Needs a FRED pull or equivalent data source to evaluate.\n"}, "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX", "HYG", "LQD"], "historical_base_rates": {"source": null, "sample_size": null, "notes": "Not populated. Expected to be strongly mean-reverting with useful predictive content at 3-6 month horizons, but any specific numbers should come from your own study before being trusted.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-18", "text": "Seeded as a placeholder so the library has at least one credit indicator alongside the volatility and trend signals. Replace the threshold, base rates and data wiring before relying on this record.\n"}, "consumers": ["EDD", "PCC"], "tags": ["credit", "high-yield", "risk-appetite"]}, {"id": "spx-oversold-overbought-speed", "name": "SPX Oversold-to-Overbought Transition Speed", "category": "momentum", "description": "A velocity-of-reversal indicator. When the S&P 500 transitions from a technically oversold state to an overbought state in an unusually small number of trading days, it signals aggressive buyer conviction after a capitulation low. Historically associated with durable lows and strong forward outperformance.\n", "source": {"name": "Self-forwarded note (original research provider not cited)", "note_title": "Quick moves", "note_date": "2026-04-18", "url": null, "received_by": "phuaz@hotmail.com", "notes": "The observation quoted reads: \"Only the 1982 lows saw the S&P 500 move from oversold to overbought quicker (11 days this time versus the '82 record of six days). Quick moves like this are consistent with potential lows and strong forward outperformance.\" Primary source not attached. The operational definition of \"oversold\" and \"overbought\" used in the original study is not stated; a sensible default is the 14-day RSI crossing below 30 and then above 70, but this needs verification before the record is relied on.\n"}, "criteria": {"description": "Trigger when the number of trading days between the S&P 500's 14-day RSI closing below 30 (oversold) and subsequently closing above 70 (overbought) is less than or equal to a fast-transition threshold. The threshold below is a placeholder; calibrate against the distribution of historical transition counts.\n", "machine": "oversold_day  = last day where SPX_RSI14 < 30\noverbought_day = first day after oversold_day where SPX_RSI14 > 70\ndays_to_transition = overbought_day - oversold_day\ntrigger = days_to_transition <= 15\n", "inputs": ["SPX_close", "SPX_RSI14"]}, "current_state": {"status": "on", "last_updated": "2026-04-18", "triggered_on": "2026-04-18", "raw_values": {"days_to_transition": 11, "historical_rank": "2nd fastest transition on record (1982 was 6 days)"}, "notes": "Status taken from self-forwarded note. Days-to-transition of 11 is recorded as the current reading; refresh requires either adopting the original study's definitions or reproducing them with RSI14.\n"}, "flips_if": "A new oversold print (SPX 14-day RSI closes below 30) occurs without a sub-15-day round-trip back above 70, restarting the transition clock above the threshold.", "direction": "bullish", "horizon": "6m", "confidence": "medium", "target_assets": ["SPX", "DJIA", "NDX"], "historical_base_rates": {"source": null, "sample_size": null, "notes": "The note asserts a historical association with durable lows and strong forward outperformance but does not provide a conditional returns table. An event study of transitions under 15 days should produce 1m/3m/6m/12m median and mean returns with hit rates. Leave nulls until those are computed.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-18", "text": "This indicator captures the velocity of the rally off a low, which is conceptually distinct from a VIX-based volatility reset: a fast RSI-based round-trip can occur without the VIX ever crossing 20, and a VIX collapse can happen without the index making a clean oversold print. Treat the two as complementary rather than duplicative. Also note that the reference to \"the 1982 lows\" implies this is a rare event; small sample sizes deserve low confidence even when the directional claim is intuitively sensible.\n"}, "consumers": ["EDD", "PCC"], "tags": ["momentum", "breadth", "rsi", "reversal", "velocity"]}, {"id": "spx-trend-200dma", "name": "SPX Trend Above 200-Day Moving Average", "category": "trend", "description": "The S&P 500 closes at least 2% above its 200-day moving average, indicating that buyers have sufficient conviction to drive prices meaningfully above the long-term trend.\n", "source": {"name": "SentimenTrader", "note_title": "Calmer Waters Prevail", "note_date": "2026-04-13", "url": null, "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "The S&P 500 closing price is greater than 1.02 times its 200-day simple moving average. Most useful when combined with a volatility-regime indicator such as VIX < 20.\n", "machine": "SPX_close > 1.02 * SPX_200DMA", "inputs": ["SPX_close", "SPX_200DMA"]}, "current_state": {"status": "on", "last_updated": "2026-04-13", "triggered_on": "2026-04-13", "raw_values": {"SPX_close": "above 200DMA by >2% (per note)", "SPX_200DMA": null}, "notes": "Status taken from SentimenTrader note. Populate raw values from data feed on refresh.\n"}, "flips_if": "SPX closes below 1.02 x 200DMA.", "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX", "DJIA", "NDX"], "historical_base_rates": {"source": "SentimenTrader note, 2026-04-13", "sample_size": null, "notes": "When a streak of VIX prints above 20 ends and SPX is simultaneously trading at least 2% above its 200-day MA, forward returns have historically improved dramatically. The note is explicit that the setup also fired during the early stages of the 2001-02, 2008 and 2022 bear markets, so the signal is not without notable failures. Conditional median/mean forward returns at 1m/3m/6m/12m were not extracted and need verification before use.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-13", "text": "The source note emphasises that this trend condition works best paired with the VIX Calm Regime indicator. Either condition alone is weaker; both conditions off (VIX > 20 and SPX below 200DMA) is historically the worst regime to be long.\n"}, "consumers": ["EDD", "PCC"], "tags": ["trend", "moving-average", "spx"]}, {"id": "vix-2w-crash-magnitude", "name": "VIX Two-Week Crash Magnitude", "category": "volatility", "description": "A magnitude-based measure of volatility collapse. The rolling two-week percentage decline in the VIX is ranked against its full history; the largest declines are associated with capitulation in volatility after a stress episode and have historically preceded positive forward returns.\n", "source": {"name": "Self-forwarded note (original research provider not cited)", "note_title": "Vix declines", "note_date": "2026-04-18", "url": null, "received_by": "phuaz@hotmail.com", "notes": "The observation quoted reads: \"The 38% decline in the VIX over the last 2 weeks is the 7th biggest volatility crash in history.\" No primary source was attached. Provenance to be filled in if the original chart or note is located.\n"}, "criteria": {"description": "Trigger when the rolling two-week percentage decline in the VIX places in the top decile of its historical distribution. The 10% threshold is a placeholder; the specific rank that maps to \"top 10 in history\" should be calibrated against your own series.\n", "machine": "VIX_2w_pct_change <= percentile(VIX_2w_pct_change, 10)", "inputs": ["VIX_close", "VIX_2w_pct_change"]}, "current_state": {"status": "on", "last_updated": "2026-04-18", "triggered_on": "2026-04-18", "raw_values": {"VIX_2w_pct_change": -0.38, "historical_rank": "7th largest decline on record (per note)"}, "notes": "Status and magnitude taken from the self-forwarded note. Populate from a live data feed on refresh and re-rank against the current history.\n"}, "flips_if": "VIX 2-week percentage change rises out of the top decile of its historical distribution.", "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX", "NDX"], "historical_base_rates": {"source": null, "sample_size": null, "notes": "The note claims this is the 7th biggest volatility crash in history but does not supply conditional forward-return statistics. A clean event study should compute median and mean forward returns at 1m/3m/6m/12m conditional on the top-decile event, with a hit rate. Do not rely on this record until those numbers are populated.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-18", "text": "This indicator is orthogonal to vix-calm-regime (a threshold on the level) and vix-range-rank-reversal (a statistical pattern in the four-month range). It measures the speed of the volatility collapse rather than its level or pattern. Firing alongside the other two VIX indicators gives a stronger combined signal, but also raises the possibility that the three are simply rhyming facets of the same underlying event rather than three independent confirmations.\n"}, "consumers": ["EDD", "PCC"], "tags": ["volatility", "vix", "magnitude", "crash"]}, {"id": "vix-calm-regime", "name": "VIX Calm Regime", "category": "volatility", "description": "VIX closes below the 20 threshold, marking a transition from a volatile \"panic\" regime into a \"calm\" regime in which institutions and retail participants are more likely to deploy capital.\n", "source": {"name": "SentimenTrader", "note_title": "Calmer Waters Prevail", "note_date": "2026-04-13", "url": null, "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "The CBOE Volatility Index (VIX) closes below 20 after having been above 20 for an extended period.\n", "machine": "VIX_close < 20", "inputs": ["VIX_close"]}, "current_state": {"status": "on", "last_updated": "2026-04-13", "triggered_on": "2026-04-13", "raw_values": {"VIX_close": "< 20 (per note, exact value to be refreshed from data feed)"}, "notes": "Status taken from SentimenTrader note. Needs a live data feed to be authoritative; populate raw_values.VIX_close with the actual print on refresh.\n"}, "flips_if": "VIX closes at or above 20.", "direction": "bullish", "horizon": "1m", "confidence": "medium", "target_assets": ["SPX", "DJIA", "NDX"], "historical_base_rates": {"source": "SentimenTrader note, 2026-04-13", "sample_size": null, "notes": "When VIX is below 20, the S&P 500 next-day total returns have historically been more than 1.5 times the unconditional average. Specific forward-return medians for 1m/3m/6m/12m were not extracted from the note and should be verified before use.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-13", "text": "SentimenTrader flags that the V-shaped rally preceding this signal has been unusually aggressive, which may have pulled forward some near-term upside. The signal itself is valid; immediate expectations should be tempered and a brief consolidation would not be unusual.\n"}, "consumers": ["EDD", "PCC"], "tags": ["volatility", "regime-shift", "vix"]}, {"id": "vix-range-rank-reversal", "name": "VIX Range Rank Reversal Buy Signal", "category": "volatility", "description": "A quantitative reversal signal that fires when the VIX 4-month range rank violently resets from a period of extreme volatility (rank > 99.9) to a calm regime (rank < 40), provided the SPY 5-day rate of change is positive within 10 trading days of the reset.\n", "source": {"name": "SentimenTrader", "note_title": "Calmer Waters Prevail", "note_date": "2026-04-13", "url": null, "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "A buy signal is triggered when all four conditions below are satisfied in sequence. Conditions 3 and 4 introduce a 10-day window from the moment the range rank drops below 40.\n", "machine": "C1: VIX_4mo_range_rank crosses above 99.9\nC2: VIX_4mo_range_rank then crosses below 40\nC3: days_since_C2 <= 10\nC4: SPY_5d_roc > 0%\ntrigger = C1 and C2 and C3 and C4\n", "inputs": ["VIX_close", "VIX_4mo_range_rank", "SPY_close", "SPY_5d_roc"]}, "current_state": {"status": "on", "last_updated": "2026-04-13", "triggered_on": "2026-04-13", "raw_values": {"signal_triggered_on": "latest, per SentimenTrader note 2026-04-13"}, "notes": "Signal state taken from the source note. Needs a proper implementation of the 4-month range rank calculation to refresh autonomously.\n"}, "flips_if": "VIX 4-month range rank re-enters above 99.9 before the 10-day window expires, or SPY 5-day rate of change turns negative within that window.", "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX"], "historical_base_rates": {"source": "SentimenTrader note, 2026-04-13", "sample_size": null, "notes": "The note characterises historical performance as \"incredibly solid\" but does not supply a clean table of conditional medians. The most recent prior signal triggered in November of the preceding year, posting +2.3% over the first month before softening. Population of specific 1m/3m/6m/12m numbers requires access to the SentimenTrader back-test or an independent replication of the range-rank rule.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-13", "text": "The source explicitly tempers expectations for this specific firing: the current V-shaped bounce has been even more aggressive than the previous instance, so the market may have pulled forward a significant portion of the near-term upside the signal would ordinarily promise. Historical win rates still support the direction; the size of the immediate payoff is what to discount.\n"}, "consumers": ["EDD", "PCC"], "tags": ["volatility", "reversal", "quant-signal", "vix"]}], "summary": {"total": 7, "by_category": {"sentiment": {"on": 0, "off": 0, "unknown": 1}, "credit": {"on": 0, "off": 0, "unknown": 1}, "momentum": {"on": 1, "off": 0, "unknown": 0}, "trend": {"on": 1, "off": 0, "unknown": 0}, "volatility": {"on": 3, "off": 0, "unknown": 0}}, "by_status": {"on": 5, "off": 0, "unknown": 2}, "bullish_on": 5, "bearish_on": 0, "net_bullish_on": 5, "per_asset": {"SPX": {"score": 5.0, "n_bullish": 5, "n_bearish": 0, "categories": ["momentum", "trend", "volatility"]}, "DJIA": {"score": 3.0, "n_bullish": 3, "n_bearish": 0, "categories": ["momentum", "trend", "volatility"]}, "NDX": {"score": 4.0, "n_bullish": 4, "n_bearish": 0, "categories": ["momentum", "trend", "volatility"]}}}} /*__ENDDATA__*/;
+"use strict";
+const DATA = /*__DATA__*/ {"generated_at": "2026-04-18T15:34:21Z", "indicators": [{"id": "spx-oversold-overbought-speed", "name": "SPX Oversold-to-Overbought Transition Speed", "category": "momentum", "description": "A velocity-of-reversal indicator. When the S&P 500 transitions from a technically oversold state to an overbought state in an unusually small number of trading days, it signals aggressive buyer conviction after a capitulation low. Historically associated with durable lows and strong forward outperformance.\n", "source": {"name": "Ryan Detrick, CMT, Carson Investment Research", "note_title": "S&P 500 Performance After Quickest RSI <30 to >70 Readings", "note_date": "2026-04-16", "url": "https://x.com/RyanDetrick", "received_by": "phuaz@hotmail.com", "notes": "Published via Ryan Detrick on X on 17 Apr 2026 (Carson Investment Research / Bloomberg / FactSet, data cut 4/16/2026). The study isolates the 10 quickest S&P 500 transitions from a 14-day RSI close below 30 (oversold) to a 14-day RSI close above 70 (overbought) since 1950. Current reading of 11 trading days places this episode as the second fastest such transition on record, behind only the 8/23/1982 low (6 days).\n"}, "criteria": {"description": "Trigger when the number of trading days between the S&P 500's 14-day RSI closing below 30 (oversold) and subsequently closing above 70 (overbought) is less than or equal to a fast-transition threshold. The threshold below is a placeholder; calibrate against the distribution of historical transition counts.\n", "machine": "oversold_day  = last day where SPX_RSI14 < 30\noverbought_day = first day after oversold_day where SPX_RSI14 > 70\ndays_to_transition = overbought_day - oversold_day\ntrigger = days_to_transition <= 15\n", "inputs": ["SPX_close", "SPX_RSI14"]}, "current_state": {"status": "on", "last_updated": "2026-04-18", "triggered_on": "2026-04-18", "raw_values": {"days_to_transition": 11, "historical_rank": "2nd fastest transition on record (1982 was 6 days)"}, "notes": "Status taken from self-forwarded note. Days-to-transition of 11 is recorded as the current reading; refresh requires either adopting the original study's definitions or reproducing them with RSI14.\n"}, "flips_if": "A new oversold print (SPX 14-day RSI closes below 30) occurs without a sub-15-day round-trip back above 70, restarting the transition clock above the threshold.", "direction": "bullish", "horizon": "6m", "confidence": "medium", "target_assets": ["SPX", "DJIA", "NDX"], "historical_base_rates": {"source": "Ryan Detrick / Carson Investment Research, Bloomberg / FactSet, data cut 2026-04-16. Ten historical quickest RSI<30 to RSI>70 transitions, 1950-2025.", "sample_size": 10, "verbal_summary": "Across the 10 historical quickest S&P 500 RSI oversold-to-overbought transitions (1950 to 2025), median forward returns have been 2.7% at 1m, 5.0% at 3m, 8.9% at 6m and 17.3% at 12m, with hit rates of 80%, 80%, 90% and 70% respectively. All four are roughly 2-3x the unconditional all-years baseline.\n", "notes": "Signal cases drawn from the Detrick / Carson table: 8/23/1982 (6 days, fastest on record), 5/26/1972 (12 days), 11/25/2016 (13), 12/16/1971 (14), 8/14/1963 (15), 5/5/1997 (15), 11/20/2023 (15), 11/18/1952 (16), 7/2/1959 (16), 8/23/1960 (18). For reference, the unconditional all-years baseline (1950-2025) is median 1.0% / 2.6% / 5.0% / 10.6% at 1m/3m/6m/12m with hit rates of 60.7% / 66.1% / 70.2% / 74.3%.\n", "returns": {"1m": {"median": 2.7, "mean": 1.8, "hit_rate": 0.8}, "3m": {"median": 5.0, "mean": 5.6, "hit_rate": 0.8}, "6m": {"median": 8.9, "mean": 9.6, "hit_rate": 0.9}, "12m": {"median": 17.3, "mean": 16.3, "hit_rate": 0.7}}}, "qualitative_note": {"date": "2026-04-18", "text": "This indicator captures the velocity of the rally off a low, which is conceptually distinct from a VIX-based volatility reset: a fast RSI-based round-trip can occur without the VIX ever crossing 20, and a VIX collapse can happen without the index making a clean oversold print. Treat the two as complementary rather than duplicative. Also note that the reference to \"the 1982 lows\" implies this is a rare event; small sample sizes deserve low confidence even when the directional claim is intuitively sensible.\n"}, "consumers": ["EDD", "PCC"], "tags": ["momentum", "breadth", "rsi", "reversal", "velocity"]}, {"id": "spx-trend-200dma", "name": "SPX Trend Above 200-Day Moving Average", "category": "trend", "description": "The S&P 500 closes at least 2% above its 200-day moving average, indicating that buyers have sufficient conviction to drive prices meaningfully above the long-term trend.\n", "source": {"name": "SentimenTrader", "note_title": "Calmer Waters Prevail", "note_date": "2026-04-13", "url": null, "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "The S&P 500 closing price is greater than 1.02 times its 200-day simple moving average. Most useful when combined with a volatility-regime indicator such as VIX < 20.\n", "machine": "SPX_close > 1.02 * SPX_200DMA", "inputs": ["SPX_close", "SPX_200DMA"]}, "current_state": {"status": "on", "last_updated": "2026-04-13", "triggered_on": "2026-04-13", "raw_values": {"SPX_close": "above 200DMA by >2% (per note)", "SPX_200DMA": null}, "notes": "Status taken from SentimenTrader note. Populate raw values from data feed on refresh.\n"}, "flips_if": "SPX closes below 1.02 x 200DMA.", "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX", "DJIA", "NDX"], "historical_base_rates": {"source": "SentimenTrader, \"Calmer Waters Prevail\", 2026-04-13. Forward-return chart images not accessible from the compiler sandbox.", "sample_size": null, "verbal_summary": "Per SentimenTrader: when a streak of VIX >20 prints ends while SPX is trading at least 2% above its 200-day MA, forward returns have historically improved dramatically. Notable false positives opened the 2001-02, 2008 and 2022 bear markets. Across major indices, DJIA has matched or slightly outperformed SPX on this setup; NDX has seen wider swings and deeper drawdowns.\n", "notes": "When a streak of VIX prints above 20 ends and SPX is simultaneously trading at least 2% above its 200-day MA, forward returns have historically improved dramatically. The note is explicit that the setup also fired during the early stages of the 2001-02, 2008 and 2022 bear markets, so the signal is not without notable failures. Conditional median/mean forward returns at 1m/3m/6m/12m were not extracted and need verification before use.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-13", "text": "The source note emphasises that this trend condition works best paired with the VIX Calm Regime indicator. Either condition alone is weaker; both conditions off (VIX > 20 and SPX below 200DMA) is historically the worst regime to be long.\n"}, "consumers": ["EDD", "PCC"], "tags": ["trend", "moving-average", "spx"]}, {"id": "vix-2w-crash-magnitude", "name": "VIX Two-Week Crash Magnitude", "category": "volatility", "description": "A magnitude-based measure of volatility collapse. The rolling two-week percentage decline in the VIX is ranked against its full history; the largest declines are associated with capitulation in volatility after a stress episode and have historically preceded positive forward returns.\n", "source": {"name": "Charlie Bilello, Creative Planning", "note_title": "Biggest 2-Week VIX % Declines and Forward S&P 500 Total Returns", "note_date": "2026-04-18", "url": null, "received_by": "phuaz@hotmail.com", "notes": "Table lists the 20 biggest 2-week VIX percentage declines between 1990 and 2026, with forward S&P 500 total returns at 6-month, 1-year, 2-year, 3-year, 4-year and 5-year horizons. Current reading of -38.1% (4 Oct 2026 end date, start VIX 31.05, end VIX 19.23) places this as the 7th biggest 2-week VIX decline on record. Data via YCharts.\n"}, "criteria": {"description": "Trigger when the rolling two-week percentage decline in the VIX places in the top decile of its historical distribution. The 10% threshold is a placeholder; the specific rank that maps to \"top 10 in history\" should be calibrated against your own series.\n", "machine": "VIX_2w_pct_change <= percentile(VIX_2w_pct_change, 10)", "inputs": ["VIX_close", "VIX_2w_pct_change"]}, "current_state": {"status": "on", "last_updated": "2026-04-18", "triggered_on": "2026-04-18", "raw_values": {"VIX_start": 31.05, "VIX_end": 19.23, "VIX_2w_pct_change": -0.381, "historical_rank": "7th largest 2-week decline since 1990"}, "notes": "Values from the Bilello / Creative Planning table. Start date 21 Mar 2026, end date 4 Oct 2026 per the source (end date is the trigger anchor in the table).\n"}, "flips_if": "VIX 2-week percentage change rises out of the top decile of its historical distribution.", "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX", "NDX"], "historical_base_rates": {"source": "Bilello / Creative Planning, table of 20 biggest 2-week VIX declines, data via YCharts, 1990-2026.", "sample_size": 20, "verbal_summary": "Across the 20 biggest 2-week VIX declines since 1990, the S&P 500 has returned an average of +10.6% at 6 months and +17.2% at 1 year, versus 5.8% and 12.2% in all other periods — an edge of roughly +5% at both horizons.\n", "notes": "1-month and 3-month returns are not disclosed in the source table, so those cells are left null. The 6-month figure is the published mean of 20 historical instances. Median not supplied by the source; only the mean row is given. Hit rate was not stated; a conservative eyeball count from the table shows roughly 16 of 19 mature 6-month observations positive (~84%), with two material negatives around the 2022 bear start.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": 10.6, "hit_rate": 0.84}, "12m": {"median": null, "mean": 17.2, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-18", "text": "This indicator is orthogonal to vix-calm-regime (a threshold on the level) and vix-range-rank-reversal (a statistical pattern in the four-month range). It measures the speed of the volatility collapse rather than its level or pattern. Firing alongside the other two VIX indicators gives a stronger combined signal, but also raises the possibility that the three are simply rhyming facets of the same underlying event rather than three independent confirmations.\n"}, "consumers": ["EDD", "PCC"], "tags": ["volatility", "vix", "magnitude", "crash"]}, {"id": "vix-calm-regime", "name": "VIX Calm Regime", "category": "volatility", "description": "VIX closes below the 20 threshold, marking a transition from a volatile \"panic\" regime into a \"calm\" regime in which institutions and retail participants are more likely to deploy capital.\n", "source": {"name": "SentimenTrader", "note_title": "Calmer Waters Prevail", "note_date": "2026-04-13", "url": null, "received_by": "phuaz@hotmail.com", "notes": "Emailed to subscriber 2026-04-13 21:01 local time. Contains three chart images with conditional forward-return tables that are not accessible to the compiler's sandbox; numeric base rates are therefore left null and the verbal summary quotes the prose claims from the note directly.\n"}, "criteria": {"description": "The CBOE Volatility Index (VIX) closes below 20 after having been above 20 for an extended period.\n", "machine": "VIX_close < 20", "inputs": ["VIX_close"]}, "current_state": {"status": "on", "last_updated": "2026-04-13", "triggered_on": "2026-04-13", "raw_values": {"VIX_close": "< 20 (per note, exact value to be refreshed from data feed)"}, "notes": "Status taken from SentimenTrader note. Needs a live data feed to be authoritative; populate raw_values.VIX_close with the actual print on refresh.\n"}, "flips_if": "VIX closes at or above 20.", "direction": "bullish", "horizon": "1m", "confidence": "medium", "target_assets": ["SPX", "DJIA", "NDX"], "historical_base_rates": {"source": "SentimenTrader, \"Calmer Waters Prevail\", 2026-04-13. Underlying sample size and horizon table not disclosed in note prose.", "sample_size": null, "verbal_summary": "Per SentimenTrader: S&P 500 next-day total returns when VIX sits below 20 have historically been more than 1.5x the unconditional average. This is a daily-return claim; conditional 1m/3m/6m/12m base rates are implied by the note but not disclosed as numbers.\n", "notes": "When VIX is below 20, the S&P 500 next-day total returns have historically been more than 1.5 times the unconditional average. Specific forward-return medians for 1m/3m/6m/12m were not extracted from the note and should be verified before use.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-13", "text": "SentimenTrader flags that the V-shaped rally preceding this signal has been unusually aggressive, which may have pulled forward some near-term upside. The signal itself is valid; immediate expectations should be tempered and a brief consolidation would not be unusual.\n"}, "consumers": ["EDD", "PCC"], "tags": ["volatility", "regime-shift", "vix"]}, {"id": "vix-range-rank-reversal", "name": "VIX Range Rank Reversal Buy Signal", "category": "volatility", "description": "A quantitative reversal signal that fires when the VIX 4-month range rank violently resets from a period of extreme volatility (rank > 99.9) to a calm regime (rank < 40), provided the SPY 5-day rate of change is positive within 10 trading days of the reset.\n", "source": {"name": "SentimenTrader", "note_title": "Calmer Waters Prevail", "note_date": "2026-04-13", "url": null, "received_by": "phuaz@hotmail.com"}, "criteria": {"description": "A buy signal is triggered when all four conditions below are satisfied in sequence. Conditions 3 and 4 introduce a 10-day window from the moment the range rank drops below 40.\n", "machine": "C1: VIX_4mo_range_rank crosses above 99.9\nC2: VIX_4mo_range_rank then crosses below 40\nC3: days_since_C2 <= 10\nC4: SPY_5d_roc > 0%\ntrigger = C1 and C2 and C3 and C4\n", "inputs": ["VIX_close", "VIX_4mo_range_rank", "SPY_close", "SPY_5d_roc"]}, "current_state": {"status": "on", "last_updated": "2026-04-13", "triggered_on": "2026-04-13", "raw_values": {"signal_triggered_on": "latest, per SentimenTrader note 2026-04-13"}, "notes": "Signal state taken from the source note. Needs a proper implementation of the 4-month range rank calculation to refresh autonomously.\n"}, "flips_if": "VIX 4-month range rank re-enters above 99.9 before the 10-day window expires, or SPY 5-day rate of change turns negative within that window.", "direction": "bullish", "horizon": "3m", "confidence": "medium", "target_assets": ["SPX"], "historical_base_rates": {"source": "SentimenTrader, \"Calmer Waters Prevail\", 2026-04-13. Conditional performance table shown as a chart image that is not accessible from the sandbox.", "sample_size": null, "verbal_summary": "Per SentimenTrader: historical signal performance characterised as \"incredibly solid\". The most recent prior trigger (Nov preceding the current cycle) posted +2.3% in the first month before price action softened. Current V-shaped rally is more aggressive than the prior instance, which SentimenTrader flags as a reason to expect near-term payoff to be smaller than the raw base rate.\n", "notes": "The note characterises historical performance as \"incredibly solid\" but does not supply a clean table of conditional medians. The most recent prior signal triggered in November of the preceding year, posting +2.3% over the first month before softening. Population of specific 1m/3m/6m/12m numbers requires access to the SentimenTrader back-test or an independent replication of the range-rank rule.\n", "returns": {"1m": {"median": null, "mean": null, "hit_rate": null}, "3m": {"median": null, "mean": null, "hit_rate": null}, "6m": {"median": null, "mean": null, "hit_rate": null}, "12m": {"median": null, "mean": null, "hit_rate": null}}}, "qualitative_note": {"date": "2026-04-13", "text": "The source explicitly tempers expectations for this specific firing: the current V-shaped bounce has been even more aggressive than the previous instance, so the market may have pulled forward a significant portion of the near-term upside the signal would ordinarily promise. Historical win rates still support the direction; the size of the immediate payoff is what to discount.\n"}, "consumers": ["EDD", "PCC"], "tags": ["volatility", "reversal", "quant-signal", "vix"]}], "summary": {"total": 5, "by_category": {"momentum": {"on": 1, "off": 0, "unknown": 0}, "trend": {"on": 1, "off": 0, "unknown": 0}, "volatility": {"on": 3, "off": 0, "unknown": 0}}, "by_status": {"on": 5, "off": 0, "unknown": 0}, "bullish_on": 5, "bearish_on": 0, "net_bullish_on": 5, "per_asset": {"SPX": {"score": 5.0, "n_bullish": 5, "n_bearish": 0, "categories": ["momentum", "trend", "volatility"]}, "DJIA": {"score": 3.0, "n_bullish": 3, "n_bearish": 0, "categories": ["momentum", "trend", "volatility"]}, "NDX": {"score": 4.0, "n_bullish": 4, "n_bearish": 0, "categories": ["momentum", "trend", "volatility"]}}}} /*__ENDDATA__*/;
 
-// --- State ---
-const state = {
-  category: new Set(),
-  status: new Set(),
-  horizon: new Set(),
-  consumer: new Set(),
-  direction: new Set(),
-};
-
-// --- Helpers ---
-function uniq(items) { return Array.from(new Set(items)).sort(); }
-function directionSign(d) { return d === "bullish" ? 1 : d === "bearish" ? -1 : 0; }
-function arrow(d) { return d === "bullish" ? "↑" : d === "bearish" ? "↓" : "→"; }
-function esc(s) {
-  if (s === null || s === undefined) return "";
-  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-}
-
-// Parse a YYYY-MM-DD string as a UTC date. Returns null on failure.
-function parseISODate(s) {
-  if (!s) return null;
-  const str = String(s).trim();
-  const m = str.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!m) return null;
-  const d = new Date(Date.UTC(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10)));
-  return isNaN(d.getTime()) ? null : d;
-}
-
-// Whole days between two UTC dates (b - a). Null-safe.
-function daysBetween(a, b) {
-  if (!a || !b) return null;
-  const MS_PER_DAY = 24 * 60 * 60 * 1000;
-  return Math.floor((b.getTime() - a.getTime()) / MS_PER_DAY);
-}
-
-// Today anchored on the payload's generated_at where possible, so rendering
-// in an offline archive still produces a sensible "firing for N days" count.
-function today() {
-  if (DATA && DATA.generated_at) {
-    const d = new Date(DATA.generated_at);
-    if (!isNaN(d.getTime())) {
-      return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
-    }
-  }
-  const n = new Date();
-  return new Date(Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate()));
-}
-
-// --- Filtering ---
-function matchesFilters(r) {
-  if (state.category.size && !state.category.has(r.category)) return false;
-  if (state.status.size && !state.status.has(r.current_state.status)) return false;
-  if (state.horizon.size && !state.horizon.has(r.horizon)) return false;
-  if (state.direction.size && !state.direction.has(r.direction)) return false;
-  if (state.consumer.size) {
-    const cs = new Set(r.consumers || []);
-    let hit = false;
-    for (const c of state.consumer) if (cs.has(c)) { hit = true; break; }
-    if (!hit) return false;
-  }
-  return true;
-}
-
-// --- P0: derive a named regime label from the summary ---
-// The label is the handle for the forecast, not the forecast itself. It is
-// composed from three observed properties of the firing set:
-//   1. dominant category    -> determines the theme noun
-//   2. net direction        -> chooses the polarity of the theme
-//   3. conviction + coverage -> qualifies how much weight to put on it
+// --- Constants ---
+const CANONICAL_CATEGORIES = ["volatility","trend","breadth","credit","sentiment","positioning","liquidity","macro"];
+const HORIZONS = ["1m","3m","6m","12m"];
+const CONFIDENCE_WEIGHT = { high: 2.0, medium: 1.0, low: 0.5 };
+const DIRECTION_SIGN    = { bullish: 1, bearish: -1, neutral: 0 };
 const THEME_MAP = {
   "volatility|bullish":  "Post-stress recovery",
   "volatility|bearish":  "Volatility stress",
@@ -630,388 +731,557 @@ const THEME_MAP = {
   "momentum|bullish":    "Momentum acceleration",
   "momentum|bearish":    "Momentum fade",
 };
+const MONTH_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
+// --- Helpers ---
+function esc(s) {
+  if (s === null || s === undefined) return "";
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function arrow(d) { return d === "bullish" ? "▲" : d === "bearish" ? "▼" : "·"; }
+function parseISO(s) {
+  if (!s) return null;
+  const m = String(s).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return null;
+  return new Date(Date.UTC(+m[1], +m[2]-1, +m[3]));
+}
+function today() {
+  if (DATA && DATA.generated_at) {
+    const d = new Date(DATA.generated_at);
+    if (!isNaN(d.getTime())) return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+  }
+  const n = new Date();
+  return new Date(Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate()));
+}
+function daysSince(dStr) {
+  const d = parseISO(dStr);
+  if (!d) return null;
+  return Math.floor((today().getTime() - d.getTime()) / 86400000);
+}
+function fmtISO(d) { return d.toISOString().slice(0,10); }
+function fmtShortDate(dStr) {
+  const d = parseISO(dStr);
+  if (!d) return "";
+  return `${d.getUTCDate()} ${MONTH_SHORT[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+}
+function fmtDayMonth(dStr) {
+  const d = parseISO(dStr);
+  if (!d) return "";
+  return `${d.getUTCDate()} ${MONTH_SHORT[d.getUTCMonth()]}`;
+}
+function ageLabel(days) {
+  if (days === null || days === undefined) return "";
+  if (days === 0) return "today";
+  if (days === 1) return "1 day ago";
+  return `${days} days ago`;
+}
+
+// --- Derivations ---
 function deriveRegimeLabel() {
-  const indicators = DATA.indicators;
   const s = DATA.summary;
-  const firing = indicators.filter(r => r.current_state.status === "on");
-
-  if (firing.length === 0) {
-    return {
-      theme: "Quiet regime",
-      sub: "no indicators firing",
-      caveat: "Nothing is on. Either the catalogue is sparse or the current tape is genuinely uneventful.",
-    };
-  }
-
-  // 1. Dominant category among firing indicators.
-  const catCounts = {};
-  for (const r of firing) catCounts[r.category] = (catCounts[r.category] || 0) + 1;
-  const sortedCats = Object.entries(catCounts).sort((a, b) => b[1] - a[1]);
-  const dominantCat = sortedCats[0][0];
-
-  // 2. Net direction polarity.
-  let polarity;
-  if (s.net_bullish_on > 0) polarity = "bullish";
-  else if (s.net_bullish_on < 0) polarity = "bearish";
-  else polarity = "neutral";
-
-  const themeKey = `${dominantCat}|${polarity}`;
-  const theme = THEME_MAP[themeKey] || (polarity === "neutral" ? "Mixed regime" : `${dominantCat} ${polarity}`);
-
-  // 3. Conviction: majority confidence among firing indicators.
-  const confCounts = { high: 0, medium: 0, low: 0 };
-  for (const r of firing) {
-    const c = r.confidence || "medium";
-    if (confCounts[c] !== undefined) confCounts[c]++;
-  }
-  const sortedConf = Object.entries(confCounts).sort((a, b) => b[1] - a[1]);
-  const dominantConf = sortedConf[0][0];
-  const mixed = sortedConf[0][1] === sortedConf[1][1];
-  const conviction = mixed ? "mixed conviction" : `${dominantConf} conviction`;
-
-  // 4. Coverage completeness. Any unknowns -> incomplete coverage.
-  const nUnknown = s.by_status.unknown || 0;
-  const coverage = nUnknown > 0 ? "incomplete coverage" : "complete coverage";
-
-  const sub = `${dominantCat}-led, ${conviction}, ${coverage}`;
-  const ratio = `${sortedCats[0][1]} of ${firing.length} firing indicators sit in ${dominantCat}`;
-  return {
-    theme,
-    sub,
-    caveat: `${ratio}. ${nUnknown ? `${nUnknown} indicator(s) unknown — coverage is partial.` : "All catalogued indicators have a determined status."}`,
-  };
-}
-
-// --- Render: P0 regime banner ---
-function renderRegimeBanner() {
-  const el = document.getElementById("regime-banner");
-  const r = deriveRegimeLabel();
-  el.innerHTML = `
-    <div class="banner-label">Regime label</div>
-    <div class="banner-theme">${esc(r.theme)} — ${esc(r.sub)}</div>
-    <div class="banner-caveat">${esc(r.caveat)}</div>
-  `;
-}
-
-// --- Render: P2 flips-if panel ---
-function renderFlipsPanel() {
-  const el = document.getElementById("flips");
   const firing = DATA.indicators.filter(r => r.current_state.status === "on");
-  const withFlips = firing.filter(r => r.flips_if && String(r.flips_if).trim());
-
-  let body;
   if (firing.length === 0) {
-    body = `<div class="flips-empty">No indicators are firing, so nothing to flip.</div>`;
-  } else if (withFlips.length === 0) {
-    body = `<div class="flips-empty">No firing indicator has a flips_if criterion populated yet.</div>`;
-  } else {
-    body = `<ul>` + withFlips.map(r => `
-      <li>
-        <span class="flip-name">${esc(r.name)}</span>
-        <span class="flip-sep">→</span>
-        <span class="flip-text">${esc(String(r.flips_if).trim())}</span>
-      </li>
-    `).join("") + `</ul>`;
+    return { theme: "Quiet regime", dominant: "none", polarity: "neutral", conviction: "n/a", coverage: "n/a", nFiring: 0, nUnknown: s.by_status.unknown || 0 };
   }
-
-  // If some firing indicators are missing flips_if, surface a footnote so
-  // the gap is visible rather than silent.
-  const missing = firing.filter(r => !r.flips_if || !String(r.flips_if).trim());
-  const footnote = missing.length
-    ? `<div class="flips-empty" style="margin-top:8px">
-        ${missing.length} firing indicator(s) without flips_if: ${missing.map(m => esc(m.name)).join(", ")}.
-       </div>`
-    : "";
-
-  el.innerHTML = `<h2>What would flip this</h2>${body}${footnote}`;
+  const catCounts = {};
+  for (const r of firing) catCounts[r.category] = (catCounts[r.category]||0)+1;
+  const sortedCats = Object.entries(catCounts).sort((a,b) => b[1]-a[1]);
+  const dominant = sortedCats[0][0];
+  const polarity = s.net_bullish_on > 0 ? "bullish" : s.net_bullish_on < 0 ? "bearish" : "neutral";
+  const theme = THEME_MAP[`${dominant}|${polarity}`] ||
+                (polarity === "neutral" ? "Mixed regime" : `${dominant} ${polarity}`);
+  const confCounts = { high: 0, medium: 0, low: 0 };
+  for (const r of firing) if (confCounts[r.confidence] !== undefined) confCounts[r.confidence]++;
+  const sortedConf = Object.entries(confCounts).sort((a,b) => b[1]-a[1]);
+  const convMixed = sortedConf[0][1] === sortedConf[1][1];
+  const conviction = convMixed ? "mixed" : sortedConf[0][0];
+  const nUnknown = s.by_status.unknown || 0;
+  // Coverage now reflects catalogue breadth across canonical categories,
+  // not just the absence of unknowns. A library of five volatility-and-trend
+  // signals is "narrow" coverage even if every indicator has a determined
+  // status.
+  const nCategoriesRepresented = sortedCats.length;
+  const nCanonical = CANONICAL_CATEGORIES.length;
+  let coverage;
+  if (nUnknown > 0) coverage = "pending";
+  else if (nCategoriesRepresented >= nCanonical) coverage = "complete";
+  else if (nCategoriesRepresented >= 5) coverage = "broad";
+  else if (nCategoriesRepresented >= 3) coverage = "partial";
+  else coverage = "narrow";
+  return { theme, dominant, polarity, conviction, coverage, nFiring: firing.length, nUnknown, dominantCount: sortedCats[0][1], firing, nCategoriesRepresented, nCanonical };
 }
 
-// --- P3: horizon-stratified per-asset composites ---
-const CONFIDENCE_WEIGHT = { high: 2.0, medium: 1.0, low: 0.5 };
-const DIRECTION_SIGN = { bullish: 1, bearish: -1, neutral: 0 };
+function perAssetHorizonReturns() {
+  const firing = DATA.indicators.filter(r => r.current_state.status === "on");
+  const assets = Array.from(new Set(firing.flatMap(r => r.target_assets || []))).sort();
+  const grid = {};
+  for (const a of assets) {
+    grid[a] = {};
+    for (const h of HORIZONS) grid[a][h] = { numeric: [], fires: [], contributors: [], latestDate: null };
+  }
+  for (const r of firing) {
+    const br = r.historical_base_rates || {};
+    const ret = br.returns || {};
+    const triggered = parseISO(r.current_state.triggered_on);
+    for (const a of (r.target_assets || [])) {
+      if (!grid[a]) continue;
+      for (const h of HORIZONS) {
+        const v = ret[h];
+        const hasNumeric = v && (v.median !== null || v.mean !== null);
+        let pushed = false;
+        if (hasNumeric) {
+          grid[a][h].numeric.push({ name: r.name, median: v.median, mean: v.mean, hit: v.hit_rate, n: br.sample_size || null });
+          pushed = true;
+        } else if (r.horizon === h) {
+          grid[a][h].fires.push({ name: r.name, direction: r.direction });
+          pushed = true;
+        }
+        if (pushed) {
+          grid[a][h].contributors.push(r);
+          if (triggered && (!grid[a][h].latestDate || triggered > grid[a][h].latestDate)) grid[a][h].latestDate = triggered;
+        }
+      }
+    }
+  }
+  for (const a of assets) for (const h of HORIZONS) {
+    const cell = grid[a][h];
+    const vals = []; const hits = []; let totalN = 0; let anyMedian = false;
+    for (const x of cell.numeric) {
+      if (x.median !== null && x.median !== undefined) { vals.push(x.median); anyMedian = true; }
+      else if (x.mean !== null && x.mean !== undefined) vals.push(x.mean);
+      if (x.hit !== null && x.hit !== undefined) hits.push(x.hit);
+      if (x.n) totalN += x.n;
+    }
+    cell.aggReturn = vals.length ? vals.reduce((s,v) => s+v, 0) / vals.length : null;
+    cell.returnIsMedian = anyMedian;
+    cell.aggHit = hits.length ? hits.reduce((s,v) => s+v, 0) / hits.length : null;
+    cell.totalN = totalN;
+    cell.nNumeric = cell.numeric.length;
+    cell.nFires = cell.fires.length;
+  }
+  return { assets, horizons: HORIZONS, grid };
+}
 
-function perAssetForHorizon(horizon) {
-  // Aggregate firing indicators with the given horizon (or all if null) into
-  // per-asset { score, n_bullish, n_bearish, categories }. Mirrors the
-  // calculation in compile.py's summarise() so the numbers reconcile.
-  const slot = {};
+function categoryBreadth() {
+  const firingByCat = {}, totalByCat = {};
   for (const r of DATA.indicators) {
-    if (r.current_state.status !== "on") continue;
-    if (horizon && r.horizon !== horizon) continue;
-    const w = CONFIDENCE_WEIGHT[r.confidence] || 1.0;
-    const sign = DIRECTION_SIGN[r.direction] || 0;
-    for (const a of r.target_assets || []) {
-      if (!slot[a]) slot[a] = { score: 0, n_bullish: 0, n_bearish: 0, categories: new Set() };
-      slot[a].score += sign * w;
-      slot[a].categories.add(r.category);
-      if (r.direction === "bullish") slot[a].n_bullish++;
-      else if (r.direction === "bearish") slot[a].n_bearish++;
+    totalByCat[r.category] = (totalByCat[r.category]||0)+1;
+    if (r.current_state.status === "on") firingByCat[r.category] = (firingByCat[r.category]||0)+1;
+  }
+  const rows = [];
+  const seen = new Set();
+  for (const c of [...CANONICAL_CATEGORIES, ...Object.keys(totalByCat)]) {
+    if (seen.has(c)) continue;
+    seen.add(c);
+    rows.push({ cat: c, total: totalByCat[c]||0, firing: firingByCat[c]||0 });
+  }
+  return rows;
+}
+
+// Returns the top firing categories as readable prose.
+function dominantEvidencePhrase() {
+  const cb = categoryBreadth().filter(c => c.firing > 0).sort((a,b) => b.firing - a.firing);
+  if (!cb.length) return "no firing indicators";
+  const parts = cb.map(c => `${c.cat} (${c.firing})`);
+  if (parts.length === 1) return parts[0];
+  if (parts.length === 2) return parts.join(" and ");
+  return parts.slice(0, -1).join(", ") + " and " + parts.slice(-1);
+}
+
+// Horizon span covered by firing indicators, e.g. "1-12 months".
+function firingHorizonSpan() {
+  const firing = DATA.indicators.filter(r => r.current_state.status === "on");
+  const order = ["1m","3m","6m","12m"];
+  const hs = firing.map(r => r.horizon).filter(h => order.includes(h));
+  if (!hs.length) return "";
+  const idx = hs.map(h => order.indexOf(h));
+  const lo = order[Math.min(...idx)].replace("m","");
+  const hi = order[Math.max(...idx)].replace("m","");
+  if (lo === hi) return `${lo}-month`;
+  return `${lo} to ${hi} months`;
+}
+
+// Pulls the most material caveat from qualitative_note fields on firing signals.
+function principalCaveat() {
+  const firing = DATA.indicators.filter(r => r.current_state.status === "on");
+  const texts = firing.map(r => r.qualitative_note && r.qualitative_note.text).filter(Boolean).map(t => t.trim());
+  if (!texts.length) return null;
+  // Prefer any note mentioning pull-forward, V-shaped, caveat, failure, false-positive, drawdown.
+  const keyPatterns = [/pull[- ]?forward/i, /v-?shaped/i, /false[- ]positive/i, /consolidat/i, /rhym/i, /correlated/i];
+  for (const pat of keyPatterns) {
+    for (const t of texts) {
+      if (pat.test(t)) {
+        // Return the first sentence containing the match
+        const m = t.match(new RegExp("[^.!?]*" + pat.source + "[^.!?]*[.!?]", "i"));
+        if (m) return m[0].trim();
+        return t.split(/[.!?]/)[0].trim() + ".";
+      }
     }
   }
-  return slot;
+  return texts[0].split(/[.!?]/)[0].trim() + ".";
 }
 
-function renderAssetCards(slot, opts) {
-  const small = opts && opts.small;
-  const entries = Object.entries(slot).sort((a, b) => b[1].score - a[1].score);
-  if (entries.length === 0) {
-    return `<div class="empty-horizon">No firing indicators at this horizon.</div>`;
-  }
-  return entries.map(([asset, v]) => {
-    const cls = v.score > 0 ? "bullish" : v.score < 0 ? "bearish" : "neutral";
-    const sign = v.score > 0 ? "+" : "";
-    return `
-      <div class="asset-card ${cls}">
-        <div class="name">${esc(asset)}</div>
-        <div class="score">${sign}${v.score.toFixed(1)}</div>
-        <div class="breakdown">${v.n_bullish}▲ · ${v.n_bearish}▼ · ${v.categories.size} cat</div>
-      </div>`;
-  }).join("");
+function returnIntensity(pct) {
+  const a = Math.abs(pct);
+  if (a >= 10) return "strong";
+  if (a >= 3)  return "mid";
+  return "mild";
 }
 
-// --- Render: snapshot (now horizon-stratified, with combined as fallback) ---
-function renderSnapshot() {
-  const el = document.getElementById("snapshot");
+// --- Render: top ribbon ---
+function renderRibbon() {
   const s = DATA.summary;
+  const el = document.getElementById("ribbon-meta");
+  const t = DATA.generated_at ? DATA.generated_at.slice(0,10) : "";
+  el.innerHTML = `as of <b>${esc(t)}</b> · <b>${s.total}</b> indicators · <b>${s.by_status.on || 0}</b> firing · <b>${s.by_status.unknown || 0}</b> unknown`;
+  const when = document.getElementById("colophon-when");
+  when.textContent = `Generated ${DATA.generated_at || ""}`;
+}
 
-  const horizons = ["1m", "3m", "6m"];
-  const horizonPanels = horizons.map(h => {
-    const slot = perAssetForHorizon(h);
-    const nFiring = DATA.indicators.filter(r => r.current_state.status === "on" && r.horizon === h).length;
-    return `
-      <div class="horizon-panel">
-        <div class="h-label"><span>${h} horizon</span><span class="n-firing">${nFiring} firing</span></div>
-        <div class="horizon-cards">${renderAssetCards(slot)}</div>
-      </div>`;
-  }).join("");
+// --- Render: executive summary ---
+function renderExec() {
+  const r = deriveRegimeLabel();
+  document.getElementById("exec-theme").textContent = r.theme;
 
-  // Combined fallback row: same shape as before, retained as a footer so
-  // the all-horizons composite stays one glance away.
-  const combinedSlot = perAssetForHorizon(null);
-  // perAssetForHorizon returns Set for categories; but DATA.summary.per_asset
-  // already contains arrays. Use the freshly recomputed slot to keep the
-  // combined row consistent with the per-horizon panels.
+  const horizonSpan = firingHorizonSpan();
+  const horizonPhrase = horizonSpan ? ` across <b>${esc(horizonSpan)}</b>` : "";
+  const firingLine = r.nFiring === DATA.summary.total
+    ? `All <b>${r.nFiring}</b> indicators firing${horizonPhrase}`
+    : `<b>${r.nFiring}</b> of ${DATA.summary.total} indicators firing${horizonPhrase}`;
+  const coverageLine = `<b>${esc(r.coverage)}</b> coverage (${r.nCategoriesRepresented} of ${r.nCanonical} categories represented)`;
+  document.getElementById("exec-strap").innerHTML =
+    `<b>${esc(r.dominant.charAt(0).toUpperCase() + r.dominant.slice(1))}-led</b> regime · ` +
+    `${firingLine} · ` +
+    `<b>${esc(r.conviction)}</b> conviction · ` +
+    coverageLine;
 
-  // Concentration warning: unchanged.
-  const totalOn = s.by_status.on || 0;
-  const concentrated = Object.entries(s.by_category)
-    .filter(([, v]) => v.on > 0)
-    .map(([cat, v]) => ({ cat, on: v.on }))
-    .filter(x => totalOn > 1 && x.on / totalOn > 0.5);
+  const takeaways = document.getElementById("exec-takeaways");
+  const polarityWord = r.polarity === "bullish" ? "Bullish" : r.polarity === "bearish" ? "Bearish" : "Mixed";
+  const polarityCls = r.polarity === "bullish" ? "bullish" : r.polarity === "bearish" ? "bearish" : "caveat";
 
-  let warn = "";
-  if (concentrated.length) {
-    warn = concentrated.map(c =>
-      `<div class="concentration-warn">
-        <strong>Concentration:</strong> ${c.on} of ${totalOn} firing indicators are in the
-        <b>${esc(c.cat)}</b> category. Treat them as partially correlated rather than as
-        independent confirmations.
-      </div>`).join("");
-  }
+  // Bias card
+  const biasText = r.nFiring === 0
+    ? "No firing indicators to draw a directional read from."
+    : `${polarityWord} ${r.polarity === "bullish" ? "tilt" : r.polarity === "bearish" ? "tilt" : "read"} on equities${horizonSpan ? " over " + horizonSpan : ""}. All ${r.nFiring} firing signals point ${r.polarity === "neutral" ? "in mixed directions" : r.polarity}.`;
 
-  const netSign = s.net_bullish_on > 0 ? "+" : "";
+  // Evidence card
+  const evidenceText = `Dominant evidence: ${dominantEvidencePhrase()}. Regime label handle is <i>${esc(r.theme)}</i>.`;
 
-  el.innerHTML = `
-    <h2>Regime Snapshot</h2>
-    <div class="horizons">${horizonPanels}</div>
-    <div class="combined-row">
-      <div class="h-label">Combined (all horizons)</div>
-      <div class="scorecard small">${renderAssetCards(combinedSlot, { small: true })}</div>
+  // Caveat card
+  const caveatNote = principalCaveat();
+  const coverageNote = r.nUnknown > 0
+    ? ` ${r.nUnknown} indicator${r.nUnknown === 1 ? " is" : "s are"} still unknown — coverage is pending.`
+    : (r.nCategoriesRepresented < r.nCanonical
+      ? ` Catalogue covers ${r.nCategoriesRepresented} of ${r.nCanonical} canonical categories — read is ${r.coverage === "partial" ? "directionally informed but not breadth-complete" : r.coverage}.`
+      : "");
+  const caveatText = (caveatNote ? caveatNote : "No material caveat flagged.") + coverageNote;
+
+  takeaways.innerHTML = `
+    <div class="takeaway ${polarityCls}">
+      <h3>Directional bias</h3>
+      <p>${biasText}</p>
     </div>
-    <div class="snapshot-line">
-      <span>Net bias <b>${netSign}${s.net_bullish_on}</b> (${s.bullish_on}▲ / ${s.bearish_on}▼)</span>
-      <span>Status <b>${s.by_status.on || 0}</b> on · <b>${s.by_status.off || 0}</b> off · <b>${s.by_status.unknown || 0}</b> unknown</span>
-      <span>Categories <b>${Object.keys(s.by_category).length}</b></span>
-      <span>Total <b>${s.total}</b></span>
+    <div class="takeaway">
+      <h3>Evidence</h3>
+      <p>${evidenceText}</p>
     </div>
-    ${warn}
+    <div class="takeaway caveat">
+      <h3>Caveat</h3>
+      <p>${esc(caveatText)}</p>
+    </div>
   `;
 }
 
-// --- Render: filters ---
-function renderFilters() {
-  const el = document.getElementById("filters");
-  const indicators = DATA.indicators;
-  const categories = uniq(indicators.map(r => r.category));
-  const statuses = uniq(indicators.map(r => r.current_state.status));
-  const horizons = uniq(indicators.map(r => r.horizon));
-  const directions = uniq(indicators.map(r => r.direction));
-  const consumers = uniq(indicators.flatMap(r => r.consumers || []));
+// --- Render: forecast table ---
+function renderForecast() {
+  const el = document.getElementById("forecast");
+  const { assets, horizons, grid } = perAssetHorizonReturns();
 
-  function chipRow(label, key, values, labels) {
-    const chips = values.map(v => {
-      const count = indicators.filter(r => {
-        if (key === "status") return r.current_state.status === v;
-        if (key === "consumer") return (r.consumers || []).includes(v);
-        return r[key] === v;
-      }).length;
-      const active = state[key].has(v) ? "active" : "";
-      return `<span class="chip ${active}" data-key="${key}" data-value="${esc(v)}">
-        ${esc(v)} <span class="count">${count}</span>
-      </span>`;
-    }).join("");
-    return `<div class="filter-row">
-      <span class="filter-label">${esc(label)}</span>
-      ${chips}
-    </div>`;
-  }
-
-  const anyActive = Object.values(state).some(s => s.size > 0);
-  el.innerHTML =
-    chipRow("Category", "category", categories) +
-    chipRow("Status", "status", statuses) +
-    chipRow("Direction", "direction", directions) +
-    chipRow("Horizon", "horizon", horizons) +
-    chipRow("Consumer", "consumer", consumers) +
-    (anyActive ? `<div class="filter-row"><button class="clear" id="btn-clear">Clear filters</button></div>` : "");
-
-  el.querySelectorAll(".chip").forEach(c => {
-    c.addEventListener("click", () => {
-      const k = c.dataset.key, v = c.dataset.value;
-      if (state[k].has(v)) state[k].delete(v); else state[k].add(v);
-      render();
-    });
-  });
-  const btn = el.querySelector("#btn-clear");
-  if (btn) btn.addEventListener("click", () => {
-    for (const k of Object.keys(state)) state[k].clear();
-    render();
-  });
-}
-
-// --- Render: indicator card ---
-function renderBaseRates(br) {
-  if (!br || !br.returns) return '<div class="base-rates">Base rates not yet populated.</div>';
-  const horizons = ["1m", "3m", "6m", "12m"];
-  const rows = horizons
-    .map(h => br.returns[h])
-    .filter(v => v && (v.median !== null || v.mean !== null || v.hit_rate !== null));
-  if (!rows.length) return '<div class="base-rates">Base rates not yet populated.</div>';
-  const cells = horizons.map(h => {
-    const v = br.returns[h];
-    if (!v || (v.median === null && v.mean === null && v.hit_rate === null)) {
-      return `<span style="opacity:0.4">${h}: —</span>`;
-    }
-    const parts = [];
-    if (v.median !== null) parts.push(`med ${v.median}`);
-    if (v.mean !== null) parts.push(`mean ${v.mean}`);
-    if (v.hit_rate !== null) parts.push(`hit ${v.hit_rate}`);
-    return `${h}: ${parts.join(", ")}`;
-  });
-  return `<div class="base-rates populated">${cells.join(" · ")}</div>`;
-}
-
-function renderCurrentState(cs) {
-  if (!cs || !cs.raw_values || Object.keys(cs.raw_values).length === 0) {
-    return `<div class="current-state" style="color:var(--muted)">No raw values recorded. Last updated: ${esc(cs?.last_updated || "never")}</div>`;
-  }
-  const rows = Object.entries(cs.raw_values).map(([k, v]) =>
-    `<div class="kv"><span class="k">${esc(k)}:</span><span>${esc(v)}</span></div>`
-  ).join("");
-  return `<div class="current-state">${rows}</div>`;
-}
-
-function renderIndicator(r) {
-  const status = r.current_state.status;
-  const dir = r.direction;
-  const targets = (r.target_assets || []).map(a => `<span class="target-tag">${esc(a)}</span>`).join("");
-  const src = r.source || {};
-  const srcLabel = src.name ? `${esc(src.name)}${src.note_date ? ` · ${esc(src.note_date)}` : ""}` : "Source unknown";
-  const qual = r.qualitative_note;
-  const qualBlock = (qual && qual.text) ? `
-    <div class="qual-note">
-      <div class="qual-date">Note${qual.date ? " · " + esc(qual.date) : ""}</div>
-      ${esc(qual.text.trim())}
-    </div>` : "";
-
-  // P5: signal-age badge. Only meaningful for firing indicators with a
-  // triggered_on date.
-  let ageBadge = "";
-  if (status === "on" && r.current_state.triggered_on) {
-    const triggered = parseISODate(r.current_state.triggered_on);
-    const days = daysBetween(triggered, today());
-    if (days !== null && days >= 0) {
-      const label = days === 0
-        ? "firing today"
-        : days === 1
-          ? "firing for 1 day"
-          : `firing for ${days} days`;
-      ageBadge = `<span class="age-badge" title="Triggered ${esc(r.current_state.triggered_on)}">${esc(label)}</span>`;
-    }
-  }
-
-  return `
-    <article class="indicator">
-      <div class="card-top">
-        <span class="status-dot ${status} ${dir}" title="${esc(status)} · ${esc(dir)}"></span>
-        <h3>${esc(r.name)}</h3>
-        <span class="direction-arrow ${dir}" title="${esc(dir)}">${arrow(dir)}</span>
-      </div>
-      <div class="card-meta">
-        <span>${esc(r.category)}</span>
-        <span>${esc(r.horizon)}</span>
-        <span>${esc(r.confidence)} conf</span>
-        <span>${esc(status)}</span>
-        ${ageBadge}
-      </div>
-      <p class="description">${esc((r.description || "").trim())}</p>
-      <div class="field">
-        <div class="field-label">Criteria</div>
-        <div class="criteria">${esc((r.criteria?.description || "").trim())}</div>
-      </div>
-      <div class="field">
-        <div class="field-label">Current state</div>
-        ${renderCurrentState(r.current_state)}
-      </div>
-      ${qualBlock}
-      <div class="field">
-        <div class="field-label">Historical base rates</div>
-        ${renderBaseRates(r.historical_base_rates)}
-      </div>
-      <div class="card-footer">
-        <span class="targets">${targets}</span>
-        <span>${srcLabel}</span>
-      </div>
-    </article>
-  `;
-}
-
-// --- Render: grid ---
-function renderGrid() {
-  const el = document.getElementById("grid");
-  const filtered = DATA.indicators.filter(matchesFilters);
-  if (!filtered.length) {
-    el.innerHTML = '<div class="empty">No indicators match the current filters.</div>';
+  if (assets.length === 0) {
+    el.innerHTML = `<div class="empty-state">No firing indicators. No conditional forward returns to report.</div>`;
+    document.getElementById("forecast-foot").innerHTML = "";
     return;
   }
-  const byCat = {};
-  for (const r of filtered) {
-    (byCat[r.category] = byCat[r.category] || []).push(r);
+
+  const head = `<thead><tr><th class="asset">Asset</th>${horizons.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead>`;
+  const body = assets.map(a => {
+    const cells = horizons.map(h => {
+      const c = grid[a][h];
+      if (c.nNumeric > 0 && c.aggReturn !== null) {
+        const pct = c.aggReturn;
+        const sign = pct > 0 ? "+" : "";
+        const retCls = pct > 0 ? "bullish" : pct < 0 ? "bearish" : "";
+        const retKind = c.returnIsMedian ? "median" : "mean";
+        const hit = c.aggHit !== null ? `${(c.aggHit*100).toFixed(0)}% hit` : "";
+        const n = c.totalN ? `n=${c.totalN}` : "";
+        const intensity = returnIntensity(pct);
+        const tintCls = pct > 0
+          ? (intensity === "strong" ? "tint-bull-strong" : intensity === "mid" ? "tint-bull-mid" : "")
+          : pct < 0
+          ? (intensity === "strong" ? "tint-bear-strong" : intensity === "mid" ? "tint-bear-mid" : "")
+          : "";
+        return `
+          <td>
+            <div class="fc-cell ${tintCls}">
+              <div class="fc-ret ${retCls}">${sign}${pct.toFixed(1)}%</div>
+              <div class="fc-meta">${esc(retKind)}${hit ? ` <span class="sep">·</span> ${esc(hit)}` : ""}${n ? ` <span class="sep">·</span> ${esc(n)}` : ""}</div>
+            </div>
+          </td>`;
+      }
+      if (c.nFires > 0) {
+        return `
+          <td>
+            <div class="fc-cell">
+              <div class="fc-ret empty">—</div>
+              <div class="fc-meta">${c.nFires} firing, no verified base rate</div>
+            </div>
+          </td>`;
+      }
+      return `
+        <td>
+          <div class="fc-cell">
+            <div class="fc-ret empty">—</div>
+            <div class="fc-meta">no firing study</div>
+          </div>
+        </td>`;
+    }).join("");
+    return `<tr><td class="asset">${esc(a)}</td>${cells}</tr>`;
+  }).join("");
+
+  el.innerHTML = `<table class="forecast">${head}<tbody>${body}</tbody></table>`;
+
+  // Footnote: summarise where the numbers come from.
+  const { quant, qual } = splitFiringBySupport();
+  const footEl = document.getElementById("forecast-foot");
+  const sources = Array.from(new Set(quant.map(r => (r.source && r.source.name) || "Unknown").filter(Boolean))).join(" · ");
+  const qualNote = qual.length
+    ? ` A further <b>${qual.length}</b> qualitative signal${qual.length === 1 ? "" : "s"} firing in the same direction support the regime read but do not contribute to the numeric cells — see the qualitative context section below.`
+    : "";
+  footEl.innerHTML = `
+    <b>Numeric cells</b> aggregate <b>${quant.length}</b> firing ${quant.length === 1 ? "study" : "studies"} with verified base rates${sources ? ` (${esc(sources)})` : ""}, equal-weighted across contributors.${qualNote}
+  `;
+}
+
+// Firing indicators are split into two cohorts for display:
+// - quant: carry a verified numeric base rate at one or more horizons.
+// - qual:  carry only a verbal source claim, no numeric table.
+function splitFiringBySupport() {
+  const firing = DATA.indicators.filter(r => r.current_state.status === "on")
+    .sort((a,b) => {
+      const ca = CONFIDENCE_WEIGHT[a.confidence] || 0;
+      const cb = CONFIDENCE_WEIGHT[b.confidence] || 0;
+      if (ca !== cb) return cb - ca;
+      return a.name.localeCompare(b.name);
+    });
+  const hasNumericBr = r => {
+    const ret = r.historical_base_rates && r.historical_base_rates.returns;
+    if (!ret) return false;
+    return HORIZONS.some(h => {
+      const v = ret[h];
+      return v && (v.median !== null || v.mean !== null);
+    });
+  };
+  return { quant: firing.filter(hasNumericBr), qual: firing.filter(r => !hasNumericBr(r)) };
+}
+
+// --- Render: statistically backed signals (full return breakdown) ---
+function renderQuantSignals() {
+  const el = document.getElementById("signals-quant");
+  const { quant } = splitFiringBySupport();
+
+  if (!quant.length) {
+    el.innerHTML = `<div class="empty-state">No firing indicator carries a verified base rate yet.</div>`;
+    return;
   }
-  const html = Object.keys(byCat).sort().map(cat => `
-    <div class="category-section">
-      <h2 class="category-heading">${esc(cat)} <span class="cnt">(${byCat[cat].length})</span></h2>
-      <div class="cards">
-        ${byCat[cat].map(renderIndicator).join("")}
-      </div>
-    </div>
-  `).join("");
-  el.innerHTML = html;
+
+  const body = quant.map(r => {
+    const dir = r.direction;
+    const status = r.current_state.status;
+    const triggered = r.current_state.triggered_on;
+    const ageDays = daysSince(triggered);
+    const trigCell = triggered
+      ? `<div class="sig-trig">${esc(fmtShortDate(triggered))}</div><div class="sig-age ${ageDays !== null && ageDays <= 1 ? "fresh" : ""}">${esc(ageLabel(ageDays))}</div>`
+      : `<div class="sig-trig" style="color:var(--soft);font-weight:500">date unknown</div>`;
+
+    const returnCell = renderSignalReturn(r);
+
+    const claim = (r.historical_base_rates && r.historical_base_rates.verbal_summary)
+      ? String(r.historical_base_rates.verbal_summary).trim() : "";
+    const src = (r.source && r.source.name) ? r.source.name : "Source unknown";
+    const claimCell = claim
+      ? `<div class="sig-claim"><span class="q">&ldquo;${esc(claim)}&rdquo;</span><span class="src">${esc(src)}</span></div>`
+      : `<div class="sig-claim" style="color:var(--soft)">No verbal summary populated. <span class="src">${esc(src)}</span></div>`;
+
+    return `
+      <tr>
+        <td>
+          <div class="sig-name"><span class="dot ${status} ${dir}"></span>${esc(r.name)}<span class="sig-category">${esc(r.category)}</span></div>
+          <div class="sig-assets">${esc((r.target_assets || []).join(" · "))}</div>
+        </td>
+        <td>${trigCell}</td>
+        <td class="sig-return">${returnCell}</td>
+        <td>${claimCell}</td>
+      </tr>`;
+  }).join("");
+
+  el.innerHTML = `
+    <table class="signals">
+      <thead>
+        <tr>
+          <th>Signal</th>
+          <th>Triggered</th>
+          <th>Conditional forward returns</th>
+          <th>Claim &amp; source</th>
+        </tr>
+      </thead>
+      <tbody>${body}</tbody>
+    </table>`;
 }
 
-// --- Render: everything ---
+// --- Render: qualitative signals (claim + source, no return column) ---
+function renderQualSignals() {
+  const el = document.getElementById("signals-qual");
+  const { qual } = splitFiringBySupport();
+
+  if (!qual.length) {
+    el.innerHTML = `<div class="empty-state">No qualitative signals firing. Every active indicator carries a verified base rate.</div>`;
+    return;
+  }
+
+  const tiles = qual.map(r => {
+    const dir = r.direction;
+    const status = r.current_state.status;
+    const triggered = r.current_state.triggered_on;
+    const ageDays = daysSince(triggered);
+    const trigLabel = triggered ? `${fmtShortDate(triggered)} · ${ageLabel(ageDays)}` : "date unknown";
+    const claim = (r.historical_base_rates && r.historical_base_rates.verbal_summary)
+      ? String(r.historical_base_rates.verbal_summary).trim() : "";
+    const src = (r.source && r.source.name) ? r.source.name : "Source unknown";
+    const assets = (r.target_assets || []).join(" · ");
+
+    return `
+      <div class="qual-tile ${dir}">
+        <div class="qt-head">
+          <div class="qt-name"><span class="dot ${status} ${dir}"></span>${esc(r.name)}</div>
+          <div class="qt-arrow ${dir}">${arrow(dir)} ${esc(r.horizon)}</div>
+        </div>
+        <div class="qt-meta">${esc(r.category)} <span class="sep">·</span> ${esc(assets)} <span class="sep">·</span> ${esc(trigLabel)}</div>
+        <div class="qt-claim">${claim ? "&ldquo;" + esc(claim) + "&rdquo;" : "No verbal summary populated."}</div>
+        <div class="qt-src">${esc(src)}</div>
+      </div>`;
+  }).join("");
+
+  el.innerHTML = `<div class="qual-grid">${tiles}</div>`;
+}
+
+function renderSignalReturn(r) {
+  const br = r.historical_base_rates || {};
+  const ret = br.returns || {};
+  const n = br.sample_size || null;
+  const lines = [];
+  for (const h of HORIZONS) {
+    const v = ret[h];
+    if (!v || (v.median === null && v.mean === null)) continue;
+    const val = v.median !== null ? v.median : v.mean;
+    const kind = v.median !== null ? "median" : "mean";
+    const sign = val > 0 ? "+" : "";
+    const cls = val > 0 ? "bullish" : val < 0 ? "bearish" : "neutral";
+    const hit = v.hit_rate !== null ? `${(v.hit_rate*100).toFixed(0)}% hit` : "";
+    const isPrimary = r.horizon === h;
+    lines.push(`
+      <div class="ret-row ${isPrimary ? "primary" : ""}">
+        <span class="ret-h">${esc(h)}${isPrimary ? " ★" : ""}</span>
+        <span class="ret-val ${cls}">${sign}${val.toFixed(1)}%</span>
+        <span class="ret-meta">${esc(kind)}${hit ? " · " + esc(hit) : ""}</span>
+      </div>`);
+  }
+  if (lines.length) {
+    return `${lines.join("")}<div class="ret-note">verified${n ? ` · n=${n}` : ""}</div>`;
+  }
+  const dir = r.direction;
+  const dirWord = dir === "bullish" ? "Bullish bias" : dir === "bearish" ? "Bearish bias" : "Mixed";
+  return `<div class="ret-qualitative ${dir}">${arrow(dir)} ${esc(dirWord)} · ${esc(r.horizon)} primary</div><div class="ret-note">No verified base rate yet</div>`;
+}
+
+// --- Render: watch conditions ---
+function renderWatch() {
+  const el = document.getElementById("watch");
+  const firing = DATA.indicators.filter(r => r.current_state.status === "on");
+  if (!firing.length) {
+    el.innerHTML = `<div class="empty-state">Nothing firing. No flip conditions to watch.</div>`;
+    return;
+  }
+  const rows = firing.map(r => {
+    const flip = r.flips_if ? String(r.flips_if).trim() : null;
+    return `
+      <tr>
+        <td class="watch-name">${esc(r.name)}</td>
+        <td class="watch-trigger">${flip ? `<span class="arrow-lead">→</span>${esc(flip)}` : `<span class="watch-empty">No flip criterion populated.</span>`}</td>
+      </tr>`;
+  }).join("");
+  el.innerHTML = `<table class="watch"><tbody>${rows}</tbody></table>`;
+}
+
+// --- Render: trigger timeline ---
+// Date-grouped list. Triggers cluster on a small number of dates, so a
+// horizontal axis wastes space and invites label overlap. Grouping by
+// date makes it obvious which signals fired on the same day, which is
+// the information the reader actually cares about.
+function renderTimeline() {
+  const el = document.getElementById("timeline");
+  const firing = DATA.indicators.filter(r => r.current_state.status === "on");
+  const withDate = firing.filter(r => r.current_state.triggered_on);
+  if (!withDate.length) {
+    el.innerHTML = `<div class="empty-state">No firing indicator has a triggered_on date.</div>`;
+    return;
+  }
+
+  // Group by triggered_on date.
+  const groups = {};
+  for (const r of withDate) {
+    const d = r.current_state.triggered_on;
+    (groups[d] = groups[d] || []).push(r);
+  }
+  // Sort dates descending (most recent first)
+  const dates = Object.keys(groups).sort((a, b) => (a < b ? 1 : -1));
+
+  const html = dates.map(d => {
+    const rows = groups[d].slice().sort((a, b) => a.name.localeCompare(b.name)).map(r => {
+      const dir = r.direction;
+      return `
+        <li class="tl-item">
+          <span class="tl-item-arrow ${dir}">${arrow(dir)}</span>
+          <span class="tl-item-name">${esc(r.name)}</span>
+          <span class="tl-item-meta">${esc(r.horizon)} · ${esc(r.confidence)} conviction</span>
+        </li>`;
+    }).join("");
+    const ageDays = daysSince(d);
+    const ageCls = ageDays !== null && ageDays <= 1 ? "fresh" : "";
+    return `
+      <div class="tl-group">
+        <div class="tl-group-head">
+          <span class="tl-group-date">${esc(fmtShortDate(d))}</span>
+          <span class="tl-group-age ${ageCls}">${esc(ageLabel(ageDays))}</span>
+          <span class="tl-group-count">${groups[d].length} signal${groups[d].length === 1 ? "" : "s"}</span>
+        </div>
+        <ul class="tl-list">${rows}</ul>
+      </div>`;
+  }).join("");
+
+  el.innerHTML = `<div class="trigger-log">${html}</div>`;
+}
+function truncate(s, n) { return s.length > n ? s.slice(0, n-1) + "…" : s; }
+
+// --- Main ---
 function render() {
-  renderRegimeBanner();
-  renderFlipsPanel();
-  renderSnapshot();
-  renderFilters();
-  renderGrid();
+  renderRibbon();
+  renderExec();
+  renderForecast();
+  renderQuantSignals();
+  renderQualSignals();
+  renderWatch();
+  renderTimeline();
 }
-
-// --- Meta ---
-document.getElementById("topbar-meta").textContent =
-  `${DATA.indicators.length} indicators · generated ${DATA.generated_at}`;
 
 render();
 </script>

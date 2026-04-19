@@ -12,6 +12,12 @@ source:
   note_date: 2026-04-13
   url: null
   received_by: phuaz@hotmail.com
+  notes: >
+    Emailed to subscriber 2026-04-13 21:01 local time. Contains three
+    chart images with conditional forward-return tables that are not
+    accessible to the compiler's sandbox; numeric base rates are
+    therefore left null and the verbal summary quotes the prose claims
+    from the note directly.
 
 criteria:
   description: >
@@ -43,8 +49,13 @@ target_assets:
   - NDX
 
 historical_base_rates:
-  source: SentimenTrader note, 2026-04-13
+  source: SentimenTrader, "Calmer Waters Prevail", 2026-04-13. Underlying sample size and horizon table not disclosed in note prose.
   sample_size: null
+  verbal_summary: >
+    Per SentimenTrader: S&P 500 next-day total returns when VIX sits
+    below 20 have historically been more than 1.5x the unconditional
+    average. This is a daily-return claim; conditional 1m/3m/6m/12m
+    base rates are implied by the note but not disclosed as numbers.
   notes: >
     When VIX is below 20, the S&P 500 next-day total returns have
     historically been more than 1.5 times the unconditional average.

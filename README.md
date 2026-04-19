@@ -50,19 +50,23 @@ self-contained with the data embedded, so no server or network access is
 required.
 
 To add an indicator, drop a new YAML into `indicators/` and rerun the
-compiler. New categories, new consumers, and new target assets are picked
-up automatically and appear in the filter bar and composite scorecard
+compiler. New categories, new target assets, and new horizons are
+picked up automatically — they appear as new rows on the heatmap, new
+rows on the category breadth chart, and new tiles in the digest
 without any code changes. The compiler will refuse to include an
-indicator whose filename does not match its `id`, or which is missing a
-required field, or which uses an invalid status or direction value.
+indicator whose filename does not match its `id`, or which is missing
+a required field, or which uses an invalid status or direction value.
 
 ## Extending the dashboard
 
 Rendering logic lives entirely in `template.html`. The compiler embeds
-the payload between two sentinel comments and does not generate any HTML
-of its own. To change how a card looks, edit the `renderIndicator`
-function in the template and rerun the compiler. To change the composite
-scoring, edit `summarise()` in `compile.py`.
+the payload between two sentinel comments and does not generate any
+HTML of its own. Each panel is a separate render function in the
+script block (`renderRegimeStrip`, `renderHeatmap`, `renderBreadth`,
+`renderStatusGrid`, `renderFlipsPanel`, `renderTimeline`,
+`renderDigest`). To change how a panel looks, edit the corresponding
+function and rerun the compiler. To change the composite scoring of
+the summary, edit `summarise()` in `compile.py`.
 
 ## How to add an indicator
 
@@ -90,39 +94,71 @@ human caveat (for example, a pattern the quant model cannot see) shows up
 next to the signal in any UI that renders it, and is preserved across
 sessions. Treat it as a flag, not a gate.
 
-## Named regime label
+## Dashboard layout
 
-The dashboard renders a named regime label at the top of the page,
-derived deterministically from the firing set: the dominant category,
-the net direction, the majority confidence, and whether coverage is
-complete (no unknowns) or partial. The label is the handle for the
-current read, not the forecast itself. For the current seven seeds it
-reads "Post-stress recovery — volatility-led, medium conviction,
-incomplete coverage".
+The dashboard is structured as an asset-allocator brief rather than a
+terminal: light palette, generous whitespace, editorial typography,
+HTML tables rather than dense SVG cells. It reads top-to-bottom from
+executive summary to supporting evidence.
 
-## Flip criteria
+Ribbon. A slim light header carrying the as-of date, total indicator
+count, firing count, and unknown count.
 
-Every indicator may carry an optional `flips_if` field: a one-line,
-plain-English inversion of the trigger criterion. The dashboard lists
-the `flips_if` line for every firing indicator in a dedicated "What
-would flip this" panel directly under the regime label. Missing
-`flips_if` entries on firing indicators are surfaced as a footnote
-rather than silently skipped, so the gap stays visible.
+Executive summary. The hero section. Displays the derived regime
+label as a display-size headline (for example "Post-stress
+recovery"), a one-line strap describing the dominant category,
+firing count, horizon span, conviction and coverage, and three
+takeaway cards: directional bias, dominant evidence, and principal
+caveat. The caveat text is pulled from the firing indicators'
+`qualitative_note.text` fields, preferring any sentence that mentions
+pull-forward, V-shaped, false-positive, consolidation, correlation
+or rhyming facets.
 
-## Signal age
+Conditional forward returns table. Target assets down the rows,
+horizons (1m / 3m / 6m / 12m) across the columns. Each cell
+aggregates numeric base rates from every firing indicator with
+populated `historical_base_rates.returns` at that horizon whose
+`target_assets` covers the row, equal-weighted across contributors.
+Cell content shows the aggregated return (median where any
+contributor supplied a median, else mean), the hit rate, and the
+combined sample size. Cell background tints escalate in steps of
+0-3% / 3-10% / over 10% for each direction. Where a firing
+indicator exists at the cell's horizon but no verified base rate is
+populated, the cell falls back to "—" with a "N firing, no verified
+base rate" footnote so the gap is explicit. A source-attribution
+line below the table identifies which published studies contributed.
 
-If an indicator carries `current_state.triggered_on`, the dashboard
-renders a "firing for N days" badge on the card, anchored on the
-compile timestamp. Useful for distinguishing fresh triggers from
-long-running regimes. Leave the field null if the trigger date is not
-known or the indicator is off or unknown.
+Base rates are applied to every asset in the indicator's
+`target_assets` list on a read-across assumption for correlated
+large-cap indices. The source asset (typically SPX) is noted in the
+colophon.
 
-## Horizon-stratified composites
+Active signals. One row per firing indicator, sorted by confidence
+then name. Columns: signal name with status dot, category chip and
+target asset list; trigger date (explicit ISO date plus "N days
+ago"); a per-horizon conditional-return breakdown with the primary
+horizon marked by a star; and the distilled source claim
+(`historical_base_rates.verbal_summary`) attributed to its source.
+Indicators without numeric base rates show their qualitative bias
+label and a "no verified base rate yet" footnote in the returns
+column.
 
-The per-asset scorecard is split into 1m / 3m / 6m horizon panels, each
-aggregating only the firing indicators whose primary `horizon` field
-matches. The combined all-horizons view is retained as a fallback row
-below, so the full-catalogue composite stays one glance away.
+Watch conditions. Two-column table pairing each firing indicator
+with its `flips_if` criterion. Rows without a populated criterion
+render as italic grey placeholders so the gap is visible.
+
+Trigger timeline. Horizontal SVG timeline anchored by a NOW line on
+the right, with a dot per firing indicator at its `triggered_on`
+date, the date rendered in bold adjacent to the dot, and the signal
+name plus "N days ago" right-aligned to NOW.
+
+Pending and inactive. A compact table listing every indicator whose
+status is not firing, with the current-state note truncated to 240
+characters. Kept for coverage visibility; the forecast surface
+deliberately does not speak about these.
+
+Colophon. Prose caveats about the observation-layer posture and the
+read-across assumption, plus the regeneration command.
 
 ## What this library is not
 

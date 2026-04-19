@@ -45,8 +45,15 @@ target_assets:
   - NDX
 
 historical_base_rates:
-  source: SentimenTrader note, 2026-04-13
+  source: SentimenTrader, "Calmer Waters Prevail", 2026-04-13. Forward-return chart images not accessible from the compiler sandbox.
   sample_size: null
+  verbal_summary: >
+    Per SentimenTrader: when a streak of VIX >20 prints ends while SPX
+    is trading at least 2% above its 200-day MA, forward returns have
+    historically improved dramatically. Notable false positives opened
+    the 2001-02, 2008 and 2022 bear markets. Across major indices, DJIA
+    has matched or slightly outperformed SPX on this setup; NDX has seen
+    wider swings and deeper drawdowns.
   notes: >
     When a streak of VIX prints above 20 ends and SPX is simultaneously
     trading at least 2% above its 200-day MA, forward returns have

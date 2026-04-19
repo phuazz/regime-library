@@ -8,16 +8,17 @@ description: >
   stress episode and have historically preceded positive forward returns.
 
 source:
-  name: Self-forwarded note (original research provider not cited)
-  note_title: Vix declines
+  name: Charlie Bilello, Creative Planning
+  note_title: Biggest 2-Week VIX % Declines and Forward S&P 500 Total Returns
   note_date: 2026-04-18
   url: null
   received_by: phuaz@hotmail.com
   notes: >
-    The observation quoted reads: "The 38% decline in the VIX over the last
-    2 weeks is the 7th biggest volatility crash in history." No primary
-    source was attached. Provenance to be filled in if the original chart
-    or note is located.
+    Table lists the 20 biggest 2-week VIX percentage declines between 1990
+    and 2026, with forward S&P 500 total returns at 6-month, 1-year,
+    2-year, 3-year, 4-year and 5-year horizons. Current reading of -38.1%
+    (4 Oct 2026 end date, start VIX 31.05, end VIX 19.23) places this as
+    the 7th biggest 2-week VIX decline on record. Data via YCharts.
 
 criteria:
   description: >
@@ -35,11 +36,14 @@ current_state:
   last_updated: 2026-04-18
   triggered_on: 2026-04-18
   raw_values:
-    VIX_2w_pct_change: -0.38
-    historical_rank: "7th largest decline on record (per note)"
+    VIX_start: 31.05
+    VIX_end: 19.23
+    VIX_2w_pct_change: -0.381
+    historical_rank: "7th largest 2-week decline since 1990"
   notes: >
-    Status and magnitude taken from the self-forwarded note. Populate from
-    a live data feed on refresh and re-rank against the current history.
+    Values from the Bilello / Creative Planning table. Start date 21 Mar
+    2026, end date 4 Oct 2026 per the source (end date is the trigger
+    anchor in the table).
 
 flips_if: VIX 2-week percentage change rises out of the top decile of its historical distribution.
 
@@ -51,19 +55,26 @@ target_assets:
   - NDX
 
 historical_base_rates:
-  source: null
-  sample_size: null
+  source: Bilello / Creative Planning, table of 20 biggest 2-week VIX declines, data via YCharts, 1990-2026.
+  sample_size: 20
+  verbal_summary: >
+    Across the 20 biggest 2-week VIX declines since 1990, the S&P 500 has
+    returned an average of +10.6% at 6 months and +17.2% at 1 year, versus
+    5.8% and 12.2% in all other periods — an edge of roughly +5% at both
+    horizons.
   notes: >
-    The note claims this is the 7th biggest volatility crash in history
-    but does not supply conditional forward-return statistics. A clean
-    event study should compute median and mean forward returns at
-    1m/3m/6m/12m conditional on the top-decile event, with a hit rate. Do
-    not rely on this record until those numbers are populated.
+    1-month and 3-month returns are not disclosed in the source table, so
+    those cells are left null. The 6-month figure is the published mean of
+    20 historical instances. Median not supplied by the source; only the
+    mean row is given. Hit rate was not stated; a conservative eyeball
+    count from the table shows roughly 16 of 19 mature 6-month
+    observations positive (~84%), with two material negatives around the
+    2022 bear start.
   returns:
     1m:  { median: null, mean: null, hit_rate: null }
     3m:  { median: null, mean: null, hit_rate: null }
-    6m:  { median: null, mean: null, hit_rate: null }
-    12m: { median: null, mean: null, hit_rate: null }
+    6m:  { median: null, mean: 10.6, hit_rate: 0.84 }
+    12m: { median: null, mean: 17.2, hit_rate: null }
 
 qualitative_note:
   date: 2026-04-18

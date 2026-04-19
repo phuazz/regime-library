@@ -1,165 +1,18 @@
 {
-  "generated_at": "2026-04-18T10:50:41Z",
+  "generated_at": "2026-04-18T15:34:21Z",
   "indicators": [
-    {
-      "id": "aaii-bull-bear-spread",
-      "name": "AAII Bull-Bear Sentiment Spread",
-      "category": "sentiment",
-      "description": "The weekly American Association of Individual Investors survey bull-minus-bear percentage. A contrarian indicator: extreme bearish readings have historically preceded positive forward returns; extreme bullish readings have preceded weaker returns.\n",
-      "source": {
-        "name": "Internal (seed indicator, stubbed)",
-        "note_title": null,
-        "note_date": "2026-04-18",
-        "url": "https://www.aaii.com/sentimentsurvey",
-        "received_by": "phuaz@hotmail.com"
-      },
-      "criteria": {
-        "description": "Contrarian bullish trigger when the bull-bear spread falls below a deeply bearish threshold (for example, the 10th percentile of its historical distribution). Contrarian bearish trigger when it rises above the 90th percentile. Threshold values below are placeholders and need calibration.\n",
-        "machine": "AAII_bullbear_spread < -20",
-        "inputs": [
-          "AAII_bullbear_spread"
-        ]
-      },
-      "current_state": {
-        "status": "unknown",
-        "last_updated": null,
-        "raw_values": {},
-        "notes": "Stubbed. Needs a weekly scrape from AAII or an equivalent data source to evaluate.\n"
-      },
-      "direction": "bullish",
-      "horizon": "3m",
-      "confidence": "low",
-      "target_assets": [
-        "SPX"
-      ],
-      "historical_base_rates": {
-        "source": null,
-        "sample_size": null,
-        "notes": "Not populated. AAII is a noisy series on any given week; it is most useful at extremes. Verify the conditional edge at your chosen threshold before relying on this record.\n",
-        "returns": {
-          "1m": {
-            "median": null,
-            "mean": null,
-            "hit_rate": null
-          },
-          "3m": {
-            "median": null,
-            "mean": null,
-            "hit_rate": null
-          },
-          "6m": {
-            "median": null,
-            "mean": null,
-            "hit_rate": null
-          },
-          "12m": {
-            "median": null,
-            "mean": null,
-            "hit_rate": null
-          }
-        }
-      },
-      "qualitative_note": {
-        "date": "2026-04-18",
-        "text": "Seeded as a placeholder so the library has a sentiment indicator alongside the quantitative volatility and trend signals. Retail sentiment surveys have well-known limitations: small sample size, self-selection, and weak signal outside of extreme readings. Treat the low confidence rating as load-bearing until the base rates are populated from your own study.\n"
-      },
-      "consumers": [
-        "EDD",
-        "PCC"
-      ],
-      "tags": [
-        "sentiment",
-        "contrarian",
-        "retail"
-      ]
-    },
-    {
-      "id": "hy-credit-spread-oas",
-      "name": "High-Yield Credit Spread (OAS)",
-      "category": "credit",
-      "description": "The ICE BofA US High Yield Index option-adjusted spread over Treasuries. Widening spreads signal rising credit stress and correlate with equity drawdowns; narrowing spreads indicate risk appetite is returning.\n",
-      "source": {
-        "name": "Internal (seed indicator, stubbed)",
-        "note_title": null,
-        "note_date": "2026-04-18",
-        "url": "https://fred.stlouisfed.org/series/BAMLH0A0HYM2",
-        "received_by": "phuaz@hotmail.com"
-      },
-      "criteria": {
-        "description": "A bullish equity regime is indicated when high-yield OAS is below a chosen risk threshold and trending lower. A bearish regime is indicated when OAS rises above the threshold and is trending higher. Thresholds below are placeholder and need calibration against your own study of historical regimes.\n",
-        "machine": "HY_OAS_bp < 400 AND HY_OAS_20d_change_bp < 0",
-        "inputs": [
-          "HY_OAS_bp",
-          "HY_OAS_20d_change_bp"
-        ]
-      },
-      "current_state": {
-        "status": "unknown",
-        "last_updated": null,
-        "raw_values": {},
-        "notes": "Stubbed. Needs a FRED pull or equivalent data source to evaluate.\n"
-      },
-      "direction": "bullish",
-      "horizon": "3m",
-      "confidence": "medium",
-      "target_assets": [
-        "SPX",
-        "HYG",
-        "LQD"
-      ],
-      "historical_base_rates": {
-        "source": null,
-        "sample_size": null,
-        "notes": "Not populated. Expected to be strongly mean-reverting with useful predictive content at 3-6 month horizons, but any specific numbers should come from your own study before being trusted.\n",
-        "returns": {
-          "1m": {
-            "median": null,
-            "mean": null,
-            "hit_rate": null
-          },
-          "3m": {
-            "median": null,
-            "mean": null,
-            "hit_rate": null
-          },
-          "6m": {
-            "median": null,
-            "mean": null,
-            "hit_rate": null
-          },
-          "12m": {
-            "median": null,
-            "mean": null,
-            "hit_rate": null
-          }
-        }
-      },
-      "qualitative_note": {
-        "date": "2026-04-18",
-        "text": "Seeded as a placeholder so the library has at least one credit indicator alongside the volatility and trend signals. Replace the threshold, base rates and data wiring before relying on this record.\n"
-      },
-      "consumers": [
-        "EDD",
-        "PCC"
-      ],
-      "tags": [
-        "credit",
-        "high-yield",
-        "risk-appetite"
-      ]
-    },
     {
       "id": "spx-oversold-overbought-speed",
       "name": "SPX Oversold-to-Overbought Transition Speed",
       "category": "momentum",
       "description": "A velocity-of-reversal indicator. When the S&P 500 transitions from a technically oversold state to an overbought state in an unusually small number of trading days, it signals aggressive buyer conviction after a capitulation low. Historically associated with durable lows and strong forward outperformance.\n",
       "source": {
-        "name": "Self-forwarded note (original research provider not cited)",
-        "note_title": "Quick moves",
-        "note_date": "2026-04-18",
-        "url": null,
+        "name": "Ryan Detrick, CMT, Carson Investment Research",
+        "note_title": "S&P 500 Performance After Quickest RSI <30 to >70 Readings",
+        "note_date": "2026-04-16",
+        "url": "https://x.com/RyanDetrick",
         "received_by": "phuaz@hotmail.com",
-        "notes": "The observation quoted reads: \"Only the 1982 lows saw the S&P 500 move from oversold to overbought quicker (11 days this time versus the '82 record of six days). Quick moves like this are consistent with potential lows and strong forward outperformance.\" Primary source not attached. The operational definition of \"oversold\" and \"overbought\" used in the original study is not stated; a sensible default is the 14-day RSI crossing below 30 and then above 70, but this needs verification before the record is relied on.\n"
+        "notes": "Published via Ryan Detrick on X on 17 Apr 2026 (Carson Investment Research / Bloomberg / FactSet, data cut 4/16/2026). The study isolates the 10 quickest S&P 500 transitions from a 14-day RSI close below 30 (oversold) to a 14-day RSI close above 70 (overbought) since 1950. Current reading of 11 trading days places this episode as the second fastest such transition on record, behind only the 8/23/1982 low (6 days).\n"
       },
       "criteria": {
         "description": "Trigger when the number of trading days between the S&P 500's 14-day RSI closing below 30 (oversold) and subsequently closing above 70 (overbought) is less than or equal to a fast-transition threshold. The threshold below is a placeholder; calibrate against the distribution of historical transition counts.\n",
@@ -189,29 +42,30 @@
         "NDX"
       ],
       "historical_base_rates": {
-        "source": null,
-        "sample_size": null,
-        "notes": "The note asserts a historical association with durable lows and strong forward outperformance but does not provide a conditional returns table. An event study of transitions under 15 days should produce 1m/3m/6m/12m median and mean returns with hit rates. Leave nulls until those are computed.\n",
+        "source": "Ryan Detrick / Carson Investment Research, Bloomberg / FactSet, data cut 2026-04-16. Ten historical quickest RSI<30 to RSI>70 transitions, 1950-2025.",
+        "sample_size": 10,
+        "verbal_summary": "Across the 10 historical quickest S&P 500 RSI oversold-to-overbought transitions (1950 to 2025), median forward returns have been 2.7% at 1m, 5.0% at 3m, 8.9% at 6m and 17.3% at 12m, with hit rates of 80%, 80%, 90% and 70% respectively. All four are roughly 2-3x the unconditional all-years baseline.\n",
+        "notes": "Signal cases drawn from the Detrick / Carson table: 8/23/1982 (6 days, fastest on record), 5/26/1972 (12 days), 11/25/2016 (13), 12/16/1971 (14), 8/14/1963 (15), 5/5/1997 (15), 11/20/2023 (15), 11/18/1952 (16), 7/2/1959 (16), 8/23/1960 (18). For reference, the unconditional all-years baseline (1950-2025) is median 1.0% / 2.6% / 5.0% / 10.6% at 1m/3m/6m/12m with hit rates of 60.7% / 66.1% / 70.2% / 74.3%.\n",
         "returns": {
           "1m": {
-            "median": null,
-            "mean": null,
-            "hit_rate": null
+            "median": 2.7,
+            "mean": 1.8,
+            "hit_rate": 0.8
           },
           "3m": {
-            "median": null,
-            "mean": null,
-            "hit_rate": null
+            "median": 5.0,
+            "mean": 5.6,
+            "hit_rate": 0.8
           },
           "6m": {
-            "median": null,
-            "mean": null,
-            "hit_rate": null
+            "median": 8.9,
+            "mean": 9.6,
+            "hit_rate": 0.9
           },
           "12m": {
-            "median": null,
-            "mean": null,
-            "hit_rate": null
+            "median": 17.3,
+            "mean": 16.3,
+            "hit_rate": 0.7
           }
         }
       },
@@ -271,8 +125,9 @@
         "NDX"
       ],
       "historical_base_rates": {
-        "source": "SentimenTrader note, 2026-04-13",
+        "source": "SentimenTrader, \"Calmer Waters Prevail\", 2026-04-13. Forward-return chart images not accessible from the compiler sandbox.",
         "sample_size": null,
+        "verbal_summary": "Per SentimenTrader: when a streak of VIX >20 prints ends while SPX is trading at least 2% above its 200-day MA, forward returns have historically improved dramatically. Notable false positives opened the 2001-02, 2008 and 2022 bear markets. Across major indices, DJIA has matched or slightly outperformed SPX on this setup; NDX has seen wider swings and deeper drawdowns.\n",
         "notes": "When a streak of VIX prints above 20 ends and SPX is simultaneously trading at least 2% above its 200-day MA, forward returns have historically improved dramatically. The note is explicit that the setup also fired during the early stages of the 2001-02, 2008 and 2022 bear markets, so the signal is not without notable failures. Conditional median/mean forward returns at 1m/3m/6m/12m were not extracted and need verification before use.\n",
         "returns": {
           "1m": {
@@ -317,12 +172,12 @@
       "category": "volatility",
       "description": "A magnitude-based measure of volatility collapse. The rolling two-week percentage decline in the VIX is ranked against its full history; the largest declines are associated with capitulation in volatility after a stress episode and have historically preceded positive forward returns.\n",
       "source": {
-        "name": "Self-forwarded note (original research provider not cited)",
-        "note_title": "Vix declines",
+        "name": "Charlie Bilello, Creative Planning",
+        "note_title": "Biggest 2-Week VIX % Declines and Forward S&P 500 Total Returns",
         "note_date": "2026-04-18",
         "url": null,
         "received_by": "phuaz@hotmail.com",
-        "notes": "The observation quoted reads: \"The 38% decline in the VIX over the last 2 weeks is the 7th biggest volatility crash in history.\" No primary source was attached. Provenance to be filled in if the original chart or note is located.\n"
+        "notes": "Table lists the 20 biggest 2-week VIX percentage declines between 1990 and 2026, with forward S&P 500 total returns at 6-month, 1-year, 2-year, 3-year, 4-year and 5-year horizons. Current reading of -38.1% (4 Oct 2026 end date, start VIX 31.05, end VIX 19.23) places this as the 7th biggest 2-week VIX decline on record. Data via YCharts.\n"
       },
       "criteria": {
         "description": "Trigger when the rolling two-week percentage decline in the VIX places in the top decile of its historical distribution. The 10% threshold is a placeholder; the specific rank that maps to \"top 10 in history\" should be calibrated against your own series.\n",
@@ -337,10 +192,12 @@
         "last_updated": "2026-04-18",
         "triggered_on": "2026-04-18",
         "raw_values": {
-          "VIX_2w_pct_change": -0.38,
-          "historical_rank": "7th largest decline on record (per note)"
+          "VIX_start": 31.05,
+          "VIX_end": 19.23,
+          "VIX_2w_pct_change": -0.381,
+          "historical_rank": "7th largest 2-week decline since 1990"
         },
-        "notes": "Status and magnitude taken from the self-forwarded note. Populate from a live data feed on refresh and re-rank against the current history.\n"
+        "notes": "Values from the Bilello / Creative Planning table. Start date 21 Mar 2026, end date 4 Oct 2026 per the source (end date is the trigger anchor in the table).\n"
       },
       "flips_if": "VIX 2-week percentage change rises out of the top decile of its historical distribution.",
       "direction": "bullish",
@@ -351,9 +208,10 @@
         "NDX"
       ],
       "historical_base_rates": {
-        "source": null,
-        "sample_size": null,
-        "notes": "The note claims this is the 7th biggest volatility crash in history but does not supply conditional forward-return statistics. A clean event study should compute median and mean forward returns at 1m/3m/6m/12m conditional on the top-decile event, with a hit rate. Do not rely on this record until those numbers are populated.\n",
+        "source": "Bilello / Creative Planning, table of 20 biggest 2-week VIX declines, data via YCharts, 1990-2026.",
+        "sample_size": 20,
+        "verbal_summary": "Across the 20 biggest 2-week VIX declines since 1990, the S&P 500 has returned an average of +10.6% at 6 months and +17.2% at 1 year, versus 5.8% and 12.2% in all other periods — an edge of roughly +5% at both horizons.\n",
+        "notes": "1-month and 3-month returns are not disclosed in the source table, so those cells are left null. The 6-month figure is the published mean of 20 historical instances. Median not supplied by the source; only the mean row is given. Hit rate was not stated; a conservative eyeball count from the table shows roughly 16 of 19 mature 6-month observations positive (~84%), with two material negatives around the 2022 bear start.\n",
         "returns": {
           "1m": {
             "median": null,
@@ -367,12 +225,12 @@
           },
           "6m": {
             "median": null,
-            "mean": null,
-            "hit_rate": null
+            "mean": 10.6,
+            "hit_rate": 0.84
           },
           "12m": {
             "median": null,
-            "mean": null,
+            "mean": 17.2,
             "hit_rate": null
           }
         }
@@ -402,7 +260,8 @@
         "note_title": "Calmer Waters Prevail",
         "note_date": "2026-04-13",
         "url": null,
-        "received_by": "phuaz@hotmail.com"
+        "received_by": "phuaz@hotmail.com",
+        "notes": "Emailed to subscriber 2026-04-13 21:01 local time. Contains three chart images with conditional forward-return tables that are not accessible to the compiler's sandbox; numeric base rates are therefore left null and the verbal summary quotes the prose claims from the note directly.\n"
       },
       "criteria": {
         "description": "The CBOE Volatility Index (VIX) closes below 20 after having been above 20 for an extended period.\n",
@@ -430,8 +289,9 @@
         "NDX"
       ],
       "historical_base_rates": {
-        "source": "SentimenTrader note, 2026-04-13",
+        "source": "SentimenTrader, \"Calmer Waters Prevail\", 2026-04-13. Underlying sample size and horizon table not disclosed in note prose.",
         "sample_size": null,
+        "verbal_summary": "Per SentimenTrader: S&P 500 next-day total returns when VIX sits below 20 have historically been more than 1.5x the unconditional average. This is a daily-return claim; conditional 1m/3m/6m/12m base rates are implied by the note but not disclosed as numbers.\n",
         "notes": "When VIX is below 20, the S&P 500 next-day total returns have historically been more than 1.5 times the unconditional average. Specific forward-return medians for 1m/3m/6m/12m were not extracted from the note and should be verified before use.\n",
         "returns": {
           "1m": {
@@ -509,8 +369,9 @@
         "SPX"
       ],
       "historical_base_rates": {
-        "source": "SentimenTrader note, 2026-04-13",
+        "source": "SentimenTrader, \"Calmer Waters Prevail\", 2026-04-13. Conditional performance table shown as a chart image that is not accessible from the sandbox.",
         "sample_size": null,
+        "verbal_summary": "Per SentimenTrader: historical signal performance characterised as \"incredibly solid\". The most recent prior trigger (Nov preceding the current cycle) posted +2.3% in the first month before price action softened. Current V-shaped rally is more aggressive than the prior instance, which SentimenTrader flags as a reason to expect near-term payoff to be smaller than the raw base rate.\n",
         "notes": "The note characterises historical performance as \"incredibly solid\" but does not supply a clean table of conditional medians. The most recent prior signal triggered in November of the preceding year, posting +2.3% over the first month before softening. Population of specific 1m/3m/6m/12m numbers requires access to the SentimenTrader back-test or an independent replication of the range-rank rule.\n",
         "returns": {
           "1m": {
@@ -552,18 +413,8 @@
     }
   ],
   "summary": {
-    "total": 7,
+    "total": 5,
     "by_category": {
-      "sentiment": {
-        "on": 0,
-        "off": 0,
-        "unknown": 1
-      },
-      "credit": {
-        "on": 0,
-        "off": 0,
-        "unknown": 1
-      },
       "momentum": {
         "on": 1,
         "off": 0,
@@ -583,7 +434,7 @@
     "by_status": {
       "on": 5,
       "off": 0,
-      "unknown": 2
+      "unknown": 0
     },
     "bullish_on": 5,
     "bearish_on": 0,

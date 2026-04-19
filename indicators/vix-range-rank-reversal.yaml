@@ -50,8 +50,15 @@ target_assets:
   - SPX
 
 historical_base_rates:
-  source: SentimenTrader note, 2026-04-13
+  source: SentimenTrader, "Calmer Waters Prevail", 2026-04-13. Conditional performance table shown as a chart image that is not accessible from the sandbox.
   sample_size: null
+  verbal_summary: >
+    Per SentimenTrader: historical signal performance characterised as
+    "incredibly solid". The most recent prior trigger (Nov preceding
+    the current cycle) posted +2.3% in the first month before price
+    action softened. Current V-shaped rally is more aggressive than
+    the prior instance, which SentimenTrader flags as a reason to
+    expect near-term payoff to be smaller than the raw base rate.
   notes: >
     The note characterises historical performance as "incredibly solid"
     but does not supply a clean table of conditional medians. The most

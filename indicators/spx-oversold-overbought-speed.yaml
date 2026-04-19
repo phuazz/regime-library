@@ -9,20 +9,19 @@ description: >
   forward outperformance.
 
 source:
-  name: Self-forwarded note (original research provider not cited)
-  note_title: Quick moves
-  note_date: 2026-04-18
-  url: null
+  name: Ryan Detrick, CMT, Carson Investment Research
+  note_title: S&P 500 Performance After Quickest RSI <30 to >70 Readings
+  note_date: 2026-04-16
+  url: https://x.com/RyanDetrick
   received_by: phuaz@hotmail.com
   notes: >
-    The observation quoted reads: "Only the 1982 lows saw the S&P 500 move
-    from oversold to overbought quicker (11 days this time versus the '82
-    record of six days). Quick moves like this are consistent with
-    potential lows and strong forward outperformance." Primary source not
-    attached. The operational definition of "oversold" and "overbought"
-    used in the original study is not stated; a sensible default is the
-    14-day RSI crossing below 30 and then above 70, but this needs
-    verification before the record is relied on.
+    Published via Ryan Detrick on X on 17 Apr 2026 (Carson Investment
+    Research / Bloomberg / FactSet, data cut 4/16/2026). The study
+    isolates the 10 quickest S&P 500 transitions from a 14-day RSI close
+    below 30 (oversold) to a 14-day RSI close above 70 (overbought) since
+    1950. Current reading of 11 trading days places this episode as the
+    second fastest such transition on record, behind only the 8/23/1982
+    low (6 days).
 
 criteria:
   description: >
@@ -63,19 +62,26 @@ target_assets:
   - NDX
 
 historical_base_rates:
-  source: null
-  sample_size: null
+  source: Ryan Detrick / Carson Investment Research, Bloomberg / FactSet, data cut 2026-04-16. Ten historical quickest RSI<30 to RSI>70 transitions, 1950-2025.
+  sample_size: 10
+  verbal_summary: >
+    Across the 10 historical quickest S&P 500 RSI oversold-to-overbought
+    transitions (1950 to 2025), median forward returns have been 2.7% at
+    1m, 5.0% at 3m, 8.9% at 6m and 17.3% at 12m, with hit rates of 80%,
+    80%, 90% and 70% respectively. All four are roughly 2-3x the
+    unconditional all-years baseline.
   notes: >
-    The note asserts a historical association with durable lows and
-    strong forward outperformance but does not provide a conditional
-    returns table. An event study of transitions under 15 days should
-    produce 1m/3m/6m/12m median and mean returns with hit rates. Leave
-    nulls until those are computed.
+    Signal cases drawn from the Detrick / Carson table: 8/23/1982 (6 days,
+    fastest on record), 5/26/1972 (12 days), 11/25/2016 (13), 12/16/1971
+    (14), 8/14/1963 (15), 5/5/1997 (15), 11/20/2023 (15), 11/18/1952 (16),
+    7/2/1959 (16), 8/23/1960 (18). For reference, the unconditional
+    all-years baseline (1950-2025) is median 1.0% / 2.6% / 5.0% / 10.6%
+    at 1m/3m/6m/12m with hit rates of 60.7% / 66.1% / 70.2% / 74.3%.
   returns:
-    1m:  { median: null, mean: null, hit_rate: null }
-    3m:  { median: null, mean: null, hit_rate: null }
-    6m:  { median: null, mean: null, hit_rate: null }
-    12m: { median: null, mean: null, hit_rate: null }
+    1m:  { median: 2.7, mean: 1.8, hit_rate: 0.80 }
+    3m:  { median: 5.0, mean: 5.6, hit_rate: 0.80 }
+    6m:  { median: 8.9, mean: 9.6, hit_rate: 0.90 }
+    12m: { median: 17.3, mean: 16.3, hit_rate: 0.70 }
 
 qualitative_note:
   date: 2026-04-18

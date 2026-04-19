@@ -64,6 +64,13 @@ target_assets:                    # What forward returns this is said to forecas
 historical_base_rates:
   source: null                    # Where the numbers came from.
   sample_size: null               # Number of historical triggers.
+  verbal_summary: null            # Optional. A single-line distillation of
+                                  # the source's qualitative forward-return
+                                  # claim, used by the dashboard when the
+                                  # numeric returns table is empty. Example:
+                                  # "Per SentimenTrader: S&P 500 next-day
+                                  # total returns > 1.5x unconditional."
+                                  # Free text; keep under ~200 characters.
   notes: >
     Summary of the conditional performance as stated by the source.
   returns:
